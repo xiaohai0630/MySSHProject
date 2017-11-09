@@ -1,0 +1,39 @@
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <!--学生咨询表-->
+    <class name="com.lanou.ask_dep.domain.StuAsk">
+        <!--主键referID-->
+        <id name="referID" length="32">
+            <generator class="native"/>
+        </id>
+        <property name="name" type="java.lang.String"></property>
+        <property name="telephone" type="java.lang.String"></property>
+        <property name="qq" type="java.lang.String"></property>
+        <property name="createDate" type="java.util.Date"></property>
+        <property name="intentionLevel" type="java.lang.String"></property>
+        <property name="source" type="java.lang.String"></property>
+        <property name="status" type="java.lang.Boolean"></property>
+        <property name="remark" type="java.lang.String"></property>
+
+        <!--和学生跟踪表之间的关系-->
+        <set name="stuFollowSet">
+            <key column="referID"></key>
+            <one-to-many class="com.lanou.ask_dep.domain.StuFollow"></one-to-many>
+        </set>
+
+        <!--多个学生咨询表对应一个班级-->
+        <many-to-one name="classes" column="classID" lazy="false" fetch="join"></many-to-one>
+
+        <!--一个学生咨询表对应一个员工-->
+        <one-to-one name="staff" class="com.lanou.human_dep.domain.Staff"></one-to-one>
+
+        <!--一个学生咨询表对应一个学生-->
+        <one-to-one name="student"
+                    class="com.lanou.plan_dep.domain.Student" constrained="true"></one-to-one>
+
+    </class>
+
+</hibernate-mapping>

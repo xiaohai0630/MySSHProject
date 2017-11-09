@@ -1,0 +1,26 @@
+
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <!--部门表（表名默认和类名一致）-->
+    <class name="com.lanou.human_dep.domain.Department">
+
+        <!--主键-->
+        <id name="depID" length="32">
+            <generator class="native"/>
+        </id>
+
+        <property name="depName" type="java.lang.String"></property>
+
+        <!--和职务表之间的关系：set指向集合，级联关系：保存和更新-->
+        <set name="postSet" cascade="save-update">
+            <!--外键-->
+            <key column="depID"></key>
+            <one-to-many class="com.lanou.human_dep.domain.Post"></one-to-many>
+        </set>
+
+    </class>
+</hibernate-mapping>
+

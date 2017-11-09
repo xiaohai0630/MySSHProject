@@ -1,0 +1,38 @@
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+    <!--学员信息表-->
+    <class name="com.lanou.plan_dep.domain.Student">
+        <id name="studentID" length="32">
+            <generator class="native"/>
+        </id>
+        <property name="name" type="java.lang.String"></property>
+        <property name="telephone" type="java.lang.String"></property>
+        <property name="identity" type="java.lang.String"></property>
+        <property name="qq" type="java.lang.String"></property>
+        <property name="gender" type="java.lang.String"></property>
+        <property name="mustTuition" type="java.lang.Double"></property>
+        <property name="actualTuition" type="java.lang.Double"></property>
+        <property name="email" type="java.lang.String"></property>
+        <property name="school" type="java.lang.String"></property>
+        <property name="education" type="java.lang.String"></property>
+        <property name="professional" type="java.lang.String"></property>
+        <property name="identityAddress" type="java.lang.String"></property>
+        <property name="address" type="java.lang.String"></property>
+        <property name="remark" type="java.lang.String"></property>
+        <property name="homeTelephone" type="java.lang.String"></property>
+        <property name="homeContact" type="java.lang.String"></property>
+        <property name="status" type="java.lang.String"></property>
+
+        <!--一个学生对应一个学生咨询表-->
+        <one-to-one name="stuAsk"
+                    class="com.lanou.ask_dep.domain.StuAsk" constrained="true"></one-to-one>
+
+        <!--一个学生对应一个班级-->
+        <many-to-one name="classes" column="classID" lazy="false" fetch="join"></many-to-one>
+
+    </class>
+</hibernate-mapping>

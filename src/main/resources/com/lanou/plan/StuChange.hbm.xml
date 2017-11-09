@@ -1,0 +1,20 @@
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <!--学生升级／转班信息表-->
+    <class name="com.lanou.plan_dep.domain.StuChange">
+        <id name="stationID">
+            <generator class="native"/>
+        </id>
+        <property name="studentID" type="java.lang.Integer"></property>
+        <property name="flag" type="java.lang.Boolean"></property>
+        <property name="staffId" type="java.lang.Integer"></property>
+        <property name="createDate" type="java.util.Date"></property>
+        <property name="beforeClassId" type="java.lang.Integer"></property>
+        <property name="afterClassId" type="java.lang.Integer"></property>
+
+    </class>
+
+</hibernate-mapping>

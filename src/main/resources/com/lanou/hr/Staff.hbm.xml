@@ -1,0 +1,26 @@
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+    <!--员工信息表-->
+    <class name="com.lanou.human_dep.domain.Staff">
+        <!--主键-->
+        <id name="staffID" length="32">
+            <generator class="native"/>
+        </id>
+        <!--其它的列-->
+        <property name="loginName" type="java.lang.String"></property>
+        <property name="loginPwd" type="java.lang.String"></property>
+        <property name="staffName" type="java.lang.String"></property>
+        <property name="gender" type="java.lang.String"></property>
+        <property name="onDutyDate" type="java.util.Date"></property>
+
+        <!--和职务表之间的关系-->
+        <many-to-one name="post" column="postID"
+                     class="com.lanou.human_dep.domain.Post" lazy="false" cascade="none"></many-to-one>
+
+    </class>
+
+</hibernate-mapping>

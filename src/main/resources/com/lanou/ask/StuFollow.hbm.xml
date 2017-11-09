@@ -1,0 +1,18 @@
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <!--学生跟踪表-->
+    <class name="com.lanou.ask_dep.domain.StuFollow">
+        <id name="followId" length="32">
+            <generator class="native"/>
+        </id>
+        <property name="followTime" type="java.util.Date"></property>
+        <property name="content" type="java.lang.String"></property>
+
+        <!--和学生咨询表之间的关系-->
+        <many-to-one name="stuAsk" column="referID" lazy="false" fetch="join"></many-to-one>
+
+    </class>
+</hibernate-mapping>

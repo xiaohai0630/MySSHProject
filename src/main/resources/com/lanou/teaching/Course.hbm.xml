@@ -1,0 +1,26 @@
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+    <!--课程类别表-->
+    <class name="com.lanou.teaching_dep.domain.Course">
+        <id name="courseTypeID" length="32">
+            <generator class="native"/>
+        </id>
+        <property name="courseCost" type="java.lang.Double"></property>
+        <property name="total" type="java.lang.Integer"></property>
+        <property name="courseName" type="java.lang.String"></property>
+        <property name="remark" type="java.lang.String"></property>
+
+        <!--一个课程有多个班级，双向1～n关系-->
+        <set name="classes" cascade="all">
+            <key column="courseTypeID"></key>
+            <one-to-many class="com.lanou.teaching_dep.domain.Classes"></one-to-many>
+        </set>
+
+
+    </class>
+
+</hibernate-mapping>

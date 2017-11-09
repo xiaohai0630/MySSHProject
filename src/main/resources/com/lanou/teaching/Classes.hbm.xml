@@ -1,0 +1,42 @@
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+    <!--班级表-->
+    <class name="com.lanou.teaching_dep.domain.Classes">
+        <id name="classID" length="32">
+            <generator class="native"></generator>
+        </id>
+
+        <property name="name" type="java.lang.String"></property>
+        <property name="beginTime" type="java.util.Date"></property>
+        <property name="endTime" type="java.util.Date"></property>
+        <property name="totalCount" type="java.lang.Integer"></property>
+        <property name="upgradeCount" type="java.lang.Integer"></property>
+        <property name="changeCount" type="java.lang.Integer"></property>
+        <property name="runoffCount" type="java.lang.Integer"></property>
+        <property name="remark" type="java.lang.String"></property>
+        <property name="uploadPath" type="java.lang.String"></property>
+        <property name="uploadFileName" type="java.lang.String"></property>
+        <property name="uploadTime" type="java.util.Date"></property>
+
+        <!--多个班级对一个课程-->
+        <many-to-one name="course" column="courseTypeID" lazy="false" fetch="join"></many-to-one>
+        
+        <!--一个班级有多个学生咨询表-->
+        <set name="stuAskSet">
+            <key column="classID"></key>
+            <one-to-many class="com.lanou.ask_dep.domain.StuAsk"></one-to-many>
+        </set>
+
+        <!--一个班级有多个学生-->
+        <set name="studentSet">
+            <key column="classID"></key>
+            <one-to-many class="com.lanou.plan_dep.domain.Student"></one-to-many>
+        </set>
+        
+    </class>
+
+</hibernate-mapping>
