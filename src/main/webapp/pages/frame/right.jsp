@@ -11,22 +11,22 @@ setInterval("timeStr=new Date().toLocaleString();timer.innerText=timeStr;",1000)
 </script>
 <TITLE></TITLE>
 <META http-equiv=Content-Type content="text/html; charset=utf-8">
-<LINK href="${pageContext.request.contextPath}/css/style.css" type=text/css rel=stylesheet>
+<LINK href="/css/style.css" type=text/css rel=stylesheet>
 </SCRIPT>
 <META content="MSHTML 6.00.2600.0" name=GENERATOR></HEAD>
-<BODY leftMargin=0 topMargin=0 marginwidth="0" marginheight="0" background="${pageContext.request.contextPath}/images/rightbg.jpg">
+<BODY leftMargin=0 topMargin=0 marginwidth="0" marginheight="0" background="/images/rightbg.jpg">
 <div align="center">
 	<table border="0" width="60%" cellspacing="0" cellpadding="0" id="table1">
 		<tr>
 			<td height="193"></td>
 		</tr>
 		<tr>
-			<td> 
+			<td>
 			<font size="6" color="#ffffff">
 						欢迎使用CRM系统
-			</font>  
-			 
-			<span id="timer" style="font:11px tahoma;height:10px;" />		
+			</font>
+
+			<span id="timer" style="font:11px tahoma;height:10px;" />
 			</td>
 		</tr>
 	</table>

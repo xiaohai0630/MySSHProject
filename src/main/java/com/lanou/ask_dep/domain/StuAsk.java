@@ -1,6 +1,6 @@
 package com.lanou.ask_dep.domain;
 
-import com.lanou.human_dep.domain.Staff;
+import com.lanou.hr_dep.domain.Staff;
 import com.lanou.plan_dep.domain.Student;
 import com.lanou.teaching_dep.domain.Classes;
 
@@ -29,7 +29,7 @@ public class StuAsk {
 
     // ～～～～～～～～～～～～～～～～～～～～～～～～～～～～～
     // 一个咨询表有多个跟踪表，1～n
-    private Set<StuFollow> stuFollowSet = new HashSet<>();
+    private Set<StuFollow> stuFollowSet = new HashSet<StuFollow>();
 
     public Set<StuFollow> getStuFollowSet() {
         return stuFollowSet;

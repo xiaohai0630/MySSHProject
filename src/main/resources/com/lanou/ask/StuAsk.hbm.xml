@@ -28,7 +28,7 @@
         <many-to-one name="classes" column="classID" lazy="false" fetch="join"></many-to-one>
 
         <!--一个学生咨询表对应一个员工-->
-        <one-to-one name="staff" class="com.lanou.human_dep.domain.Staff"></one-to-one>
+        <one-to-one name="staff" class="com.lanou.hr_dep.domain.Staff"></one-to-one>
 
         <!--一个学生咨询表对应一个学生-->
         <one-to-one name="student"

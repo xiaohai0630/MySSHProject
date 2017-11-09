@@ -5,7 +5,7 @@
 <hibernate-mapping>
 
     <!--员工信息表-->
-    <class name="com.lanou.human_dep.domain.Staff">
+    <class name="com.lanou.hr_dep.domain.Staff">
         <!--主键-->
         <id name="staffID" length="32">
             <generator class="native"/>
@@ -19,7 +19,7 @@
 
         <!--和职务表之间的关系-->
         <many-to-one name="post" column="postID"
-                     class="com.lanou.human_dep.domain.Post" lazy="false" cascade="none"></many-to-one>
+                     class="com.lanou.hr_dep.domain.Post" lazy="false" cascade="none"></many-to-one>
 
     </class>
 

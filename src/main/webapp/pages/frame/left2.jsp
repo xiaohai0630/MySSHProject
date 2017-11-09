@@ -3,7 +3,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <HTML><HEAD>
 <meta http-equiv="Content-Language" content="zh-cn">
-<TITLE></TITLE><LINK href="${pageContext.request.contextPath}/css/style.css" type=text/css rel=stylesheet>
+<TITLE></TITLE><LINK href="/css/style.css" type=text/css rel=stylesheet>
 <META http-equiv=Content-Type content="text/html; charset=utf-8">
 <META content="MSHTML 6.00.2600.0" name=GENERATOR>
 <base target="right">

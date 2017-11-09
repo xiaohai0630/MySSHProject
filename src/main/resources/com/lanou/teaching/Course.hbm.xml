@@ -20,7 +20,6 @@
             <one-to-many class="com.lanou.teaching_dep.domain.Classes"></one-to-many>
         </set>
 
-
     </class>
 
 </hibernate-mapping>

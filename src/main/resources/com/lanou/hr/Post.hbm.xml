@@ -3,7 +3,7 @@
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
     <!--职务表-->
-    <class name="com.lanou.human_dep.domain.Post">
+    <class name="com.lanou.hr_dep.domain.Post">
         <!--主键-->
         <id name="postID" type="java.lang.Integer" length="32">
             <generator class="native"></generator>
@@ -13,12 +13,12 @@
 
         <!--和部门表之间的关系：一对多双向-->
         <many-to-one name="department" column="depID" cascade="all"
-                     class="com.lanou.human_dep.domain.Department" lazy="false"></many-to-one>
+                     class="com.lanou.hr_dep.domain.Department" lazy="false"></many-to-one>
 
         <!--和员工表之间的关系，级联关系：所有-->
         <set name="staffSet" cascade="all">
             <key column="postID"></key>
-            <one-to-many class="com.lanou.human_dep.domain.Staff"></one-to-many>
+            <one-to-many class="com.lanou.hr_dep.domain.Staff"></one-to-many>
         </set>
 
     </class>

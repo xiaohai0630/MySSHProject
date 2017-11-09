@@ -90,20 +90,6 @@
             <groupId>org.apache.struts</groupId>
             <artifactId>struts2-spring-plugin</artifactId>
             <version>2.5.13</version>
-
-            <!--不导入所依赖的低版本Spring-->
-            <!--因为写在spring－web的后面，所以不用写排除也可以
-                写在前面的先导入，后面其他版本的就不会导入了-->
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-core</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-web</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
         <!--处理json数据-->
@@ -137,13 +123,15 @@
             <version>1.2</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+        <!-- Spring在WEB上的MVC框架上加上这个包 -->
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>3.1.0</version>
-            <scope>provided</scope>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>2.5.6</version>
+            <type>jar</type>
+            <scope>compile</scope>
         </dependency>
+
 
     </dependencies>
 
