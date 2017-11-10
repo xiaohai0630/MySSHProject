@@ -44,7 +44,7 @@ public class LoginAction extends BaseAction<Staff> {
     public String login() {
 
         try {
-            // 判断是否有这个员工
+            // 判断是否有这个员工，集合大于0，有这个用户
             List<Staff> login = loginService.loginByStaff(staff);
 
             if (login.size() > 0) {
@@ -64,6 +64,13 @@ public class LoginAction extends BaseAction<Staff> {
             return ERROR;
         }
 
+    }
+
+    // 退出登录
+    public String logout() {
+        // 清空session
+        session.invalidate();
+        return ERROR;
     }
 
     public Staff getStaff() {

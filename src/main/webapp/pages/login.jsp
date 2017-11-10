@@ -58,7 +58,7 @@
         <tr align="center">
 
             <td class="login_msg" width="400">
-                <form action="loginAction.action" method="post">
+                <form action="loginAction_login.action" method="post">
 
                     <font size="6" color="#ffffff">
                         欢迎使用CRM系统

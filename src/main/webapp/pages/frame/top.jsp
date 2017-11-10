@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
+         pageEncoding="UTF-8" isELIgnored="false" %>
 <HTML>
 <HEAD>
     <meta http-equiv="Content-Language" content="zh-cn">
@@ -22,12 +22,12 @@
             <table border="0" width="100%" cellspacing="0" cellpadding="0" id="table2">
                 <tr>
 
-                    <td background="/images/topbg.jpg" valign="bottom">
+                    <td background="${pageContext.request.contextPath}/images/topbg.jpg" valign="bottom">
 
                     </td>
 
                     <!-- 显示时间 -->
-                    <td width="374" background="/images/topbg.jpg" valign="top">
+                    <td width="374" background="${pageContext.request.contextPath}/images/topbg.jpg" valign="top">
                         <table border="0" width="100%" cellspacing="0" cellpadding="0" id="table4">
                             <tr>
                                 <td height="19">
@@ -82,7 +82,7 @@
                     </td>
 
                     <!-- 显示 登录姓名-->
-                    <td width="374" background="/images/topbg.jpg" valign="top">
+                    <td width="374" background="${pageContext.request.contextPath}/images/topbg.jpg" valign="top">
                         <table border="0" width="100%" cellspacing="0" cellpadding="0" id="table4">
                             <tr>
                                 <td height="19">
@@ -99,7 +99,7 @@
                                             <tr>
                                                 <td width="51" valign="middle">
                                                     <font color="#FFFFFF">
-                                                        欢迎您： Denny
+                                                        欢迎您： ${sessionScope.staffMsg.staffName}
                                                     </font>
                                                 </td>
                                             </tr>
@@ -130,12 +130,13 @@
                                                     <%--是否使用弹出框？ javascript:modifypsw();
                                                     <a href="javascript:void(0)" onclick="javascript:modifypsw();"><font color="ffffff">更改口令</font></a>
                                                     --%>
-                                                    <a href="/pages/staff/updPwd.jsp" target="right">
+                                                    <a href="${pageContext.request.contextPath}/pages/staff/updPwd.jsp" target="right">
                                                         <font color="ffffff">更改密码</font>
                                                     </a>
                                                 </td>
-                                                <td width="55" valign="middle"><a href="/staff/staffAction_logout"
-                                                                                  target="_top"><font color="ffffff">重新登录</font></a>
+                                                <td width="55" valign="middle">
+                                                    <a href="loginAction_logout.action" target="_top">
+                                                        <font color="ffffff">重新登录</font></a>
                                                 </td>
                                             </tr>
                                         </table>
