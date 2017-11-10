@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--部门-->
+    <bean id="depDao" class="com.lanou.hr_dep.dao.impl.DepartmentDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <!--<bean id="depService" class="com.lanou.hr_dep.service.impl.DepartmentServiceImpl">-->
+        <!--<property name="depDao" ref="depDao"/>-->
+    <!--</bean>-->
+
+
+</beans>
