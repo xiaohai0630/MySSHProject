@@ -1,6 +1,6 @@
 package com.lanou.login.dao;
 
-import com.lanou.base.BaseDao;
+import com.lanou.base.dao.BaseDao;
 import com.lanou.hr_dep.domain.Staff;
 
 /**

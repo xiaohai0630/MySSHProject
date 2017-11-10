@@ -1,4 +1,4 @@
-package com.lanou.base;
+package com.lanou.base.dao;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package com.lanou.plan_dep.dao.impl;
 
-import com.lanou.base.impl.BaseDaoImpl;
+import com.lanou.base.dao.impl.BaseDaoImpl;
 import com.lanou.plan_dep.dao.StuLooseDao;
 import com.lanou.plan_dep.domain.StuLoose;
 

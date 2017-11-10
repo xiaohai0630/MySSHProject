@@ -9,13 +9,15 @@
     <!--设置为开发模式，log日志更加详细-->
     <constant name="struts.devMode" value="true"/>
 
+    <constant name="struts.ognl.allowStaticMethodAccess" value="true"/>
+
     <!--让spring管理action对象的创建-->
     <constant name="struts.objectFactory" value="spring"/>
 
     <!--登录成功跳转主页面，登录失败留在登录页面并显示错误信息-->
-    <package name="login" namespace="/login" extends="struts-default">
+    <package name="login" extends="struts-default">
 
-        <action name="loginAction" class="com.lanou.login.web.action.LoginAction" method="login">
+        <action name="loginAction" class="loginAction" method="login">
 
             <result name="success">/pages/frame.jsp</result>
             <result name="error">/pages/login.jsp</result>

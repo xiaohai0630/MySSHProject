@@ -1,6 +1,6 @@
 package com.lanou.job_dep.dao;
 
-import com.lanou.base.BaseDao;
+import com.lanou.base.dao.BaseDao;
 import com.lanou.job_dep.domain.StuJob;
 
 /**

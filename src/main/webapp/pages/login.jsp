@@ -56,7 +56,7 @@
         <tr align="center">
 
             <td class="login_msg" width="400">
-                <form action="/pages/frame.jsp" method="post">
+                <form action="loginAction.action" method="post">
 
                     <font size="6" color="#ffffff">
                         欢迎使用CRM系统

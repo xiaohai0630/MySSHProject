@@ -8,7 +8,7 @@
     <!--加载Spring的配置文件，按顺序要写在过滤器之前-->
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:spring/applicationContext.xml</param-value>
+        <param-value>classpath:applicationContext*.xml</param-value>
     </context-param>
 
     <!--过滤器-->

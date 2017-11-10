@@ -1,6 +1,6 @@
 package com.lanou.teaching_dep.dao.impl;
 
-import com.lanou.base.impl.BaseDaoImpl;
+import com.lanou.base.dao.impl.BaseDaoImpl;
 import com.lanou.teaching_dep.dao.ClassesDao;
 import com.lanou.teaching_dep.domain.Classes;
 

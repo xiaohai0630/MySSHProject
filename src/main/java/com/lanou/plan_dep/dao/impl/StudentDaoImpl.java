@@ -1,6 +1,6 @@
 package com.lanou.plan_dep.dao.impl;
 
-import com.lanou.base.impl.BaseDaoImpl;
+import com.lanou.base.dao.impl.BaseDaoImpl;
 import com.lanou.plan_dep.dao.StudentDao;
 import com.lanou.plan_dep.domain.Student;
 
