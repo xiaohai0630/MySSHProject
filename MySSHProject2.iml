@@ -21,6 +21,7 @@
             <file>jar://$USER_HOME$/Maven/LocalWare/org/apache/struts/struts2-json-plugin/2.5.13/struts2-json-plugin-2.5.13.jar!/struts-plugin.xml</file>
             <file>jar://$USER_HOME$/Maven/LocalWare/org/apache/struts/struts2-spring-plugin/2.5.13/struts2-spring-plugin-2.5.13.jar!/struts-plugin.xml</file>
             <file>file://$MODULE_DIR$/src/main/resources/struts.xml</file>
+            <file>file://$MODULE_DIR$/src/main/resources/struts/login-struts.xml</file>
           </fileset>
           <propertiesKeys disabled="false" />
         </configuration>
@@ -30,6 +31,7 @@
       <configuration>
         <fileset id="fileset" name="Spring Application Context" removed="false">
           <file>file://$MODULE_DIR$/src/main/resources/applicationContext.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/spring/loginContext.xml</file>
         </fileset>
       </configuration>
     </facet>

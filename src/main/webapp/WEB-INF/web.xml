@@ -5,10 +5,11 @@
 <web-app>
     <display-name>Archetype Created Web Application</display-name>
 
-    <!--加载Spring的配置文件，按顺序要写在过滤器之前-->
+    <!--加载Spring的配置文件，按顺序要写在过滤器之前
+        用通配符*引入所有的spring配置文件-->
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:applicationContext*.xml</param-value>
+        <param-value>classpath:spring/*.xml</param-value>
     </context-param>
 
     <!--过滤器-->

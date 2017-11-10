@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
+         pageEncoding="UTF-8" isELIgnored="false" %>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>无标题文档</title>
-    <link href="/css/sys.css" type="text/css" rel="stylesheet"/>
-    <script type="text/javascript" src="/js/Calendar.js"></script>
+    <link href="${pageContext.request.contextPath}/css/sys.css" type="text/css" rel="stylesheet"/>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/Calendar.js"></script>
 </head>
 
 <body class="emp_body">
@@ -17,19 +17,19 @@
 
 <table border="0" cellspacing="0" cellpadding="0" class="wukuang" width="100%">
     <tr>
-        <td width="1%"><img src="/images/tleft.gif"/></td>
+        <td width="1%"><img src="${pageContext.request.contextPath}/images/tleft.gif"/></td>
         <td width="44%" align="left">[员工管理]</td>
 
         <td width="52%" align="right">
             <!-- 提交表单 -->
             <a href="javascript:void(0)" onclick="document.forms[0].submit()">
-                <img src="/images/button/save.gif"/>
+                <img src="${pageContext.request.contextPath}/images/button/save.gif"/>
             </a>
             <!-- 执行js，进行返回 -->
-            <a href="javascript:void(0)" onclick="window.history.go(-1)"><img src="/images/button/tuihui.gif"/></a>
+            <a href="javascript:void(0)" onclick="window.history.go(-1)"><img src="${pageContext.request.contextPath}/images/button/tuihui.gif"/></a>
 
         </td>
-        <td width="3%" align="right"><img src="/images/tright.gif"/></td>
+        <td width="3%" align="right"><img src="${pageContext.request.contextPath}/images/tright.gif"/></td>
     </tr>
 </table>
 

@@ -1,6 +1,8 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="c" uri="/struts-tags" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
+         pageEncoding="UTF-8" isELIgnored="false" %>
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <HTML>
 <HEAD>
@@ -35,13 +37,13 @@
         }
     </script>
     <META http-equiv=Content-Type content="text/html; charset=utf-8">
-    <LINK href="/css/style.css" type=text/css rel=stylesheet>
+    <LINK href="${pageContext.request.contextPath}/css/style.css" type=text/css rel=stylesheet>
     <META content="MSHTML 6.00.2600.0" name=GENERATOR>
 
 </HEAD>
 
 <BODY leftMargin=0 topMargin=0 marginwidth="0" marginheight="0"
-      background="/images/rightbg.jpg">
+      background="${pageContext.request.contextPath}/images/rightbg.jpg">
 
 <%--BODY中的background属性：
     background="${pageContext.request.contextPath}/images/rightbg.jpg"
@@ -61,11 +63,14 @@
                     <font size="6" color="#ffffff">
                         欢迎使用CRM系统
                     </font>
+
                     <br/>
                     <br/>
+
                     <font color="#ff0000">
-                        错误提示
+                        ${sessionScope.loginError}
                     </font>
+
                     <br/>
                     用户名：<input type="text" name="loginName" class="msg"/><br/><br/>
                     密&nbsp;码：<input type="password" name="loginPwd" class="msg"/><br/><br/>
@@ -73,7 +78,9 @@
                     <input type="submit" class="btn" value="登录"/>
 
                 </form>
+
             </td>
+
         </tr>
 
     </table>

@@ -10,7 +10,7 @@ import javax.annotation.Resource;
 /**
  * Created by dllo on 17/11/10.
  */
-@ContextConfiguration({"classpath*:/applicationContext.xml"})
+@ContextConfiguration({"classpath*:/spring/applicationContext.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class LoginActionTest {
 

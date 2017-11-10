@@ -19,12 +19,12 @@ public class LoginServiceImpl implements LoginService {
     }
 
     // 登录的时候判断员工是否存在
-    public Staff loginByStaff(Staff staff) {
+    public List<Staff> loginByStaff(Staff staff) {
 
         List<Staff> staffs = loginDao.findAll("and loginName=? and loginPwd=?",
                 staff.getLoginName(), staff.getLoginPwd());
 
-        return staffs.get(0);
+        return staffs;
     }
 
 }

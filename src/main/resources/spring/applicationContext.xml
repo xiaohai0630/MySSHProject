@@ -37,19 +37,6 @@
         <property name="configLocation" value="classpath:hibernate.cfg.xml"/>
     </bean>
 
-
-    <!--登录-->
-    <bean id="loginDao" class="com.lanou.login.dao.impl.LoginDaoImpl">
-        <property name="sessionFactory" ref="sessionFactory"/>
-    </bean>
-
-    <bean id="loginService" class="com.lanou.login.service.impl.LoginServiceImpl">
-        <property name="loginDao" ref="loginDao"/>
-    </bean>
-
-
-
-
     <!--创建事务管理器对象-->
     <bean id="transactionManager"
           class="org.springframework.orm.hibernate5.HibernateTransactionManager">
@@ -76,4 +63,5 @@
         <!--配置顾问-->
         <aop:advisor advice-ref="userAdvisor" pointcut-ref="userPointCut"/>
     </aop:config>
+
 </beans>

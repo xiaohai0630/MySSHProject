@@ -14,15 +14,7 @@
     <!--让spring管理action对象的创建-->
     <constant name="struts.objectFactory" value="spring"/>
 
-    <!--登录成功跳转主页面，登录失败留在登录页面并显示错误信息-->
-    <package name="login" extends="struts-default">
-
-        <action name="loginAction" class="loginAction" method="login">
-
-            <result name="success">/pages/frame.jsp</result>
-            <result name="error">/pages/login.jsp</result>
-        </action>
-
-    </package>
+    <!--引入其他的struts-->
+    <include file="struts/login-struts.xml"/>
 
 </struts>

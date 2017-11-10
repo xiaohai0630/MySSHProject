@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
+         pageEncoding="UTF-8" isELIgnored="false" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>无标题文档</title>
 
-    <link href="/css/sys.css" type="text/css" rel="stylesheet"/>
+    <link href="${pageContext.request.contextPath}/css/sys.css" type="text/css" rel="stylesheet"/>
 </head>
 
 <body>
@@ -18,12 +18,12 @@
 
 <table border="0" cellspacing="0" cellpadding="0" class="wukuang" width="100%">
     <tr>
-        <td width="1%"><img src="/images/tleft.gif"/></td>
+        <td width="1%"><img src="${pageContext.request.contextPath}/images/tleft.gif"/></td>
         <td width="39%" align="left">[员工管理]</td>
 
         <td width="57%" align="right">
             <%--高级查询 --%>
-            <a href="javascript:void(0)" onclick="condition()"><img src="/images/button/gaojichaxun.gif"/></a>
+            <a href="javascript:void(0)" onclick="condition()"><img src="${pageContext.request.contextPath}/images/button/gaojichaxun.gif"/></a>
             <%--员工注入 --%>
             <a href="/pages/staff/addStaff.jsp">
                 <img src="/images/button/tianjia.gif"/>
