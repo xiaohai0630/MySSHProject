@@ -12,10 +12,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class DepartmentServiceImplTest {
 
-    /**
-     * 测试了一下查询全部，可以从数据库中查询结果
-     */
-
     private BeanFactory beanFactory;
     private DepartmentService departmentService;
 

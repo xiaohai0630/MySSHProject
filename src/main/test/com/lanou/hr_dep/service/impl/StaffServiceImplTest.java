@@ -1,31 +1,34 @@
-package com.lanou.hr_dep.dao.impl;
+package com.lanou.hr_dep.service.impl;
 
-import com.lanou.hr_dep.dao.StaffDao;
+import com.lanou.hr_dep.service.StaffService;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import static org.junit.Assert.*;
+
 /**
  * Created by dllo on 17/11/11.
  */
-public class StaffDaoImplTest {
+public class StaffServiceImplTest {
 
     private BeanFactory beanFactory;
-    private StaffDao staffDao;
+    private StaffService staffService;
 
     @Before
-    public void getDao(){
+    public void getService(){
+
         beanFactory = new ClassPathXmlApplicationContext("/spring/staffContext.xml",
                 "/spring/applicationContext.xml");
 
-        staffDao = (StaffDao) beanFactory.getBean("staffDao");
+        staffService = (StaffService) beanFactory.getBean("staffService");
     }
 
-    // 查询全部的职员
     @Test
-    public void testDao(){
-        System.out.println(staffDao.findAll());
+    public void testService(){
+
+        System.out.println(staffService.findAllStaff());
     }
 
 }

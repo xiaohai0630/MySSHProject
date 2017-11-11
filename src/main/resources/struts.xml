@@ -43,5 +43,6 @@
     <include file="struts/login-struts.xml"/>
     <include file="struts/dep-struts.xml"/>
     <include file="struts/staff-struts.xml"/>
+    <include file="struts/post-struts.xml"/>
 
 </struts>

@@ -3,9 +3,13 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <!--职务-->
+    <!--职员-->
     <bean name="staffDao" class="com.lanou.hr_dep.dao.impl.StaffDaoImpl">
         <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean name="staffService" class="com.lanou.hr_dep.service.impl.StaffServiceImpl">
+        <property name="staffDao" ref="staffDao"/>
     </bean>
 
 </beans>
