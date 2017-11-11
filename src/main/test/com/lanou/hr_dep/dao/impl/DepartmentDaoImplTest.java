@@ -1,6 +1,7 @@
 package com.lanou.hr_dep.dao.impl;
 
 import com.lanou.hr_dep.dao.DepartmentDao;
+import com.lanou.hr_dep.domain.Department;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,6 +38,22 @@ public class DepartmentDaoImplTest{
     public void testDao(){
 
         System.out.println(departmentDao.findAll());
+    }
+
+    @Test
+    public void testDaoAdd(){
+
+        Department department = new Department();
+        department.setDepName("测试");
+        departmentDao.saveOrUpdate(department);
+    }
+
+    @Test
+    public void testDaoEdit(){
+        Department department = new Department();
+        department.setDepID(20);
+        department.setDepName("2222");
+        departmentDao.saveOrUpdate(department);
     }
 
 }

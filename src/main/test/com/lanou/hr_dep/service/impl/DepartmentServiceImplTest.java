@@ -1,5 +1,6 @@
 package com.lanou.hr_dep.service.impl;
 
+import com.lanou.hr_dep.domain.Department;
 import com.lanou.hr_dep.service.DepartmentService;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,6 +32,23 @@ public class DepartmentServiceImplTest {
     public void testService(){
 
         System.out.println(departmentService.findAllDep());
+    }
+
+    // 添加
+    @Test
+    public void testServiceAdd(){
+        Department department = new Department();
+        department.setDepName("测试Service");
+        departmentService.saveOrUpdate(department);
+    }
+
+    // 通过id查询
+    @Test
+    public void testFindByID(){
+        Department department = new Department();
+        department.setDepID(1);
+
+        System.out.println(departmentService.findDepByID(department));
     }
 
 }

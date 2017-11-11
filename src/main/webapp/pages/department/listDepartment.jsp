@@ -54,7 +54,7 @@
             <tr class="tabtd1">
                 <td align="center">${dep.depName}</td>
                 <td width="7%" align="center">
-                    <a href="${pageContext.request.contextPath}/pages/department/addOrEditDepartment.jsp"><img
+                    <a href="depAction_addOrEditDepartment.action?addOrEditDep=${dep.depID}"><img
                             src="${pageContext.request.contextPath}/images/button/modify.gif" class="img"/></a>
                 </td>
             </tr>
@@ -64,7 +64,7 @@
             <tr class="tabtd2">
                 <td align="center">${dep.depName}</td>
                 <td width="7%" align="center">
-                    <a href="${pageContext.request.contextPath}/pages/department/addOrEditDepartment.jsp"><img
+                    <a href="depAction_addOrEditDepartment.action?addOrEditDep=${dep.depID}"><img
                             src="${pageContext.request.contextPath}/images/button/modify.gif" class="img"/></a>
                 </td>
             </tr>
@@ -88,5 +88,7 @@
         </td>
     </tr>
 </table>
+
 </body>
+
 </html>

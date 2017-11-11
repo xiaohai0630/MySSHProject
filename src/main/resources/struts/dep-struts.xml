@@ -10,7 +10,16 @@
 
         <action name="depAction_*" class="departmentAction" method="{1}">
             <result name="showAllDep">/pages/department/{1}.jsp</result>
-            <allowed-methods>listDepartment</allowed-methods>
+
+            <!--如果是编辑，就跳转到添加和编辑页面，并显示当前的部门名称-->
+            <result name="edit">/pages/department/{1}.jsp</result>
+
+            <!--添加和修改返回的时候都要重定向到查询全部-->
+            <result name="addOrEdit" type="redirectAction">
+                <param name="actionName">depAction_listDepartment</param>
+            </result>
+
+            <allowed-methods>listDepartment,addOrEditDepartment</allowed-methods>
         </action>
 
     </package>

@@ -1,5 +1,6 @@
 package com.lanou.hr_dep.web.action;
 
+import com.lanou.hr_dep.domain.Department;
 import com.lanou.hr_dep.service.DepartmentService;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,6 +31,15 @@ public class DepartmentActionTest {
     public void testDao(){
 
         System.out.println(departmentService.findAllDep());
+    }
+
+    @Test
+    public void testAddOrEdit(){
+        Department department = new Department();
+        department.setDepID(30);
+        department.setDepName("aaa");
+
+        departmentService.saveOrUpdate(department);
     }
 
 }

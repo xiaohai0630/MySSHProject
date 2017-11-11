@@ -1,7 +1,6 @@
 package com.lanou.hr_dep.service;
 
 import com.lanou.hr_dep.domain.Department;
-
 import java.util.List;
 
 /**
@@ -12,4 +11,9 @@ public interface DepartmentService {
     // 显示全部的部门
     List<Department> findAllDep();
 
+    // 添加或修改
+    void saveOrUpdate(Department department);
+
+    // 通过id查询部门名称
+    Department findDepByID(Department department);
 }
