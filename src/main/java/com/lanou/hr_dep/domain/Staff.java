@@ -96,15 +96,17 @@ public class Staff {
         this.onDutyDate = onDutyDate;
     }
 
+    // 加上职员
     @Override
     public String toString() {
         return "Staff{" +
-                "staffId=" + staffID +
+                "staffID=" + staffID +
                 ", loginName='" + loginName + '\'' +
                 ", loginPwd='" + loginPwd + '\'' +
                 ", staffName='" + staffName + '\'' +
                 ", gender='" + gender + '\'' +
                 ", onDutyDate=" + onDutyDate +
+                ", post=" + post +
                 '}';
     }
 

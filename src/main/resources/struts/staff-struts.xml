@@ -6,4 +6,13 @@
 
 <struts>
 
+    <package name="staff" extends="struts-default">
+
+        <action name="staffAction_*" class="staffAction" method="{1}">
+            <result name="showAllStaff">/pages/staff/{1}.jsp</result>
+            <allowed-methods>listStaff</allowed-methods>
+        </action>
+
+    </package>
+
 </struts>

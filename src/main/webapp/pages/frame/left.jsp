@@ -29,8 +29,8 @@
                 d.add('010401', '0104', '就业情况', '/pages/graduate/listGraduate.jsp', '', 'right');
                 d.add('0105', '01', '人力资源部');
                 d.add('010501', '0105', '部门管理', 'depAction_listDepartment', '', 'right');
-                d.add('010502', '0105', '职务管理', '/pages/post/listPost.jsp', '', 'right');
-                d.add('010503', '0105', '员工管理', '/pages/staff/listStaff.jsp', '', 'right');
+                d.add('010502', '0105', '职务管理', 'postAction_listPost', '', 'right');
+                d.add('010503', '0105', '员工管理', 'staffAction_listStaff', '', 'right');
 
                 document.write(d);
             </script>

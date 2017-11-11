@@ -3,7 +3,13 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <!--职务-->
+    <bean name="postDao" class="com.lanou.hr_dep.dao.impl.PostDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
 
-
+    <bean name="postService" class="com.lanou.hr_dep.service.impl.PostServiceImpl">
+        <property name="postDao" ref="postDao"/>
+    </bean>
 
 </beans>

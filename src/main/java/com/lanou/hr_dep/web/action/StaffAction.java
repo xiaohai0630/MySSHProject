@@ -26,14 +26,26 @@ public class StaffAction extends BaseAction<Staff> {
     HttpServletRequest request = ServletActionContext.getRequest();
     HttpSession session = request.getSession();
 
-
     public String listStaff(){
 
-        List<Staff> staffList = staffService.findAllStaff();
+        // 同时查询部门和职务，用来二级联动的查询
 
-        session.setAttribute("allStaff",staffList);
+        List<Staff> allStaff = staffService.findAllStaff();
 
-        return "listStaff";
+        System.out.println(allStaff);
+        // 全部的职员
+        session.setAttribute("allStaff",allStaff);
+
+        return "showAllStaff";
+    }
+
+
+    public StaffService getStaffService() {
+        return staffService;
+    }
+
+    public void setStaffService(StaffService staffService) {
+        this.staffService = staffService;
     }
 
 }

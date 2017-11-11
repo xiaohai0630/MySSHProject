@@ -16,7 +16,6 @@ public class Post {
      * 多个表对应一个部门（双向的，不用维护主外键）
      * 一个表对应多个员工
      */
-
     private int postID;
     private String postName;
 
@@ -67,8 +66,9 @@ public class Post {
     @Override
     public String toString() {
         return "Post{" +
-                "postId=" + postID +
+                "postID=" + postID +
                 ", postName='" + postName + '\'' +
+                ", department=" + department +
                 '}';
     }
 
