@@ -9,9 +9,9 @@
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
-    <!--<bean id="depService" class="com.lanou.hr_dep.service.impl.DepartmentServiceImpl">-->
-        <!--<property name="depDao" ref="depDao"/>-->
-    <!--</bean>-->
+    <bean id="depService" class="com.lanou.hr_dep.service.impl.DepartmentServiceImpl">
+        <property name="departmentDao" ref="depDao"/>
+    </bean>
 
 
 </beans>

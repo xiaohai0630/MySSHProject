@@ -32,14 +32,15 @@
 
         </interceptors>
 
-        <action name="myInterceptor" class="">
-            <interceptor-ref name="myInterceptor"/>
-            <result name="error">/pages/login.jsp</result>
-        </action>
+        <!--<action name="myInterceptor" class="">-->
+            <!--<interceptor-ref name="myInterceptor"/>-->
+            <!--<result name="error">/pages/login.jsp</result>-->
+        <!--</action>-->
 
     </package>
 
     <!--引入其他的struts-->
     <include file="struts/login-struts.xml"/>
+    <include file="struts/dep-struts.xml"/>
 
 </struts>

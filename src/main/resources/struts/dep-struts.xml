@@ -9,7 +9,8 @@
     <package name="dep" extends="struts-default">
 
         <action name="depAction_*" class="departmentAction" method="{1}">
-
+            <result name="showAllDep">/pages/department/{1}.jsp</result>
+            <allowed-methods>listDepartment</allowed-methods>
         </action>
 
     </package>

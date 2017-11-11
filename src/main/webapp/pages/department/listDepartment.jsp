@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" isELIgnored="false" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -46,23 +47,30 @@
     </tr>
 
     <%--循环显示全部的部门信息--%>
+    <c:forEach items="${sessionScope.allDep}" var="dep" varStatus="vs">
 
+        <%--保持两种颜色交替--%>
+        <c:if test="${vs.index%2==0}">
+            <tr class="tabtd1">
+                <td align="center">${dep.depName}</td>
+                <td width="7%" align="center">
+                    <a href="${pageContext.request.contextPath}/pages/department/addOrEditDepartment.jsp"><img
+                            src="${pageContext.request.contextPath}/images/button/modify.gif" class="img"/></a>
+                </td>
+            </tr>
+        </c:if>
 
-    <tr class="tabtd1">
-        <td align="center">教学部</td>
-        <td width="7%" align="center">
-            <a href="${pageContext.request.contextPath}/pages/department/addOrEditDepartment.jsp"><img
-                    src="${pageContext.request.contextPath}/images/button/modify.gif" class="img"/></a>
-        </td>
-    </tr>
+        <c:if test="${vs.index%2!=0}">
+            <tr class="tabtd2">
+                <td align="center">${dep.depName}</td>
+                <td width="7%" align="center">
+                    <a href="${pageContext.request.contextPath}/pages/department/addOrEditDepartment.jsp"><img
+                            src="${pageContext.request.contextPath}/images/button/modify.gif" class="img"/></a>
+                </td>
+            </tr>
+        </c:if>
 
-    <tr class="tabtd2">
-        <td align="center">咨询部</td>
-        <td width="7%" align="center">
-            <a href="${pageContext.request.contextPath}/pages/department/addOrEditDepartment.jsp"><img
-                    src="${pageContext.request.contextPath}/images/button/modify.gif" class="img"/></a>
-        </td>
-    </tr>
+    </c:forEach>
 
 </table>
 

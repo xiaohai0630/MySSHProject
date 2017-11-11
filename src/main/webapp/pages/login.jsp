@@ -72,8 +72,8 @@
                     </font>
 
                     <br/>
-                    用户名：<input type="text" name="loginName" class="msg"/><br/><br/>
-                    密&nbsp;码：<input type="password" name="loginPwd" class="msg"/><br/><br/>
+                    用户名：<input type="text" name="loginName" class="msg" value="aa"/><br/><br/>
+                    密&nbsp;码：<input type="password" name="loginPwd" class="msg" value="222"/><br/><br/>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <input type="submit" class="btn" value="登录"/>
 

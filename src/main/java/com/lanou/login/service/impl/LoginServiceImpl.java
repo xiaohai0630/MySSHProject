@@ -13,12 +13,11 @@ public class LoginServiceImpl implements LoginService {
 
     private LoginDao loginDao;
 
-
     public void setLoginDao(LoginDao loginDao) {
         this.loginDao = loginDao;
     }
 
-    // 登录的时候判断员工是否存在
+    // 登录的时候判断员工是否存在－－登录名和密码能对应上的
     public List<Staff> loginByStaff(Staff staff) {
 
         List<Staff> staffs = loginDao.findAll("and loginName=? and loginPwd=?",

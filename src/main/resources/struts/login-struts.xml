@@ -15,7 +15,7 @@
             <result name="success">/pages/frame.jsp</result>
             <result name="error">/pages/login.jsp</result>
 
-            <!--struts2.5版本以后：规定可以跳转的方法？-->
+            <!--struts2.5版本以后：需要规定可以跳转的方法？-->
             <allowed-methods>login,logout</allowed-methods>
         </action>
 
