@@ -42,5 +42,6 @@
     <!--引入其他的struts-->
     <include file="struts/login-struts.xml"/>
     <include file="struts/dep-struts.xml"/>
+    <include file="struts/staff-struts.xml"/>
 
 </struts>
