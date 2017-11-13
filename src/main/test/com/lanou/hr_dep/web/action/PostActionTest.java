@@ -32,5 +32,9 @@ public class PostActionTest {
 
         postService.addOrEditPost(post);
     }
+    @Test
+    public void testFind(){
+        System.out.println(postService.findAllPost());
+    }
 
 }

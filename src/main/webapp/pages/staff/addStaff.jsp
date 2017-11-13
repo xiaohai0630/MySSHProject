@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="s" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" isELIgnored="false" %>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -6,6 +8,62 @@
     <title>无标题文档</title>
     <link href="${pageContext.request.contextPath}/css/sys.css" type="text/css" rel="stylesheet"/>
     <script type="text/javascript" src="/js/Calendar.js"></script>
+
+    <script type="text/javascript" src="/js/jquery-3.2.1.js"></script>
+
+    <script type="text/javascript">
+
+        function showPostSecond() {
+            var depName = document.getElementById("post").value;
+
+            $.ajax({
+                type:"POST",
+                url:"staffAction_findPost",
+                data:{
+                    findPostWithDepName:depName
+                },
+                dataType: "JSON",
+                success: function (data) {
+
+                    alert(data.toString());
+
+                    for (var i = 0; i < data.length; i++) {
+                        $("#postSelectId").append("<option>" + data[i].postName + "</option>")
+                    }
+
+                }
+
+            })
+
+        }
+
+
+        <%--二级联动--%>
+        function showPost() {
+
+            var depName = document.getElementById("post").value;
+            var url = "staffAction_findPost.action";
+
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: {
+                    findPostWithDepName: depName
+                },
+                dataType: "JSON",
+                success: function (data) {
+
+                    for (var i = 0; i < data.length; i++) {
+                        $("#postSelectId").append("<option>" + data[i].postName + "</option>")
+                    }
+
+                }
+
+            })
+
+        }
+
+    </script>
 
 </head>
 
@@ -35,7 +93,7 @@
     </tr>
 </table>
 
-<form action="/pages/staff/listStaff.jsp" method="post">
+<form action="staffAction_addStaff.action" method="post">
     <table width="88%" border="0" class="emp_table" style="width:80%;">
         <tr>
             <td>登录名：</td>
@@ -54,13 +112,15 @@
         <tr>
             <td width="10%">所属部门：</td>
             <td width="20%">
-                <select name="crmPost.crmDepartment.depId" onchange="changePost(this)">
+                <select name="findPostWithDepName" onchange="showPostSecond()" id="post">
                     <option value="">----请--选--择----</option>
-                    <option value="ee050687bd1a4455a153d7bbb7000001">教学部</option>
-                    <option value="ee050687bd1a4455a153d7bbb7000002">咨询部</option>
+                    <c:forEach items="${sessionScope.allDep}" var="dep">
+                        <option>${dep.depName}</option>
+                    </c:forEach>
                 </select>
 
             </td>
+
             <td width="8%">职务：</td>
             <td width="62%">
                 <select id="postSelectId" name="crmPost.postId">

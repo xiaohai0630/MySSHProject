@@ -11,6 +11,7 @@ import java.util.List;
  */
 public class DepartmentDaoImpl extends BaseDaoImpl<Department> implements DepartmentDao {
 
+    // 根据部门的名字查询
     public List<Department> findAll(Department department){
 
         String sql = "from Department where depName=?";

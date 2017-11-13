@@ -12,6 +12,9 @@ public interface PostService {
     // 查询全部
     List<Post> findAllPost();
 
+    // 查询对应部门的职务
+    List<Post> findPostWithDep(Post post);
+
     // 添加或编辑
     void addOrEditPost(Post post);
 

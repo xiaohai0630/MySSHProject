@@ -6,11 +6,14 @@
 
 <struts>
 
-    <package name="staff" extends="struts-default">
+    <package name="staff" extends="json-default">
 
         <action name="staffAction_*" class="staffAction" method="{1}">
             <result name="showAllStaff">/pages/staff/{1}.jsp</result>
-            <allowed-methods>listStaff</allowed-methods>
+
+            <result name="findPost">/pages/staff/addStaff.jsp</result>
+
+            <allowed-methods>listStaff,findPost,addStaff</allowed-methods>
         </action>
 
     </package>
