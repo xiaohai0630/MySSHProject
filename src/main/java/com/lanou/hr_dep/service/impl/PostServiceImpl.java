@@ -22,4 +22,14 @@ public class PostServiceImpl implements PostService {
         return postDao.findAll();
     }
 
+    // 添加或编辑
+    public void addOrEditPost(Post post) {
+        postDao.saveOrUpdate(post);
+    }
+
+    // 通过id查询职务
+    public Post findPostByID(Post post) {
+        return postDao.findById(post.getPostID());
+    }
+
 }

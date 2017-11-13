@@ -10,7 +10,12 @@
 
         <action name="postAction_*" class="postAction" method="{1}">
             <result name="showAllPost">/pages/post/{1}.jsp</result>
-            <allowed-methods>listPost</allowed-methods>
+            <result name="edit">/pages/post/{1}.jsp</result>
+            <!--添加和修改-->
+            <result name="addOrEdit" type="redirectAction">
+                <param name="actionName">postAction_listPost</param>
+            </result>
+            <allowed-methods>listPost,addOrEditPost</allowed-methods>
         </action>
 
     </package>

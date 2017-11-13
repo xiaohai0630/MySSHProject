@@ -31,8 +31,7 @@ public class StaffAction extends BaseAction<Staff> {
         // 同时查询部门和职务，用来二级联动的查询
 
         List<Staff> allStaff = staffService.findAllStaff();
-
-        System.out.println(allStaff);
+        
         // 全部的职员
         session.setAttribute("allStaff",allStaff);
 

@@ -16,4 +16,7 @@ public interface DepartmentService {
 
     // 通过id查询部门名称
     Department findDepByID(Department department);
+
+    // 通过名字查询部门id
+    List<Department> findIDByDep(Department department);
 }

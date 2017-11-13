@@ -55,7 +55,7 @@
                 <td align="center">${post.department.depName}</td>
                 <td align="center">${post.postName}</td>
                 <td width="7%" align="center">
-                    <a href="${pageContext.request.contextPath}/pages/post/addOrEditPost.jsp"><img
+                    <a href="postAction_addOrEditPost.action?addOrEditPost=${post.postID}"><img
                             src="${pageContext.request.contextPath}/images/button/modify.gif" class="img"/></a>
                 </td>
             </tr>
@@ -66,7 +66,7 @@
                 <td align="center">${post.department.depName}</td>
                 <td align="center">${post.postName}</td>
                 <td width="7%" align="center">
-                    <a href="${pageContext.request.contextPath}/pages/post/addOrEditPost.jsp"><img
+                    <a href="postAction_addOrEditPost.action?addOrEditPost=${post.postID}"><img
                             src="${pageContext.request.contextPath}/images/button/modify.gif" class="img"/></a>
                 </td>
             </tr>
@@ -74,7 +74,6 @@
     </c:forEach>
 
 </table>
-
 
 <table border="0" cellspacing="0" cellpadding="0" align="center">
     <tr>
@@ -89,5 +88,7 @@
         </td>
     </tr>
 </table>
+
 </body>
+
 </html>

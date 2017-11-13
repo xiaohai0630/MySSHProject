@@ -32,4 +32,9 @@ public class DepartmentServiceImpl implements DepartmentService {
         return departmentDao.findById(department.getDepID());
     }
 
+    // 通过部门名称查询id
+    public List<Department> findIDByDep(Department department) {
+        return departmentDao.findAll("and depName=?",department.getDepName());
+    }
+
 }

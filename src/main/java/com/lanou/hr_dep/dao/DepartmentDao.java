@@ -3,6 +3,8 @@ package com.lanou.hr_dep.dao;
 import com.lanou.base.dao.BaseDao;
 import com.lanou.hr_dep.domain.Department;
 
+import java.util.List;
+
 /**
  * Created by dllo on 17/11/10.
  */
