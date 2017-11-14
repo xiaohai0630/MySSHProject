@@ -56,31 +56,35 @@ public class PostAction extends BaseAction<Post, PostService> {
         // 如果postID等于空，说明点击的是添加，不需要显示原有的信息
         if (postID == null) {
             // 如果选中的是请选择，提示重新选择
-            if (getModel().getDepartment().getDepID() == -1){
-                session.setAttribute("wrongChoose","部门名称不能为请选择！");
+            if (getModel().getDepartment().getDepID() == -1) {
+                session.setAttribute("wrongChoose", "部门名称不能为请选择！");
                 return "wrongChoose";
             }
 
             // 如果职务名称为空或重名，都需要提示错误
-            if (getModel().getPostName().equals("")){
-                session.setAttribute("wrongChoose","职务名称不能为空");
+            if (getModel().getPostName().equals("")) {
+                session.setAttribute("wrongChoose", "职务名称不能为空");
                 return "wrongChoose";
             }
 
-            List<Post> allPost = postService.findAllPost();
-            for (int i = 0; i < allPost.size(); i++) {
-                if (allPost.get(i).getPostName().equals(getModel().getPostName())){
-                    session.setAttribute("wrongChoose","部门名称不能相同");
-                    return "wrongChoose";
+            // 不是修改的时候需要判断部门名称是否重复
+            if (session.getAttribute("addOrEditPost") == null) {
+
+                List<Post> allPost = postService.findAllPost();
+                for (int i = 0; i < allPost.size(); i++) {
+                    if (allPost.get(i).getPostName().equals(getModel().getPostName())) {
+                        session.setAttribute("wrongChoose", "职务名称不能相同");
+                        return "wrongChoose";
+                    }
+
                 }
 
             }
-
             // 清除session中职务信息和选择错误信息
             session.removeAttribute("addOrEditPost");
             session.removeAttribute("wrongChoose");
 
-            // 添加
+            // 添加或修改
             postService.addOrEditPost(getModel());
 
         } else {
