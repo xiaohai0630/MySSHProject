@@ -10,9 +10,6 @@
     <script type="text/javascript" src="/js/Calendar.js"></script>
 
     <script type="text/javascript" src="/js/jquery-3.2.1.js"></script>
-
-
-
 </head>
 
 <body class="emp_body">
@@ -45,13 +42,13 @@
     <table width="88%" border="0" class="emp_table" style="width:80%;">
         <tr>
             <td>登录名：</td>
-            <td><input type="text" name="loginName" value=""/></td>
+            <td><input type="text" name="loginName"/></td>
             <td>密码：</td>
             <td><input type="password" name="loginPwd"/></td>
         </tr>
         <tr>
             <td>姓名：</td>
-            <td><input type="text" name="staffName" value="" id="staffAction_add_staffName"/></td>
+            <td><input type="text" name="staffName" id="staffAction_add_staffName"/></td>
             <td>性别：</td>
             <td><input type="radio" name="gender" value="男"/>男
                 <input type="radio" name="gender" value="女"/>女
@@ -60,7 +57,7 @@
         <tr>
             <td width="10%">所属部门：</td>
             <td width="20%">
-                <select name="findPostWithDepName" onchange="onChange(this.value)" id="post">
+                <select name="post.department.depName" onchange="onChange(this.value)" id="post">
                     <option value="">----请--选--择----</option>
                     <c:forEach items="${sessionScope.allDep}" var="dep">
                         <option>${dep.depName}</option>
@@ -71,7 +68,7 @@
 
             <td width="8%">职务：</td>
             <td width="62%">
-                <select id="postSelectId" name="crmPost.postId">
+                <select id="postSelectId" name="post.postID">
                     <option>----请--选--择----</option>
                 </select>
             </td>
@@ -100,7 +97,7 @@
 
         // 根据value的值（部门名称）发送请求，获取职务列表的json数据
         var data = new FormData();
-        data.append("findPostWithDepName", value);
+        data.append("post.department.depName", value);
 
         var xhr = new XMLHttpRequest();
         xhr.withCredentials = true;

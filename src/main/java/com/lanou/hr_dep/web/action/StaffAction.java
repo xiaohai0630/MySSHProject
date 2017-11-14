@@ -27,18 +27,6 @@ public class StaffAction extends BaseAction<Staff,StaffService> {
     // 全局变量
     private List<Post> postList;
 
-    // 部门－－二级联动，从页面获取的部门名称
-    private String findPostWithDepName;
-    private List<Department> departmentList;
-
-    public String getFindPostWithDepName() {
-        return findPostWithDepName;
-    }
-
-    public void setFindPostWithDepName(String findPostWithDepName) {
-        this.findPostWithDepName = findPostWithDepName;
-    }
-
     @Resource
     private StaffService staffService;
 
@@ -73,6 +61,8 @@ public class StaffAction extends BaseAction<Staff,StaffService> {
     public String addStaff() {
 
         System.out.println("页面获取： " + getModel());
+
+        staffService.addOrEditStaff(getModel());
         return "addStaff";
     }
 
@@ -80,7 +70,7 @@ public class StaffAction extends BaseAction<Staff,StaffService> {
     public String findPost() {
         // 获取职务信息－－部门的名称
         Department department = new Department();
-        department.setDepName(findPostWithDepName);
+        department.setDepName(getModel().getPost().getDepartment().getDepName());
         // 用页面获取的部门的名称来查询这个部门
         List<Department> departments = departmentService.findIDByDep(department);
         // 把查询到的部门添加到post中
@@ -100,15 +90,6 @@ public class StaffAction extends BaseAction<Staff,StaffService> {
 
     public void setPostList(List<Post> postList) {
         this.postList = postList;
-    }
-
-
-    public List<Department> getDepartmentList() {
-        return departmentList;
-    }
-
-    public void setDepartmentList(List<Department> departmentList) {
-        this.departmentList = departmentList;
     }
 
 }

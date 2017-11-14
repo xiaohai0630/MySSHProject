@@ -10,4 +10,7 @@ public interface StaffService {
 
     // 显示全部职务
     List<Staff> findAllStaff();
+
+    // 编辑或添加职员
+    void addOrEditStaff(Staff staff);
 }

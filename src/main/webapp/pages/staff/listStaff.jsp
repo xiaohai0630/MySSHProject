@@ -44,7 +44,7 @@
             <td width="80px">部门：</td>
             <td width="200px">
 
-                <select name="findPostWithDepName" onchange="onChange(this.value)">
+                <select name="post.department.depName" onchange="onChange(this.value)">
                     <option value="">--请选择部门--</option>
                     <c:forEach items="${sessionScope.allDep}" var="dep">
                         <option>${dep.depName}</option>
@@ -123,7 +123,7 @@
         console.log(value);
         //根据value的值发送请求,获取二级列表的json数据
         var data = new FormData();
-        data.append("findPostWithDepName", value);
+        data.append("post.department.depName", value);
 
         var xhr = new XMLHttpRequest();
         xhr.withCredentials = true;

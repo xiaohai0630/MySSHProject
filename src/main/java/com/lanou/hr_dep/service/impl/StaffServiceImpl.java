@@ -22,4 +22,9 @@ public class StaffServiceImpl implements StaffService {
         return staffDao.findAll();
     }
 
+    // 编辑或添加职员
+    public void addOrEditStaff(Staff staff) {
+        staffDao.saveOrUpdate(staff);
+    }
+
 }

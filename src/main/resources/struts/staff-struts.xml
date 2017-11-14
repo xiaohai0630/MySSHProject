@@ -10,6 +10,9 @@
 
         <action name="staffAction_*" class="staffAction" method="{1}">
             <result name="showAllStaff">/pages/staff/{1}.jsp</result>
+            <result name="addStaff" type="redirectAction">
+                <param name="actionName">staffAction_listStaff</param>
+            </result>
 
             <result name="success" type="json">
                 <!--指定需要转化为json数据的数据类型-->
