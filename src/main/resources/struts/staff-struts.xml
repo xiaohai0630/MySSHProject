@@ -11,9 +11,14 @@
         <action name="staffAction_*" class="staffAction" method="{1}">
             <result name="showAllStaff">/pages/staff/{1}.jsp</result>
 
-            <result name="findPost" type="json">
+            <result name="success" type="json">
                 <!--指定需要转化为json数据的数据类型-->
                 <param name="root">postList</param>
+                <!--需要转为json数据的参数-->
+                <param name="includeProperties">
+                    \[\d\]\.postID,
+                    \[\d\]\.postName
+                </param>
             </result>
 
             <allowed-methods>listStaff,findPost,addStaff</allowed-methods>

@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="s" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" isELIgnored="false" %>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -27,6 +27,8 @@
                 },
                 dataType: "JSON",
                 success: function (data) {
+
+                    console.log(data);
 
                     for (var i = 0; i < data.length; i++) {
                         $("#postSelectId").append("<option>" + data[i].postName + "</option>")
@@ -100,6 +102,9 @@
             <td width="62%">
                 <select id="postSelectId" name="crmPost.postId">
                     <option>----请--选--择----</option>
+                    <s:iterator value="postList" var="p">
+                        <option>${p.postName}</option>
+                    </s:iterator>
                 </select>
             </td>
         </tr>

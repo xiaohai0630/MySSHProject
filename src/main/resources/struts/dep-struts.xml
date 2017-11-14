@@ -19,7 +19,14 @@
                 <param name="actionName">depAction_listDepartment</param>
             </result>
 
-            <allowed-methods>listDepartment,addOrEditDepartment</allowed-methods>
+            <!--从添加部门页面点击返回-->
+            <result name="returnListDept" type="redirectAction">
+                <param name="actionName">depAction_listDepartment</param>
+            </result>
+
+            <result name="wrongDept">/pages/department/addOrEditDepartment.jsp</result>
+
+            <allowed-methods>listDepartment,addOrEditDepartment,returnListDept</allowed-methods>
         </action>
 
     </package>

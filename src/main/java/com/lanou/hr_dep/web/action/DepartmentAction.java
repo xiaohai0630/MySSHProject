@@ -17,15 +17,7 @@ import java.util.List;
  */
 @Controller("departmentAction")
 @Scope("prototype")
-public class DepartmentAction extends BaseAction<Department,DepartmentService> {
-
-    // 从页面获取的数据
-    private Department department = new Department();
-
-    public Department getModel() {
-        return department;
-    }
-
+public class DepartmentAction extends BaseAction<Department, DepartmentService> {
     @Resource
     private DepartmentService departmentService;
 
@@ -42,6 +34,9 @@ public class DepartmentAction extends BaseAction<Department,DepartmentService> {
         // 存放全部的部门信息，用来在页面上显示
         session.setAttribute("allDep", allDep);
 
+        // 清除部门的相关错误信息
+        session.removeAttribute("wrongDept");
+
         return "showAllDep";
     }
 
@@ -53,17 +48,25 @@ public class DepartmentAction extends BaseAction<Department,DepartmentService> {
 
         if (depID == null) {
             // 部门名称为空
-            if (session.getAttribute("addOrEditDep") != null) {
-                // 找到session中的部门信息，把它的id给页面上获取的department
-                Department edit = (Department) session.getAttribute("addOrEditDep");
-                department.setDepID(edit.getDepID());
 
-                // 清除session中的部门信息
-                session.removeAttribute("addOrEditDep");
-                departmentService.saveOrUpdate(department);
+            // 部门名称为空或者重名都提示错误
+            if (getModel().getDepName().equals("")){
+                session.setAttribute("wrongDept","部门名称不能为空");
+                return "wrongDept";
             }
-            // 把页面上获取的内容添加进数据库
-            departmentService.saveOrUpdate(department);
+            List<Department> allDep = departmentService.findAllDep();
+            for (int i = 0; i < allDep.size(); i++) {
+
+                if (allDep.get(i).getDepName().equals(getModel().getDepName())){
+                    session.setAttribute("wrongDept","部门名称不能重复");
+                    return "wrongDept";
+                }
+
+            }
+            // 清除session中的部门信息
+            session.removeAttribute("addOrEditDep");
+            // 保存或更新
+            departmentService.saveOrUpdate(getModel());
         } else {
             // 部门名称不为空
             Department dep = new Department();
@@ -82,12 +85,12 @@ public class DepartmentAction extends BaseAction<Department,DepartmentService> {
         return "addOrEdit";
     }
 
-    public Department getDepartment() {
-        return department;
-    }
+    // 从添加部门页面返回
+    public String returnListDept(){
+        // 清除错误信息
+        session.removeAttribute("wrongDept");
 
-    public void setDepartment(Department department) {
-        this.department = department;
+        return "returnListDept";
     }
 
 }

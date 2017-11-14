@@ -28,7 +28,7 @@
                 <img src="${pageContext.request.contextPath}/images/button/save.gif"/>
             </a>
             <!-- 执行js，进行返回 -->
-            <a href="javascript:void(0)" onclick="window.history.go(-1)"><img
+            <a href="javascript:void(0)" onclick="document.location='${pageContext.request.contextPath}/depAction_returnListDept'"><img
                     src="${pageContext.request.contextPath}/images/button/tuihui.gif"/></a>
 
         </td>
@@ -40,10 +40,15 @@
     <table width="88%" border="0" class="emp_table" style="width:80%;">
         <tr>
             <td>部门名称：</td>
-            <td><input type="text" name="depName" value="${sessionScope.addOrEditDep.depName}"/></td>
+            <td>
+                <input type="text" name="depName" value="${sessionScope.addOrEditDep.depName}"/>
+                <input type="hidden" name="depID" value="${sessionScope.addOrEditDep.depID}"/>
+            </td>
         </tr>
     </table>
 </form>
+
+<h2>${sessionScope.wrongDept}</h2>
 
 </body>
 </html>

@@ -41,6 +41,9 @@ public class PostAction extends BaseAction<Post, PostService> {
         List<Post> allPost = postService.findAllPost();
         session.setAttribute("allPost", allPost);
 
+        // 清除添加职务页面的错误信息
+        session.removeAttribute("wrongChoose");
+
         return "showAllPost";
     }
 
@@ -57,6 +60,22 @@ public class PostAction extends BaseAction<Post, PostService> {
                 session.setAttribute("wrongChoose","部门名称不能为请选择！");
                 return "wrongChoose";
             }
+
+            // 如果职务名称为空或重名，都需要提示错误
+            if (getModel().getPostName().equals("")){
+                session.setAttribute("wrongChoose","职务名称不能为空");
+                return "wrongChoose";
+            }
+
+            List<Post> allPost = postService.findAllPost();
+            for (int i = 0; i < allPost.size(); i++) {
+                if (allPost.get(i).getPostName().equals(getModel().getPostName())){
+                    session.setAttribute("wrongChoose","部门名称不能相同");
+                    return "wrongChoose";
+                }
+
+            }
+
             // 清除session中职务信息和选择错误信息
             session.removeAttribute("addOrEditPost");
             session.removeAttribute("wrongChoose");
@@ -84,7 +103,9 @@ public class PostAction extends BaseAction<Post, PostService> {
 
     // 从添加或编辑页面返回，需要清除session中的信息，下次再进入的时候不会显示默认信息
     public String returnListPost() {
+        // 编辑时候的职务的信息
         session.removeAttribute("addOrEditPost");
+        // 请选择
         session.removeAttribute("wrongChoose");
         return "returnListPost";
     }
