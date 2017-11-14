@@ -10,5 +10,4 @@ public interface StaffService {
 
     // 显示全部职务
     List<Staff> findAllStaff();
-
 }

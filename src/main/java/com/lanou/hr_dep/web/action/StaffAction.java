@@ -24,19 +24,12 @@ import java.util.List;
 @Controller("staffAction")
 @Scope("prototype")
 public class StaffAction extends BaseAction<Staff,StaffService> {
-
-    // 获取页面信息
-    private Staff staff = new Staff();
-
     // 全局变量
     private List<Post> postList;
 
-    public Staff getModel() {
-        return staff;
-    }
-
     // 部门－－二级联动，从页面获取的部门名称
     private String findPostWithDepName;
+    private List<Department> departmentList;
 
     public String getFindPostWithDepName() {
         return findPostWithDepName;
@@ -79,15 +72,13 @@ public class StaffAction extends BaseAction<Staff,StaffService> {
     // 添加
     public String addStaff() {
 
-        System.out.println("页面获取： " + staff);
+        System.out.println("页面获取： " + getModel());
         return "addStaff";
     }
 
     // 二级联动的添加职员（查询职务）
     public String findPost() {
         // 获取职务信息－－部门的名称
-        System.out.println(findPostWithDepName);
-
         Department department = new Department();
         department.setDepName(findPostWithDepName);
         // 用页面获取的部门的名称来查询这个部门
@@ -99,13 +90,25 @@ public class StaffAction extends BaseAction<Staff,StaffService> {
         // 根据部门查询到的职务（全局变量？）
         postList = postService.findPostWithDep(post);
 
-        System.out.println("级联的职务： " + postList);
-
-        session.setAttribute("addStaffSecond", postList);
-
         return SUCCESS;
     }
 
-    // 二级联动的查询（查询职务）
+    // 添加职员页面的二级联动
+    public List<Post> getPostList() {
+        return postList;
+    }
+
+    public void setPostList(List<Post> postList) {
+        this.postList = postList;
+    }
+
+
+    public List<Department> getDepartmentList() {
+        return departmentList;
+    }
+
+    public void setDepartmentList(List<Department> departmentList) {
+        this.departmentList = departmentList;
+    }
 
 }

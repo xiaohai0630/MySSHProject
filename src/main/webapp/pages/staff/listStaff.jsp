@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" isELIgnored="false" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -37,16 +38,17 @@
 </table>
 
 <!-- 查询条件：马上查询 -->
-<form id="conditionFormId" action="/staff/staffAction_findAll" method="post">
+<form id="conditionFormId" action="" method="post">
     <table width="88%" border="0" style="margin: 20px;">
         <tr>
             <td width="80px">部门：</td>
             <td width="200px">
 
-                <select name="crmPost.crmDepartment.depId" onchange="changePost(this)">
+                <select name="findPostWithDepName" onchange="onChange(this.value)">
                     <option value="">--请选择部门--</option>
-                    <option value="ee050687bd1a4455a153d7bbb7000001">教学部</option>
-                    <option value="ee050687bd1a4455a153d7bbb7000002">咨询部</option>
+                    <c:forEach items="${sessionScope.allDep}" var="dep">
+                        <option>${dep.depName}</option>
+                    </c:forEach>
                 </select>
 
             </td>
@@ -55,9 +57,6 @@
 
                 <select name="crmPost.postId" id="postSelectId">
                     <option value="">--请选择职务--</option>
-                    <option value="ee050687bd1a4455a153d7bbb7000003">总监</option>
-                    <option value="ee050687bd1a4455a153d7bbb7000004">讲师</option>
-                    <option value="ee050687bd1a4455a153d7bbb7000005">主管</option>
                 </select>
 
             </td>
@@ -118,21 +117,55 @@
 
 </table>
 
+<script type="application/javascript">
+    function onChange(value) {
+        //输出value的值
+        console.log(value);
+        //根据value的值发送请求,获取二级列表的json数据
+        var data = new FormData();
+        data.append("findPostWithDepName", value);
 
-<%-- 
-<table border="0" cellspacing="0" cellpadding="0" align="center">
-  <tr>
-    <td align="right">
-    	<span>第1/3页</span>
-        <span>
-        	<a href="#">[首页]</a>&nbsp;&nbsp;
-            <a href="#">[上一页]</a>&nbsp;&nbsp;
-            <a href="#">[下一页]</a>&nbsp;&nbsp;
-            <a href="#">[尾页]</a>
-        </span>
-    </td>
-  </tr>
-</table>
---%>
+        var xhr = new XMLHttpRequest();
+        xhr.withCredentials = true;
+
+        xhr.addEventListener("readystatechange", function () {
+            if (this.readyState === 4) {
+                console.log(this.responseText);
+                //对请求回来的数据进行解析
+                json = eval('(' + this.responseText + ')');
+
+                //获取服务器的标签
+                serverSelect = document.getElementById("postSelectId");
+                //获取option标签
+                optionEle = serverSelect.getElementsByTagName("option");
+                //获取option的数量
+                length = optionEle.length;
+                //使用循环清空所有option标签
+                for (var i = 0; i < length - 1; i++) {
+                    serverSelect.removeChild(optionEle[1]);
+                }
+                //将json数据插入到option中
+                for (var i = 0; i < json.length; i++) {
+                    //创建一个option标签
+                    option = document.createElement("option");
+                    //设置value属性
+                    option.setAttribute("value", json[i].postID);
+                    //设置文本信息
+                    text = document.createTextNode(json[i].postName);
+                    //把文本信息添加到option标签中
+                    option.appendChild(text);
+                    //把option标签添加到servers标签中
+                    serverSelect.appendChild(option);
+                }
+
+            }
+        });
+
+        xhr.open("POST", "staffAction_findPost.action");
+        xhr.send(data);
+    }
+
+</script>
+
 </body>
 </html>

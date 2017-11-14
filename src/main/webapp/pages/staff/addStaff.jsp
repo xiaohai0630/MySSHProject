@@ -11,98 +11,7 @@
 
     <script type="text/javascript" src="/js/jquery-3.2.1.js"></script>
 
-    <%--<script type="text/javascript">--%>
 
-    <%--&lt;%&ndash;二级联动&ndash;%&gt;--%>
-    <%--function showPost() {--%>
-
-    <%--var depName = document.getElementById("post").value;--%>
-    <%--var url = "staffAction_findPost.action";--%>
-
-    <%--$.ajax({--%>
-    <%--type: "POST",--%>
-    <%--url: url,--%>
-    <%--data: {--%>
-    <%--findPostWithDepName: depName--%>
-    <%--},--%>
-    <%--dataType: "JSON",--%>
-    <%--success: function (data) {--%>
-
-    <%--console.log(data);--%>
-
-    <%--for (var i = 0; i < data.length; i++) {--%>
-    <%--$("#postSelectId").append("<option>" + data[i].postName + "</option>")--%>
-    <%--}--%>
-
-    <%--}--%>
-
-    <%--})--%>
-
-    <%--}--%>
-
-    <%--</script>--%>
-
-    <%--二级联动--%>
-    <script type="application/javascript">
-
-        function onChange(value) {
-
-            // 输出value的值
-            console.log(value);
-
-            // 根据value的值发送请求，获取职务列表的json数据
-            var data = new FormData();
-            data.append("depID", value);
-
-            var xhr = new XMLHttpRequest();
-            xhr.withCredentials = true;
-
-            xhr.addEventListener("readystatechange", function () {
-
-                if (this.readyState === 4) {
-                    // 对请求回来的数据进行解析
-                    json = eval('(' + this.responseText + ')');
-
-                    // 获取服务器的标签
-                    serverSelect = document.getElementById("post");
-
-                    // 获取option标签
-                    optionELe = serverSelect.getElementsByTagName("option");
-
-                    // 获取option的数量
-                    length = optionELe.length;
-
-                    // 使用查询清空所有的option标签
-                    for (var i = 0; i < length - 1; i++) {
-                        serverSelect.removeChild(optionELe[1]);
-                    }
-
-                    // 将json查询插入到option中
-                    for (var i = 0;i <json.length;i++){
-                        // 创建一个option标签
-                        option = document.createElement("option");
-
-                        // 设置value属性
-                        option.setAttribute("value",json[i].postID);
-
-                        // 设置文本信息
-                        text = document.createTextNode(json[i].postName)
-
-                        // 把文本信息添加到option标签中
-                        option.appendChild(text);
-
-                        // 把option标签添加到servers标签中
-                        serverSelect.appendChild(option);
-                    }
-
-                }
-
-            });
-            xhr.open("POST","staffAction_findPost.action");
-            xhr.send(data);
-        }
-
-    </script>
 
 </head>
 
@@ -164,9 +73,6 @@
             <td width="62%">
                 <select id="postSelectId" name="crmPost.postId">
                     <option>----请--选--择----</option>
-                    <%--<s:iterator value="postList" var="p">--%>
-                        <%--<option>${p.postName}</option>--%>
-                    <%--</s:iterator>--%>
                 </select>
             </td>
         </tr>
@@ -182,6 +88,73 @@
     </table>
 
 </form>
+
+
+<%--二级联动--%>
+<script type="application/javascript">
+
+    function onChange(value) {
+
+        // 输出value的值
+        console.log(value);
+
+        // 根据value的值（部门名称）发送请求，获取职务列表的json数据
+        var data = new FormData();
+        data.append("findPostWithDepName", value);
+
+        var xhr = new XMLHttpRequest();
+        xhr.withCredentials = true;
+
+        xhr.addEventListener("readystatechange", function () {
+
+            if (this.readyState === 4) {
+                // 对请求回来的数据进行解析
+                json = eval('(' + this.responseText + ')');
+
+                console.log(json);
+
+                // 获取下拉列表的标签
+                serverSelect = document.getElementById("postSelectId");
+
+                // 获取option标签
+                optionELe = serverSelect.getElementsByTagName("option");
+
+                // 获取option的数量
+                length = optionELe.length;
+
+                // 使用查询清空所有的option标签
+                for (var i = 0; i < length - 1; i++) {
+                    serverSelect.removeChild(optionELe[1]);
+                }
+
+                // 将json查询插入到option中
+                for (var i = 0; i < json.length; i++) {
+                    // 创建一个option标签
+                    option = document.createElement("option");
+
+                    // 设置value属性
+                    option.setAttribute("value", json[i].postID);
+
+                    // 设置文本信息
+                    text = document.createTextNode(json[i].postName);
+
+                    // 把文本信息添加到option标签中
+                    option.appendChild(text);
+
+                    // 把option标签添加到servers标签中
+                    serverSelect.appendChild(option);
+                }
+
+            }
+
+        });
+        xhr.open("POST", "staffAction_findPost.action");
+        xhr.send(data);
+    }
+
+</script>
 </body>
+
+
 
 </html>
