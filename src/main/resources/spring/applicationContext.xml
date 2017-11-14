@@ -18,16 +18,13 @@
 
     <!--c3p0连接-->
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-        <!--配置数据库四大属性-->
-
         <property name="driverClass" value="com.mysql.cj.jdbc.Driver"/>
         <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/sshproject"/>
         <property name="user" value="root"/>
         <property name="password" value="123456"/>
     </bean>
 
-    <!--初始化SessionFactory对象
-        需要hibernate5包下的LocalSessionFactoryBean-->
+    <!--初始化SessionFactory对象，需要hibernate5包下的LocalSessionFactoryBean-->
     <bean id="sessionFactory"
           class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
 
@@ -57,8 +54,7 @@
 
         <!--声明切点-->
         <!--dao的实现类的包impl中的所有类的所有方法-->
-        <aop:pointcut id="userPointCut"
-                      expression="execution(* com.lanou.*.dao.impl.*.*(..))"/>
+        <aop:pointcut id="userPointCut" expression="execution(* com.lanou.*.dao.impl.*.*(..))"/>
 
         <!--配置顾问-->
         <aop:advisor advice-ref="userAdvisor" pointcut-ref="userPointCut"/>

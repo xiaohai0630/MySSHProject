@@ -15,7 +15,7 @@
         <property name="remark" type="java.lang.String"></property>
 
         <!--一个课程有多个班级，双向1～n关系-->
-        <set name="classes" cascade="all">
+        <set name="classes">
             <key column="courseTypeID"></key>
             <one-to-many class="com.lanou.teaching_dep.domain.Classes"></one-to-many>
         </set>

@@ -19,7 +19,7 @@
 
         <!--和职务表之间的关系-->
         <many-to-one name="post" column="postID"
-                     class="com.lanou.hr_dep.domain.Post" lazy="false" cascade="none"></many-to-one>
+                     class="com.lanou.hr_dep.domain.Post" lazy="false"></many-to-one>
 
     </class>
 

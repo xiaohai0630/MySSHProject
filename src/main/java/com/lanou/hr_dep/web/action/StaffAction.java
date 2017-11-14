@@ -106,7 +106,6 @@ public class StaffAction extends BaseAction<Staff> {
         return "findPost";
     }
 
-
     @ResponseBody
     @RequestMapping(value = "/findPostSecond")
     public List<Post> findPostSecond(){

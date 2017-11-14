@@ -13,5 +13,4 @@
         <property name="departmentDao" ref="depDao"/>
     </bean>
 
-
 </beans>

@@ -12,11 +12,11 @@
         <property name="postName" type="java.lang.String"></property>
 
         <!--和部门表之间的关系：一对多双向-->
-        <many-to-one name="department" column="depID" cascade="all"
+        <many-to-one name="department" column="depID"
                      class="com.lanou.hr_dep.domain.Department" lazy="false"></many-to-one>
 
-        <!--和员工表之间的关系，级联关系：所有-->
-        <set name="staffSet" cascade="all">
+        <!--和员工表之间的关系-->
+        <set name="staffSet">
             <key column="postID"></key>
             <one-to-many class="com.lanou.hr_dep.domain.Staff"></one-to-many>
         </set>
