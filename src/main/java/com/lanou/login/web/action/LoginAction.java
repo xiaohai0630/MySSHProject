@@ -26,6 +26,11 @@ public class LoginAction extends BaseAction<Staff> {
      * 错误返回ERROR，返回登录页面并提示错误
      */
 
+    // 修改密码－－旧的用户名、新密码、确认密码
+    private String oldPassword;
+    private String newPassword;
+    private String reNewPassword;
+
     // 接收页面的数据
     private Staff staff = new Staff();
 
@@ -51,7 +56,7 @@ public class LoginAction extends BaseAction<Staff> {
 
                 // 将数据库中查询到的员工信息存在session中，并且跳转主页面
                 ActionContext.getContext().getSession().put("staffMsg", login.get(0));
-                // 清楚错误信息
+                // 清除错误信息
                 session.removeAttribute("loginError");
                 return SUCCESS;
             }
@@ -73,12 +78,88 @@ public class LoginAction extends BaseAction<Staff> {
         return ERROR;
     }
 
+    // 修改密码
+    public String editPassword() {
+        // 当前登录的员工
+        Staff oldStaff = (Staff) session.getAttribute("staffMsg");
+
+        try {
+            // 原始密码不一致
+            if (!oldStaff.getLoginPwd().equals(oldPassword)) {
+
+                session.setAttribute("editPwdError", "原始密码不正确");
+
+                return "editPwdError";
+            }
+            if (newPassword.equals("")){
+                session.setAttribute("editPwdError","新密码为空");
+                return "editPwdError";
+            }
+            if (reNewPassword.equals("")){
+                session.setAttribute("editPwdError","确认密码为空");
+                return "editPwdError";
+            }
+
+            // 新密码和确认密码是否一致
+            if (newPassword.equals(reNewPassword) && reNewPassword.equals(newPassword)) {
+                // 新的员工信息
+                Staff changeStaff = oldStaff;
+                changeStaff.setLoginPwd(newPassword);
+
+                loginService.editPwd(changeStaff);
+                // 清除错误信息
+                session.invalidate();
+                // 修改密码成功之后跳转登录页面重新登录
+                return "reLogin";
+            }
+            session.setAttribute("editPwdError", "两次密码不一致");
+            return "editPwdError";
+
+        } catch (Exception e) {
+            // 新密码或者确认密码是空就报错
+            session.setAttribute("editPwdError", "新密码为空");
+            return "editPwdError";
+        }
+
+    }
+
+    // 从修改密码页面返回主页面
+    public String returnFrame() {
+        // 清除错误信息
+        session.removeAttribute("editPwdError");
+        return "returnFrame";
+    }
+
     public Staff getStaff() {
         return staff;
     }
 
     public void setStaff(Staff staff) {
         this.staff = staff;
+    }
+
+    public String getOldPassword() {
+        return oldPassword;
+    }
+
+    public void setOldPassword(String oldPassword) {
+        this.oldPassword = oldPassword;
+    }
+
+    public String getNewPassword() {
+        return newPassword;
+    }
+
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
+    }
+
+    public String getReNewPassword() {
+        return reNewPassword;
+    }
+
+    public void setReNewPassword(String reNewPassword) {
+        this.reNewPassword = reNewPassword;
     }
 
 }

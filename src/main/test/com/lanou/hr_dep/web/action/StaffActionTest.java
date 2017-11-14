@@ -1,6 +1,5 @@
 package com.lanou.hr_dep.web.action;
 
-import com.lanou.hr_dep.dao.StaffDao;
 import com.lanou.hr_dep.service.StaffService;
 import org.junit.Before;
 import org.junit.Test;

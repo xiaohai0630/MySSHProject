@@ -15,7 +15,7 @@
         <property name="depName" type="java.lang.String"></property>
 
         <!--和职务表之间的关系：set指向集合，级联关系：保存和更新-->
-        <set name="postSet" cascade="save-update">
+        <set name="postSet" cascade="all">
             <!--外键-->
             <key column="depID"></key>
             <one-to-many class="com.lanou.hr_dep.domain.Post"></one-to-many>

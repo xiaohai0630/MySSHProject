@@ -13,31 +13,6 @@
 
     <script type="text/javascript">
 
-        function showPostSecond() {
-            var depName = document.getElementById("post").value;
-
-            $.ajax({
-                type:"POST",
-                url:"staffAction_findPost",
-                data:{
-                    findPostWithDepName:depName
-                },
-                dataType: "JSON",
-                success: function (data) {
-
-                    alert(data.toString());
-
-                    for (var i = 0; i < data.length; i++) {
-                        $("#postSelectId").append("<option>" + data[i].postName + "</option>")
-                    }
-
-                }
-
-            })
-
-        }
-
-
         <%--二级联动--%>
         function showPost() {
 
@@ -112,7 +87,7 @@
         <tr>
             <td width="10%">所属部门：</td>
             <td width="20%">
-                <select name="findPostWithDepName" onchange="showPostSecond()" id="post">
+                <select name="findPostWithDepName" onchange="showPost(this.value)" id="post">
                     <option value="">----请--选--择----</option>
                     <c:forEach items="${sessionScope.allDep}" var="dep">
                         <option>${dep.depName}</option>

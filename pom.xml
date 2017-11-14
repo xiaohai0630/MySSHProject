@@ -77,6 +77,30 @@
             <version>4.3.12.RELEASE</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.springframework/spring-core -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>4.3.7.RELEASE</version>
+        </dependency>
+
+        <!--spring－orm：和spring的版本要对应-->
+        <!-- https://mvnrepository.com/artifact/org.springframework/spring-orm -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>4.3.12.RELEASE</version>
+        </dependency>
+
+        <!-- Spring在WEB上的MVC框架上加上这个包 -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>2.5.6</version>
+            <type>jar</type>
+            <scope>compile</scope>
+        </dependency>
+
         <!--struts-->
         <!-- https://mvnrepository.com/artifact/org.apache.struts/struts2-core -->
         <dependency>
@@ -100,12 +124,11 @@
             <version>2.5.13</version>
         </dependency>
 
-        <!--spring－orm：和spring的版本要对应-->
-        <!-- https://mvnrepository.com/artifact/org.springframework/spring-orm -->
+        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-orm</artifactId>
-            <version>4.3.12.RELEASE</version>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>2.8.8</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
@@ -121,15 +144,6 @@
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
             <version>1.2</version>
-        </dependency>
-
-        <!-- Spring在WEB上的MVC框架上加上这个包 -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-            <version>2.5.6</version>
-            <type>jar</type>
-            <scope>compile</scope>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.springframework/spring-test -->

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" isELIgnored="false" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -23,6 +24,9 @@
             text-align: right;
         }
     </style>
+
+    <script src="/js/jquery-3.2.1.js" type="text/javascript"></script>
+
     <script type="text/javascript">
         function closeWindow(flag) {
             if (flag == 'change') {
@@ -31,11 +35,26 @@
             parent.window.opener = null;
             parent.close();
         }
+
+        // 返回首页
+        function returnFrame() {
+
+            var url = "loginAction_returnFrame.action";
+
+            $.ajax({
+                type: "POST",
+                url: url,
+                dataType: "JSON"
+            })
+
+        }
+
     </script>
+
 </head>
 
 <body class="updpwd">
-<form action="/crm2/staff/staffAction_editPassword.action" method="post">
+<form action="loginAction_editPassword.action" method="post">
     <table style="width: 200px">
         <tr>
             <td colspan="2">
@@ -58,11 +77,20 @@
             <td colspan="2">
                 <input type="submit" value="修改" class="login_btn"/>
 
-                <button type="reset" value="关闭" class="login_btn">关闭</button>
+                <button type="reset" value="关闭"
+                        class="login_btn"
+                        onclick="document.location='${pageContext.request.contextPath}/loginAction_returnFrame.action'">
+                    关闭
+                </button>
 
             </td>
         </tr>
     </table>
 </form>
+
+<h2>
+    ${sessionScope.editPwdError}
+</h2>
+
 </body>
 </html>

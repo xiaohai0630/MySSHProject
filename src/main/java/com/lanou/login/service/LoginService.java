@@ -8,5 +8,9 @@ import java.util.List;
  */
 public interface LoginService {
 
+    // 登录
     List<Staff> loginByStaff(Staff staff);
+
+    // 修改密码
+    void editPwd(Staff staff);
 }

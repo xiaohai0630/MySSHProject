@@ -1,6 +1,8 @@
 package com.lanou.login.service.impl;
 
+import com.lanou.hr_dep.dao.StaffDao;
 import com.lanou.hr_dep.domain.Staff;
+import com.lanou.hr_dep.service.StaffService;
 import com.lanou.login.dao.LoginDao;
 import com.lanou.login.service.LoginService;
 
@@ -24,6 +26,11 @@ public class LoginServiceImpl implements LoginService {
                 staff.getLoginName(), staff.getLoginPwd());
 
         return staffs;
+    }
+
+    // 修改密码
+    public void editPwd(Staff staff) {
+        loginDao.saveOrUpdate(staff);
     }
 
 }

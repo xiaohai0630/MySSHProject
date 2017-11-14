@@ -13,10 +13,21 @@
         <action name="loginAction_*" class="loginAction" method="{1}">
 
             <result name="success">/pages/frame.jsp</result>
+            <!--登录失败-->
             <result name="error">/pages/login.jsp</result>
 
+            <!--修改密码之后重新登录-->
+            <result name="reLogin" type="redirectAction">
+                <param name="actionName">loginAction_logout</param>
+            </result>
+
+            <!--返回主页面（修改密码时）-->
+            <result name="returnFrame">/pages/frame/right.jsp</result>
+            <!--修改密码出错-->
+            <result name="editPwdError">/pages/staff/updPwd.jsp</result>
+
             <!--struts2.5版本以后：需要规定可以跳转的方法？-->
-            <allowed-methods>login,logout</allowed-methods>
+            <allowed-methods>login,logout,returnFrame,editPassword</allowed-methods>
         </action>
 
     </package>

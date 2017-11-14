@@ -28,6 +28,9 @@ public class StaffAction extends BaseAction<Staff> {
     // 获取页面信息
     private Staff staff = new Staff();
 
+    // 全局变量
+    private List<Post> postList;
+
     public Staff getModel() {
         return staff;
     }
@@ -93,8 +96,9 @@ public class StaffAction extends BaseAction<Staff> {
         Post post = new Post();
         post.setDepartment(departments.get(0));
 
-        // 根据部门查询到的职务
-        List<Post> postList = postService.findPostWithDep(post);
+        // 根据部门查询到的职务（全局变量？）
+        postList = postService.findPostWithDep(post);
+
         System.out.println("级联的职务： " + postList);
 
         session.setAttribute("addStaffSecond", postList);
