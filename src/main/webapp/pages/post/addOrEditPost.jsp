@@ -29,7 +29,8 @@
                 <img src="${pageContext.request.contextPath}/images/button/save.gif"/>
             </a>
             <!-- 执行js，进行返回 -->
-            <a href="javascript:void(0)" onclick="window.history.go(-1)"><img
+            <a href="javascript:void(0)"
+               onclick="document.location='${pageContext.request.contextPath}/postAction_returnListPost'"><img
                     src="${pageContext.request.contextPath}/images/button/tuihui.gif"/></a>
 
         </td>
@@ -40,47 +41,35 @@
 <form action="postAction_addOrEditPost.action" method="post">
     <table width="88%" border="0" class="emp_table" style="width:80%;">
 
-        <c:if test="${empty sessionScope.addOrEditPost}">
-            <tr>
-                <td>选择部门：</td>
-                <td>
-                    <select name="addOrEditPost_depName">
-                        <option value="">----请--选--择----</option>
-                        <c:forEach items="${sessionScope.allDep}" var="dep">
-                            <option>${dep.depName}</option>
-                        </c:forEach>
-                    </select>
-                </td>
-                <td>职务：</td>
+        <tr>
+            <td>选择部门：</td>
+            <td>
+                <select name="department.depID">
+                    <option value="-1">----请--选--择----</option>
+                    <c:forEach items="${sessionScope.allDep}" var="dep">
+                        <c:if test="${sessionScope.addOrEditPost.department.depName == dep.depName}">
+                            <option selected="selected" value="${dep.depID}">${dep.depName}</option>
+                        </c:if>
+                        <c:if test="${sessionScope.addOrEditPost.department.depName != dep.depName}">
+                            <option value="${dep.depID}">${dep.depName}</option>
+                        </c:if>
+                    </c:forEach>
+                </select>
+            </td>
+            <td>职务：</td>
+            <td>
+                <%--显示职务的名称，隐藏的属性是职务的id--%>
+                <input type="text" name="postName" value="${sessionScope.addOrEditPost.postName}"/>
+                <input type="hidden" name="postID" value="${sessionScope.addOrEditPost.postID}"/>
 
-                <td><input type="text" name="postName"/></td>
-            </tr>
-        </c:if>
-
-        <c:if test="${not empty sessionScope.addOrEditPost}">
-            <tr>
-                <td>选择部门：</td>
-                <td>
-                    <select name="addOrEditPost_depName">
-                        <option value="">----请--选--择----</option>
-                        <c:forEach items="${sessionScope.allDep}" var="dep">
-                            <c:if test="${sessionScope.addOrEditPost.department.depName == dep.depName}">
-                                <option selected="selected">${dep.depName}</option>
-                            </c:if>
-                            <c:if test="${sessionScope.addOrEditPost.department.depName != dep.depName}">
-                                <option>${dep.depName}</option>
-                            </c:if>
-                        </c:forEach>
-                    </select>
-                </td>
-                <td>职务：</td>
-                <td><input type="text" name="postName" value="${sessionScope.addOrEditPost.postName}"/></td>
-            </tr>
-        </c:if>
+            </td>
+        </tr>
 
     </table>
 
 </form>
+
+<h2>${sessionScope.wrongChoose}</h2>
 
 </body>
 </html>

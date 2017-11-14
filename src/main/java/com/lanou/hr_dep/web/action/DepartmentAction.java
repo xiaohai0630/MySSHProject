@@ -17,7 +17,7 @@ import java.util.List;
  */
 @Controller("departmentAction")
 @Scope("prototype")
-public class DepartmentAction extends BaseAction<Department> {
+public class DepartmentAction extends BaseAction<Department,DepartmentService> {
 
     // 从页面获取的数据
     private Department department = new Department();
@@ -80,14 +80,6 @@ public class DepartmentAction extends BaseAction<Department> {
             return "edit";
         }
         return "addOrEdit";
-    }
-
-    public DepartmentService getDepartmentService() {
-        return departmentService;
-    }
-
-    public void setDepartmentService(DepartmentService departmentService) {
-        this.departmentService = departmentService;
     }
 
     public Department getDepartment() {

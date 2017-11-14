@@ -35,20 +35,6 @@
             parent.window.opener = null;
             parent.close();
         }
-
-        // 返回首页
-        function returnFrame() {
-
-            var url = "loginAction_returnFrame.action";
-
-            $.ajax({
-                type: "POST",
-                url: url,
-                dataType: "JSON"
-            })
-
-        }
-
     </script>
 
 </head>

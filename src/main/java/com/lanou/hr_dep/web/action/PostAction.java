@@ -19,25 +19,7 @@ import java.util.List;
  */
 @Controller("postAction")
 @Scope("prototype")
-public class PostAction extends BaseAction<Post> {
-
-    // 获取页面信息
-    private Post post = new Post();
-
-    public Post getModel() {
-        return post;
-    }
-
-    // 获取下拉列表中部门的名称
-    private String addOrEditPost_depName;
-
-    public String getAddOrEditPost_depName() {
-        return addOrEditPost_depName;
-    }
-
-    public void setAddOrEditPost_depName(String addOrEditPost_depName) {
-        this.addOrEditPost_depName = addOrEditPost_depName;
-    }
+public class PostAction extends BaseAction<Post, PostService> {
 
     @Resource
     private PostService postService;
@@ -68,62 +50,42 @@ public class PostAction extends BaseAction<Post> {
         // 判断是添加还是修改
         String postID = request.getParameter("addOrEditPost");
 
+        // 如果postID等于空，说明点击的是添加，不需要显示原有的信息
         if (postID == null) {
-            // 添加
-            Department department = new Department();
-            department.setDepName(addOrEditPost_depName);
-
-            // 查询部门id
-            List<Department> departments = departmentService.findIDByDep(department);
-
-            // 职务的完整信息
-            post.setDepartment(departments.get(0));
-
-            // 需要修改的职务的id存在这个session中
-            if (session.getAttribute("addOrEditPost") != null){
-
-                // 找职务的id
-                Post edit = (Post) session.getAttribute("addOrEditPost");
-                post.setPostID(edit.getPostID());
-
-                // 清除session中职务信息
-                session.removeAttribute("addOrEditPost");
+            // 如果选中的是请选择，提示重新选择
+            if (getModel().getDepartment().getDepID() == -1){
+                session.setAttribute("wrongChoose","部门名称不能为请选择！");
+                return "wrongChoose";
             }
+            // 清除session中职务信息和选择错误信息
+            session.removeAttribute("addOrEditPost");
+            session.removeAttribute("wrongChoose");
+
             // 添加
-            postService.addOrEditPost(post);
+            postService.addOrEditPost(getModel());
 
         } else {
-            // 修改
+            // 将这个职务的id赋值给post
             Post post = new Post();
             post.setPostID(Integer.valueOf(postID));
 
             // 清除request中的信息
             request.removeAttribute("addOrEditPost");
 
-            // 找到这个id对应的职务
+            // 找到这个id对应的职务（包含部门的信息）
             Post postByID = postService.findPostByID(post);
 
-            // 把这个部门存在session中，用来在页面显示
+            // 把这个职务存在session中，用来在页面显示
             session.setAttribute("addOrEditPost", postByID);
             return "edit";
         }
         return "addOrEdit";
     }
 
-    public PostService getPostService() {
-        return postService;
-    }
-
-    public void setPostService(PostService postService) {
-        this.postService = postService;
-    }
-
-    public DepartmentService getDepartmentService() {
-        return departmentService;
-    }
-
-    public void setDepartmentService(DepartmentService departmentService) {
-        this.departmentService = departmentService;
+    // 从添加或编辑页面返回，需要清除session中的信息，下次再进入的时候不会显示默认信息
+    public String returnListPost() {
+        session.removeAttribute("addOrEditPost");
+        return "returnListPost";
     }
 
 }

@@ -23,7 +23,7 @@ import java.util.List;
  */
 @Controller("staffAction")
 @Scope("prototype")
-public class StaffAction extends BaseAction<Staff> {
+public class StaffAction extends BaseAction<Staff,StaffService> {
 
     // 获取页面信息
     private Staff staff = new Staff();

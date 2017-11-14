@@ -15,7 +15,14 @@
             <result name="addOrEdit" type="redirectAction">
                 <param name="actionName">postAction_listPost</param>
             </result>
-            <allowed-methods>listPost,addOrEditPost</allowed-methods>
+            <!--添加和修改的时候返回，需要清除session中的信息-->
+            <result name="returnListPost" type="redirectAction">
+                <param name="actionName">postAction_listPost</param>
+            </result>
+            <!--选择部门的时候选的是请选择-->
+            <result name="wrongChoose">/pages/post/addOrEditPost.jsp</result>
+
+            <allowed-methods>listPost,addOrEditPost,returnListPost</allowed-methods>
         </action>
 
     </package>

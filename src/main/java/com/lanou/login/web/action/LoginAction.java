@@ -2,6 +2,7 @@ package com.lanou.login.web.action;
 
 import com.lanou.base.BaseAction;
 import com.lanou.hr_dep.domain.Staff;
+import com.lanou.hr_dep.service.StaffService;
 import com.lanou.login.service.LoginService;
 import com.opensymphony.xwork2.ActionContext;
 import org.apache.struts2.ServletActionContext;
@@ -18,7 +19,7 @@ import java.util.List;
  */
 @Controller("loginAction")
 @Scope("prototype")
-public class LoginAction extends BaseAction<Staff> {
+public class LoginAction extends BaseAction<Staff,StaffService> {
     /**
      * 员工登录：
      * 接收页面传递的参数Staff，和数据库中存的信息进行比较
@@ -31,13 +32,6 @@ public class LoginAction extends BaseAction<Staff> {
     private String newPassword;
     private String reNewPassword;
 
-    // 接收页面的数据
-    private Staff staff = new Staff();
-
-    public Staff getModel() {
-        return staff;
-    }
-
     // session
     HttpServletRequest request = ServletActionContext.getRequest();
     HttpSession session = request.getSession();
@@ -49,8 +43,9 @@ public class LoginAction extends BaseAction<Staff> {
     public String login() {
 
         try {
+            // getModel()直接获取页面上的员工的信息
             // 判断是否有这个员工，集合大于0，有这个用户
-            List<Staff> login = loginService.loginByStaff(staff);
+            List<Staff> login = loginService.loginByStaff(getModel());
 
             if (login.size() > 0) {
 
@@ -60,11 +55,9 @@ public class LoginAction extends BaseAction<Staff> {
                 session.removeAttribute("loginError");
                 return SUCCESS;
             }
-
             session.setAttribute("loginError", "用户名或密码不正确");
             return ERROR;
         } catch (Exception e) {
-
             session.setAttribute("loginError", "用户名或密码不正确");
             return ERROR;
         }
@@ -86,9 +79,7 @@ public class LoginAction extends BaseAction<Staff> {
         try {
             // 原始密码不一致
             if (!oldStaff.getLoginPwd().equals(oldPassword)) {
-
                 session.setAttribute("editPwdError", "原始密码不正确");
-
                 return "editPwdError";
             }
             if (newPassword.equals("")){
@@ -128,38 +119,6 @@ public class LoginAction extends BaseAction<Staff> {
         // 清除错误信息
         session.removeAttribute("editPwdError");
         return "returnFrame";
-    }
-
-    public Staff getStaff() {
-        return staff;
-    }
-
-    public void setStaff(Staff staff) {
-        this.staff = staff;
-    }
-
-    public String getOldPassword() {
-        return oldPassword;
-    }
-
-    public void setOldPassword(String oldPassword) {
-        this.oldPassword = oldPassword;
-    }
-
-    public String getNewPassword() {
-        return newPassword;
-    }
-
-    public void setNewPassword(String newPassword) {
-        this.newPassword = newPassword;
-    }
-
-    public String getReNewPassword() {
-        return reNewPassword;
-    }
-
-    public void setReNewPassword(String reNewPassword) {
-        this.reNewPassword = reNewPassword;
     }
 
 }
