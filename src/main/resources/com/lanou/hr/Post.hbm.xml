@@ -16,7 +16,7 @@
                      class="com.lanou.hr_dep.domain.Department" lazy="false"></many-to-one>
 
         <!--和员工表之间的关系-->
-        <set name="staffSet">
+        <set name="staffSet" inverse="true">
             <key column="postID"></key>
             <one-to-many class="com.lanou.hr_dep.domain.Staff"></one-to-many>
         </set>

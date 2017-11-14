@@ -14,7 +14,7 @@
         <property name="depName" type="java.lang.String"></property>
 
         <!--和职务表之间的关系：set指向集合-->
-        <set name="postSet">
+        <set name="postSet" inverse="true">
             <!--外键-->
             <key column="depID"></key>
             <one-to-many class="com.lanou.hr_dep.domain.Post"></one-to-many>

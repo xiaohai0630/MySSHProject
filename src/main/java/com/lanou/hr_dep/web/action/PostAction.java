@@ -85,6 +85,7 @@ public class PostAction extends BaseAction<Post, PostService> {
     // 从添加或编辑页面返回，需要清除session中的信息，下次再进入的时候不会显示默认信息
     public String returnListPost() {
         session.removeAttribute("addOrEditPost");
+        session.removeAttribute("wrongChoose");
         return "returnListPost";
     }
 
