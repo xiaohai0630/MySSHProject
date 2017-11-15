@@ -58,7 +58,7 @@
             <td width="10%">所属部门：</td>
             <td width="20%">
                 <select name="post.department.depName" onchange="onChange(this.value)" id="post">
-                    <option value="">----请--选--择----</option>
+                    <option value="-1">----请--选--择----</option>
                     <c:forEach items="${sessionScope.allDep}" var="dep">
                         <option>${dep.depName}</option>
                     </c:forEach>
@@ -69,7 +69,7 @@
             <td width="8%">职务：</td>
             <td width="62%">
                 <select id="postSelectId" name="post.postID">
-                    <option>----请--选--择----</option>
+                    <option value="-1">----请--选--择----</option>
                 </select>
             </td>
         </tr>
@@ -86,6 +86,8 @@
 
 </form>
 
+<%--验证的错误信息--%>
+<s:fielderror fieldName="staff.loginName"></s:fielderror>
 
 <%--二级联动--%>
 <script type="application/javascript">
@@ -124,22 +126,26 @@
                     serverSelect.removeChild(optionELe[1]);
                 }
 
-                // 将json查询插入到option中
-                for (var i = 0; i < json.length; i++) {
-                    // 创建一个option标签
-                    option = document.createElement("option");
+                if (json != null) {
 
-                    // 设置value属性
-                    option.setAttribute("value", json[i].postID);
+                    // 将json查询插入到option中
+                    for (var i = 0; i < json.length; i++) {
+                        // 创建一个option标签
+                        option = document.createElement("option");
 
-                    // 设置文本信息
-                    text = document.createTextNode(json[i].postName);
+                        // 设置value属性
+                        option.setAttribute("value", json[i].postID);
 
-                    // 把文本信息添加到option标签中
-                    option.appendChild(text);
+                        // 设置文本信息
+                        text = document.createTextNode(json[i].postName);
 
-                    // 把option标签添加到servers标签中
-                    serverSelect.appendChild(option);
+                        // 把文本信息添加到option标签中
+                        option.appendChild(text);
+
+                        // 把option标签添加到servers标签中
+                        serverSelect.appendChild(option);
+                    }
+
                 }
 
             }
@@ -151,7 +157,6 @@
 
 </script>
 </body>
-
 
 
 </html>

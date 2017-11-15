@@ -52,6 +52,11 @@ public class BaseAction<T, S> extends ActionSupport implements ModelDriven<T> {
         ActionContext.getContext().getSession().put(key, value);
     }
 
+    // 从session中清除内容
+    public void sessionRemove(String key){
+        ActionContext.getContext().getSession().remove(key);
+    }
+
     public void applicationPut(String key, Object value) {
         ActionContext.getContext().getApplication().put(key, value);
     }

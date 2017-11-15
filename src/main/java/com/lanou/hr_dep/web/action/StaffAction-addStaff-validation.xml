@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC
+        "-//Apache Struts//XWork Validator 1.0.2//EN"
+        "http://struts.apache.org/dtds/xwork-validator-1.0.2.dtd">
+
+<validators>
+    <!--添加职员的验证-->
+    <!--姓名-->
+    <field name="staff.loginName">
+
+        <field-validator type="requiredstring">
+            <message>姓名不能为空</message>
+        </field-validator>
+
+        <!--regexExpression：正则表达式-->
+        <field-validator type="regex">
+            <param name="regexExpression">
+                <!-- a-z 是横线，不是波浪线！！！-->
+                <![CDATA[[a-zA-Z\u4e00-\u9fa5]{3,8}]]>
+            </param>
+            <!--出现param中的错误的时候的提示信息-->
+            <message>用户名应为3～8位的字母或汉字</message>
+        </field-validator>
+    </field>
+
+</validators>

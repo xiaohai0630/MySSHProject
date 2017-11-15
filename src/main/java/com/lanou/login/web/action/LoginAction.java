@@ -26,6 +26,8 @@ public class LoginAction extends BaseAction<Staff,StaffService> {
      * 正确返回SUCCESS，并跳转页面
      * 错误返回ERROR，返回登录页面并提示错误
      */
+    // 验证用
+    private Staff staff;
 
     // 修改密码－－旧的用户名、新密码、确认密码
     private String oldPassword;
@@ -119,6 +121,14 @@ public class LoginAction extends BaseAction<Staff,StaffService> {
         // 清除错误信息
         session.removeAttribute("editPwdError");
         return "returnFrame";
+    }
+
+    public Staff getStaff() {
+        return staff;
+    }
+
+    public void setStaff(Staff staff) {
+        this.staff = staff;
     }
 
 }

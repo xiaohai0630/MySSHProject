@@ -23,7 +23,6 @@ public class DepartmentAction extends BaseAction<Department, DepartmentService> 
 
     // 获取session
     HttpServletRequest request = ServletActionContext.getRequest();
-    HttpSession session = request.getSession();
 
     // 显示全部的部门信息
     public String listDepartment() {
@@ -32,10 +31,11 @@ public class DepartmentAction extends BaseAction<Department, DepartmentService> 
         List<Department> allDep = departmentService.findAllDep();
 
         // 存放全部的部门信息，用来在页面上显示
-        session.setAttribute("allDep", allDep);
+        sessionPut("allDep",allDep);
 
         // 清除部门的相关错误信息
-        session.removeAttribute("wrongDept");
+        sessionRemove("wrongDept");
+        sessionRemove("addOrEditDep");
 
         return "showAllDep";
     }
@@ -47,24 +47,22 @@ public class DepartmentAction extends BaseAction<Department, DepartmentService> 
         String depID = request.getParameter("addOrEditDep");
 
         if (depID == null) {
-            // 部门名称为空
-
             // 部门名称为空或者重名都提示错误
             if (getModel().getDepName().equals("")){
-                session.setAttribute("wrongDept","部门名称不能为空");
+                sessionPut("wrongDept","部门名称不能为空");
                 return "wrongDept";
             }
             List<Department> allDep = departmentService.findAllDep();
             for (int i = 0; i < allDep.size(); i++) {
 
                 if (allDep.get(i).getDepName().equals(getModel().getDepName())){
-                    session.setAttribute("wrongDept","部门名称不能重复");
+                    sessionPut("wrongDept","部门名称不能重复");
                     return "wrongDept";
                 }
 
             }
             // 清除session中的部门信息
-            session.removeAttribute("addOrEditDep");
+            sessionRemove("addOrEditDep");
             // 保存或更新
             departmentService.saveOrUpdate(getModel());
         } else {
@@ -79,7 +77,7 @@ public class DepartmentAction extends BaseAction<Department, DepartmentService> 
             Department depByID = departmentService.findDepByID(dep);
 
             // 把这个部门存在session中，用来在页面上显示部门名称
-            session.setAttribute("addOrEditDep", depByID);
+            sessionPut("addOrEditDep", depByID);
             return "edit";
         }
         return "addOrEdit";
@@ -87,9 +85,9 @@ public class DepartmentAction extends BaseAction<Department, DepartmentService> 
 
     // 从添加部门页面返回
     public String returnListDept(){
-        // 清除错误信息
-        session.removeAttribute("wrongDept");
-
+        // 清除错误信息和修改时候显示的当前部门信息
+        sessionRemove("wrongDept");
+        sessionRemove("addOrEditDep");
         return "returnListDept";
     }
 

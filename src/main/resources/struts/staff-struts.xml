@@ -5,15 +5,17 @@
         "http://struts.apache.org/dtds/struts-2.5.dtd">
 
 <struts>
-
-    <package name="staff" extends="json-default">
+    <package name="staff" extends="json-default,struts-default">
 
         <action name="staffAction_*" class="staffAction" method="{1}">
             <result name="showAllStaff">/pages/staff/{1}.jsp</result>
+
+            <!--添加职员-->
             <result name="addStaff" type="redirectAction">
                 <param name="actionName">staffAction_listStaff</param>
             </result>
 
+            <!--部门和职务的二级联动-->
             <result name="success" type="json">
                 <!--指定需要转化为json数据的数据类型-->
                 <param name="root">postList</param>

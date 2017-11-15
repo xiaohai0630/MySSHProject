@@ -144,21 +144,25 @@
                 for (var i = 0; i < length - 1; i++) {
                     serverSelect.removeChild(optionEle[1]);
                 }
-                //将json数据插入到option中
-                for (var i = 0; i < json.length; i++) {
-                    //创建一个option标签
-                    option = document.createElement("option");
-                    //设置value属性
-                    option.setAttribute("value", json[i].postID);
-                    //设置文本信息
-                    text = document.createTextNode(json[i].postName);
-                    //把文本信息添加到option标签中
-                    option.appendChild(text);
-                    //把option标签添加到servers标签中
-                    serverSelect.appendChild(option);
+                if (json != null) {
+                    //将json数据插入到option中
+                    for (var i = 0; i < json.length; i++) {
+                        //创建一个option标签
+                        option = document.createElement("option");
+                        //设置value属性
+                        option.setAttribute("value", json[i].postID);
+                        //设置文本信息
+                        text = document.createTextNode(json[i].postName);
+                        //把文本信息添加到option标签中
+                        option.appendChild(text);
+                        //把option标签添加到servers标签中
+                        serverSelect.appendChild(option);
+                    }
+
                 }
 
             }
+
         });
 
         xhr.open("POST", "staffAction_findPost.action");
