@@ -25,7 +25,7 @@
 
         <td width="57%" align="right">
             <%--高级查询 --%>
-            <a href="javascript:void(0)" onclick="condition()"><img
+            <a href="javascript:void(0)" onclick="document.forms[0].submit()"><img
                     src="${pageContext.request.contextPath}/images/button/gaojichaxun.gif"/></a>
             <%--员工注入 --%>
             <a href="/pages/staff/addStaff.jsp">
@@ -38,16 +38,16 @@
 </table>
 
 <!-- 查询条件：马上查询 -->
-<form id="conditionFormId" action="" method="post">
+<form id="conditionFormId" action="staffAction_findStaffWithMsg.action" method="post">
     <table width="88%" border="0" style="margin: 20px;">
         <tr>
             <td width="80px">部门：</td>
             <td width="200px">
 
-                <select name="post.department.depName" onchange="onChange(this.value)">
+                <select name="post.department.depID" onchange="onChange(this.value)">
                     <option value="">--请选择部门--</option>
                     <c:forEach items="${sessionScope.allDep}" var="dep">
-                        <option>${dep.depName}</option>
+                        <option value="${dep.depID}">${dep.depName}</option>
                     </c:forEach>
                 </select>
 
@@ -127,7 +127,7 @@
         console.log(value);
         //根据value的值发送请求,获取二级列表的json数据
         var data = new FormData();
-        data.append("post.department.depName", value);
+        data.append("post.department.depID", value);
 
         var xhr = new XMLHttpRequest();
         xhr.withCredentials = true;
@@ -173,6 +173,59 @@
         xhr.send(data);
     }
 
+    function condition(value) {
+
+        //输出value的值
+        console.log(value);
+        //根据value的值发送请求,获取二级列表的json数据
+        var data = new FormData();
+        data.append("post.department.depName", value);
+
+        var xhr = new XMLHttpRequest();
+        xhr.withCredentials = true;
+
+        xhr.addEventListener("readystatechange", function () {
+            if (this.readyState === 4) {
+                console.log(this.responseText);
+                //对请求回来的数据进行解析
+                json = eval('(' + this.responseText + ')');
+
+                //获取服务器的标签
+                serverSelect = document.getElementById("postSelectId");
+                //获取option标签
+                optionEle = serverSelect.getElementsByTagName("option");
+                //获取option的数量
+                length = optionEle.length;
+                //使用循环清空所有option标签
+                for (var i = 0; i < length - 1; i++) {
+                    serverSelect.removeChild(optionEle[1]);
+                }
+                if (json != null) {
+                    //将json数据插入到option中
+                    for (var i = 0; i < json.length; i++) {
+                        //创建一个option标签
+                        option = document.createElement("option");
+                        //设置value属性
+                        option.setAttribute("value", json[i].postID);
+                        //设置文本信息
+                        text = document.createTextNode(json[i].postName);
+                        //把文本信息添加到option标签中
+                        option.appendChild(text);
+                        //把option标签添加到servers标签中
+                        serverSelect.appendChild(option);
+                    }
+
+                }
+
+            }
+
+        });
+
+        xhr.open("POST", "staffAction_findStaffWithMsg.action");
+        xhr.send(data);
+
+    }
+    
 </script>
 
 </body>

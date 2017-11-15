@@ -57,10 +57,10 @@
         <tr>
             <td width="10%">所属部门：</td>
             <td width="20%">
-                <select name="post.department.depName" onchange="onChange(this.value)" id="post">
+                <select name="post.department.depID" onchange="onChange(this.value)" id="post">
                     <option value="-1">----请--选--择----</option>
                     <c:forEach items="${sessionScope.allDep}" var="dep">
-                        <option>${dep.depName}</option>
+                        <option value="${dep.depID}">${dep.depName}</option>
                     </c:forEach>
                 </select>
 
@@ -99,7 +99,7 @@
 
         // 根据value的值（部门名称）发送请求，获取职务列表的json数据
         var data = new FormData();
-        data.append("post.department.depName", value);
+        data.append("post.department.depID", value);
 
         var xhr = new XMLHttpRequest();
         xhr.withCredentials = true;

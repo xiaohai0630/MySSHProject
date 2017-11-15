@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -70,7 +71,7 @@ public class StaffAction extends BaseAction<Staff, StaffService> {
     }
 
     // 编辑员工－－显示员工信息
-    public String editStaff(){
+    public String editStaff() {
 
         // request中的staff
         String editStaff = request.getParameter("editStaff");
@@ -81,14 +82,14 @@ public class StaffAction extends BaseAction<Staff, StaffService> {
         List<Post> postWithDep = postService.findPostWithDep(staffByID.get(0).getPost());
 
         // 存职务和职员信息
-        sessionPut("editStaffPost",postWithDep);
-        sessionPut("editStaff",staffByID.get(0));
+        sessionPut("editStaffPost", postWithDep);
+        sessionPut("editStaff", staffByID.get(0));
 
         return "editStaff";
     }
 
     // 返回职员列表
-    public String returnListStaff(){
+    public String returnListStaff() {
 
         // 清除session中的信息
         sessionRemove("editStaffPost");
@@ -97,21 +98,61 @@ public class StaffAction extends BaseAction<Staff, StaffService> {
         return "returnListStaff";
     }
 
+    // 高级查询
+    public String findStaffWithMsg() {
+
+        // 根据不同情况调用不同的方法
+        Staff staffMsg = getModel();
+
+        // 用来返回的职员
+        List<Staff> returnStaffs = new ArrayList<Staff>();
+
+        System.out.println("staffMsg：---" + staffMsg);
+
+        // 判断不同的情况
+        if (staffMsg.getPost().getDepartment().getDepID() != 0) {
+
+            // 如果选择查询条件中有部门
+            if (staffMsg.getPost().getPostID() != 0) {
+
+                // 既有部门又有职务
+                if (staffMsg.getStaffName() != null && !staffMsg.getStaffName().equals("")) {
+                    // 三个条件全都有
+                    returnStaffs = staffService.findStaffWithMsgAll(getModel());
+                }
+
+                // 只有部门和职务
+                returnStaffs = staffService.findStaffWithMsgPostID(getModel());
+                System.out.println("只用职务查询：---" + returnStaffs);
+            }
+
+            // 只用部门查询－－需要先查询职务的id（用部门的id查询下属的职务）
+            List<Post> postWithDep = postService.findPostWithDep(getModel().getPost());
+
+            System.out.println("部门对应的职务： " + postWithDep);
+
+            // 根据部门查询职员
+            returnStaffs = staffService.findStaffWithMsgDep(postWithDep);
+
+            System.out.println("只用部门查询" +returnStaffs);
+
+        }
+
+        return "findStaffWithMsg";
+    }
+
     // 二级联动的添加职员（查询职务）
     public String findPost() {
-        // 从页面获取的是Staff类型的参数
-        List<Department> departments =
-                departmentService.findIDByDep(getModel().getPost().getDepartment());
 
         // 在下拉列表中选择了"请选择"这一项，就传一个null回去
-        if (departments.size() == 0) {
+        if (getModel().getPost().getDepartment().getDepID() == 0) {
             postList = null;
             return SUCCESS;
         }
 
         // 把查询到的部门添加到post中
         Post post = new Post();
-        post.setDepartment(departments.get(0));
+        post.setDepartment(getModel().getPost().getDepartment());
 
         // 根据部门查询到的职务
         postList = postService.findPostWithDep(post);
