@@ -8,15 +8,21 @@
     <package name="staff" extends="json-default,struts-default">
 
         <action name="staffAction_*" class="staffAction" method="{1}">
+            <!--显示全部的职员-->
             <result name="showAllStaff">/pages/staff/{1}.jsp</result>
 
-            <!--添加职员-->
-            <result name="addStaff" type="redirectAction">
+            <!--添加或编辑职员：重定向到职员列表-->
+            <result name="addOrEditStaff" type="redirectAction">
                 <param name="actionName">staffAction_listStaff</param>
             </result>
 
-            <!--编辑职员-->
+            <!--编辑职员跳转页面-->
             <result name="editStaff">/pages/staff/{1}.jsp</result>
+
+            <!--返回职员列表-->
+            <result name="returnListStaff" type="redirectAction">
+                <param name="actionName">staffAction_listStaff</param>
+            </result>
 
             <!--部门和职务的二级联动-->
             <result name="success" type="json">
@@ -29,7 +35,7 @@
                 </param>
             </result>
 
-            <allowed-methods>listStaff,findPost,addStaff,editStaff</allowed-methods>
+            <allowed-methods>listStaff,findPost,addOrEditStaff,editStaff,returnListStaff</allowed-methods>
         </action>
 
     </package>

@@ -39,7 +39,7 @@ public class StaffAction extends BaseAction<Staff, StaffService> {
     // request
     HttpServletRequest request = ServletActionContext.getRequest();
 
-    // 职员
+    // 显示全部的职员
     public String listStaff() {
 
         // 查询部门，用来二级联动
@@ -53,16 +53,20 @@ public class StaffAction extends BaseAction<Staff, StaffService> {
         // 将所有职员存进session
         sessionPut("allStaff", allStaff);
 
+        // 清除session中的信息
+        sessionRemove("editStaffPost");
+        sessionRemove("editStaff");
+
         return "showAllStaff";
     }
 
-    // 添加
-    public String addStaff() {
+    // 添加或编辑职员
+    public String addOrEditStaff() {
 
         System.out.println("页面获取： " + getModel());
 
-//        staffService.addOrEditStaff(getModel());
-        return "addStaff";
+        staffService.addOrEditStaff(getModel());
+        return "addOrEditStaff";
     }
 
     // 编辑员工－－显示员工信息
@@ -76,10 +80,21 @@ public class StaffAction extends BaseAction<Staff, StaffService> {
         // 找他所在的部门的所有职务
         List<Post> postWithDep = postService.findPostWithDep(staffByID.get(0).getPost());
 
+        // 存职务和职员信息
         sessionPut("editStaffPost",postWithDep);
         sessionPut("editStaff",staffByID.get(0));
 
         return "editStaff";
+    }
+
+    // 返回职员列表
+    public String returnListStaff(){
+
+        // 清除session中的信息
+        sessionRemove("editStaffPost");
+        sessionRemove("editStaff");
+
+        return "returnListStaff";
     }
 
     // 二级联动的添加职员（查询职务）

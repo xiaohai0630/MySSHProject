@@ -85,6 +85,7 @@ public class PostAction extends BaseAction<Post, PostService> {
             sessionRemove("addOrEditPost");
             sessionRemove("wrongChoose");
 
+            System.out.println(getModel());
             // 添加或修改
             postService.addOrEditPost(getModel());
 

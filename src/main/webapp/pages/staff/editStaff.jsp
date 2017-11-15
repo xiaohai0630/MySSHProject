@@ -28,7 +28,7 @@
                 <img src="${pageContext.request.contextPath}/images/button/save.gif"/>
             </a>
             <!-- 执行js，进行返回 -->
-            <a href="javascript:void(0)" onclick="window.history.go(-1)"><img
+            <a href="javascript:void(0)" onclick="document.location='${pageContext.request.contextPath}/staffAction_returnListStaff'"><img
                     src="${pageContext.request.contextPath}/images/button/tuihui.gif"/></a>
 
         </td>
@@ -36,9 +36,9 @@
     </tr>
 </table>
 
-<form action="/crm2/staff/staffAction_edit.action" method="post">
+<form action="staffAction_addOrEditStaff.action" method="post">
 
-    <input type="hidden" name="staffId" value="2c9091c14c78e58b014c78e7ecd90007"/>
+    <input type="hidden" name="staffID" value="${sessionScope.editStaff.staffID}"/>
 
     <table width="88%" border="0" class="emp_table" style="width:80%;">
         <tr>
