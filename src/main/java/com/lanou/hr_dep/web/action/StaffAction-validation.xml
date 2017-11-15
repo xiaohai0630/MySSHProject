@@ -5,17 +5,16 @@
 
 <validators>
     <!--添加职员的验证-->
-    <!--姓名-->
+    <!--登录名-->
     <field name="staff.loginName">
 
         <field-validator type="requiredstring">
-            <message>姓名不能为空</message>
+            <message>登录名不能为空</message>
         </field-validator>
 
         <!--regexExpression：正则表达式-->
         <field-validator type="regex">
             <param name="regexExpression">
-                <!-- a-z 是横线，不是波浪线！！！-->
                 <![CDATA[[a-zA-Z\u4e00-\u9fa5]{3,8}]]>
             </param>
             <!--出现param中的错误的时候的提示信息-->

@@ -22,6 +22,11 @@ public class StaffServiceImpl implements StaffService {
         return staffDao.findAll();
     }
 
+    // 查询某一个职员
+    public List<Staff> findStaffByID(int staffID) {
+        return staffDao.findAll("and staffID=?",staffID);
+    }
+
     // 编辑或添加职员
     public void addOrEditStaff(Staff staff) {
         staffDao.saveOrUpdate(staff);

@@ -15,6 +15,9 @@
                 <param name="actionName">staffAction_listStaff</param>
             </result>
 
+            <!--编辑职员-->
+            <result name="editStaff">/pages/staff/{1}.jsp</result>
+
             <!--部门和职务的二级联动-->
             <result name="success" type="json">
                 <!--指定需要转化为json数据的数据类型-->
@@ -26,7 +29,7 @@
                 </param>
             </result>
 
-            <allowed-methods>listStaff,findPost,addStaff</allowed-methods>
+            <allowed-methods>listStaff,findPost,addStaff,editStaff</allowed-methods>
         </action>
 
     </package>

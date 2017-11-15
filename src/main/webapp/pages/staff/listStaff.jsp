@@ -55,7 +55,7 @@
             <td width="80px">职务：</td>
             <td width="200px">
 
-                <select name="crmPost.postId" id="postSelectId">
+                <select name="post.postID" id="postSelectId">
                     <option value="">--请选择职务--</option>
                 </select>
 
@@ -95,7 +95,9 @@
                 <td align="center">${staff.post.postName}</td>
                 <td width="7%" align="center">
 
-                    <a href="/pages/staff/editStaff.jsp"><img src="/images/button/modify.gif" class="img"/></a>
+                    <a href="staffAction_editStaff.action?editStaff=${staff.staffID}">
+                        <img src="/images/button/modify.gif" class="img"/>
+                    </a>
                 </td>
             </tr>
         </c:if>
@@ -108,7 +110,9 @@
                 <td align="center">${staff.post.postName}</td>
                 <td width="7%" align="center">
 
-                    <a href="/pages/staff/editStaff.jsp"><img src="/images/button/modify.gif" class="img"/></a>
+                    <a href="staffAction_editStaff.action?editStaff=${staff.staffID}">
+                        <img src="/images/button/modify.gif" class="img"/>
+                    </a>
                 </td>
             </tr>
         </c:if>

@@ -10,12 +10,9 @@ import com.lanou.hr_dep.service.StaffService;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -23,7 +20,7 @@ import java.util.List;
  */
 @Controller("staffAction")
 @Scope("prototype")
-public class StaffAction extends BaseAction<Staff,StaffService> {
+public class StaffAction extends BaseAction<Staff, StaffService> {
     // 验证用
     private Staff staff;
 
@@ -38,6 +35,9 @@ public class StaffAction extends BaseAction<Staff,StaffService> {
 
     @Resource
     private DepartmentService departmentService;
+
+    // request
+    HttpServletRequest request = ServletActionContext.getRequest();
 
     // 职员
     public String listStaff() {
@@ -65,6 +65,23 @@ public class StaffAction extends BaseAction<Staff,StaffService> {
         return "addStaff";
     }
 
+    // 编辑员工－－显示员工信息
+    public String editStaff(){
+
+        // request中的staff
+        String editStaff = request.getParameter("editStaff");
+        // 职员（一个职员）
+        List<Staff> staffByID = staffService.findStaffByID(Integer.valueOf(editStaff));
+
+        // 找他所在的部门的所有职务
+        List<Post> postWithDep = postService.findPostWithDep(staffByID.get(0).getPost());
+
+        sessionPut("editStaffPost",postWithDep);
+        sessionPut("editStaff",staffByID.get(0));
+
+        return "editStaff";
+    }
+
     // 二级联动的添加职员（查询职务）
     public String findPost() {
         // 从页面获取的是Staff类型的参数
@@ -72,7 +89,7 @@ public class StaffAction extends BaseAction<Staff,StaffService> {
                 departmentService.findIDByDep(getModel().getPost().getDepartment());
 
         // 在下拉列表中选择了"请选择"这一项，就传一个null回去
-        if (departments.size() == 0){
+        if (departments.size() == 0) {
             postList = null;
             return SUCCESS;
         }

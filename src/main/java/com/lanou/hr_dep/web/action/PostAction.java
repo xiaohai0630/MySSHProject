@@ -7,7 +7,6 @@ import com.lanou.hr_dep.service.DepartmentService;
 import com.lanou.hr_dep.service.PostService;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.context.annotation.Scope;
-import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.stereotype.Controller;
 
 import javax.annotation.Resource;

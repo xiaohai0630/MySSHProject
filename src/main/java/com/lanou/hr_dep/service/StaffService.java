@@ -8,8 +8,10 @@ import java.util.List;
  */
 public interface StaffService {
 
-    // 显示全部职务
+    // 显示全部职员
     List<Staff> findAllStaff();
+
+    List<Staff> findStaffByID(int staffID);
 
     // 编辑或添加职员
     void addOrEditStaff(Staff staff);

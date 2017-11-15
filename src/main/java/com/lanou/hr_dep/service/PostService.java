@@ -1,6 +1,7 @@
 package com.lanou.hr_dep.service;
 
 import com.lanou.hr_dep.domain.Post;
+import com.lanou.hr_dep.domain.Staff;
 
 import java.util.List;
 

@@ -50,17 +50,16 @@ public class LoginAction extends BaseAction<Staff,StaffService> {
             List<Staff> login = loginService.loginByStaff(getModel());
 
             if (login.size() > 0) {
-
                 // 将数据库中查询到的员工信息存在session中，并且跳转主页面
-                ActionContext.getContext().getSession().put("staffMsg", login.get(0));
+                sessionPut("staffMsg", login.get(0));
                 // 清除错误信息
-                session.removeAttribute("loginError");
+                sessionRemove("loginError");
                 return SUCCESS;
             }
-            session.setAttribute("loginError", "用户名或密码不正确");
+            sessionPut("loginError", "用户名或密码不正确");
             return ERROR;
         } catch (Exception e) {
-            session.setAttribute("loginError", "用户名或密码不正确");
+            sessionPut("loginError", "用户名或密码不正确");
             return ERROR;
         }
 
@@ -81,15 +80,15 @@ public class LoginAction extends BaseAction<Staff,StaffService> {
         try {
             // 原始密码不一致
             if (!oldStaff.getLoginPwd().equals(oldPassword)) {
-                session.setAttribute("editPwdError", "原始密码不正确");
+                sessionPut("editPwdError", "原始密码不正确");
                 return "editPwdError";
             }
             if (newPassword.equals("")){
-                session.setAttribute("editPwdError","新密码为空");
+                sessionPut("editPwdError","新密码为空");
                 return "editPwdError";
             }
             if (reNewPassword.equals("")){
-                session.setAttribute("editPwdError","确认密码为空");
+                sessionPut("editPwdError","确认密码为空");
                 return "editPwdError";
             }
 
@@ -105,12 +104,12 @@ public class LoginAction extends BaseAction<Staff,StaffService> {
                 // 修改密码成功之后跳转登录页面重新登录
                 return "reLogin";
             }
-            session.setAttribute("editPwdError", "两次密码不一致");
+            sessionPut("editPwdError", "两次密码不一致");
             return "editPwdError";
 
         } catch (Exception e) {
             // 新密码或者确认密码是空就报错
-            session.setAttribute("editPwdError", "新密码为空");
+            sessionPut("editPwdError", "新密码为空");
             return "editPwdError";
         }
 
@@ -119,7 +118,7 @@ public class LoginAction extends BaseAction<Staff,StaffService> {
     // 从修改密码页面返回主页面
     public String returnFrame() {
         // 清除错误信息
-        session.removeAttribute("editPwdError");
+        sessionRemove("editPwdError");
         return "returnFrame";
     }
 
@@ -129,6 +128,30 @@ public class LoginAction extends BaseAction<Staff,StaffService> {
 
     public void setStaff(Staff staff) {
         this.staff = staff;
+    }
+
+    public String getOldPassword() {
+        return oldPassword;
+    }
+
+    public void setOldPassword(String oldPassword) {
+        this.oldPassword = oldPassword;
+    }
+
+    public String getNewPassword() {
+        return newPassword;
+    }
+
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
+    }
+
+    public LoginService getLoginService() {
+        return loginService;
+    }
+
+    public void setLoginService(LoginService loginService) {
+        this.loginService = loginService;
     }
 
 }

@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" isELIgnored="false" %>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -26,7 +28,8 @@
                 <img src="${pageContext.request.contextPath}/images/button/save.gif"/>
             </a>
             <!-- 执行js，进行返回 -->
-            <a href="javascript:void(0)" onclick="window.history.go(-1)"><img src="${pageContext.request.contextPath}/images/button/tuihui.gif"/></a>
+            <a href="javascript:void(0)" onclick="window.history.go(-1)"><img
+                    src="${pageContext.request.contextPath}/images/button/tuihui.gif"/></a>
 
         </td>
         <td width="3%" align="right"><img src="${pageContext.request.contextPath}/images/tright.gif"/></td>
@@ -40,42 +43,64 @@
     <table width="88%" border="0" class="emp_table" style="width:80%;">
         <tr>
             <td>登录名：</td>
-            <td><input type="text" name="loginName" value="赵六"/></td>
+            <td><input type="text" name="loginName" value="${sessionScope.editStaff.loginName}"/></td>
             <td>密码：</td>
-            <td><input type="password" name="loginPwd" value="54dfc11c8e9c49bab6068f473f913be9"/></td>
+            <td><input type="password" name="loginPwd" value="${sessionScope.editStaff.loginPwd}"/></td>
         </tr>
         <tr>
             <td>姓名：</td>
-            <td><input type="text" name="staffName" value="赵六"/></td>
+            <td><input type="text" name="staffName" value="${sessionScope.editStaff.staffName}"/></td>
             <td>性别：</td>
             <td>
-                <input type="radio" name="gender" checked="checked" value="男"/>男
-                <input type="radio" name="gender" value="女"/>女
+                <c:if test="${sessionScope.editStaff.gender == '男'}">
+                    <input type="radio" name="gender" checked="checked" value="男"/>男
+                    <input type="radio" name="gender" value="女"/>女
+                </c:if>
+                <c:if test="${sessionScope.editStaff.gender == '女'}">
+                    <input type="radio" name="gender" value="男"/>男
+                    <input type="radio" name="gender" checked="checked" value="女"/>女
+                </c:if>
             </td>
         </tr>
         <tr>
             <td width="10%">所属部门：</td>
             <td width="20%">
-                <select name="crmPost.crmDepartment.depId" onchange="changePost(this)">
-                    <option value="">----请--选--择----</option>
-                    <option value="ee050687bd1a4455a153d7bbb7000001" selected="selected">教学部</option>
-                    <option value="ee050687bd1a4455a153d7bbb7000002">咨询部</option>
+                <select name="post.department.depName" onchange="onChange(this.value)">
+                    <option value="-1">----请--选--择----</option>
+                    <c:forEach items="${sessionScope.allDep}" var="dep">
+
+                        <c:if test="${dep.depName == sessionScope.editStaff.post.department.depName}">
+                            <option selected="selected">${dep.depName}</option>
+                        </c:if>
+                        <c:if test="${dep.depName != sessionScope.editStaff.post.department.depName}">
+                            <option>${dep.depName}</option>
+                        </c:if>
+
+                    </c:forEach>
                 </select>
 
             </td>
             <td width="8%">职务：</td>
             <td width="62%">
-                <select name="crmPost.postId" id="postSelectId">
-                    <option value="">----请--选--择----</option>
-                    <option value="2c9091c14c78e58b014c78e6b34a0003">总监</option>
-                    <option value="2c9091c14c78e58b014c78e6d4510004" selected="selected">讲师</option>
+                <select name="post.postID" id="postSelectId">
+                    <option value="-1">----请--选--择----</option>
+
+                    <%--先显示这个职员所在的部门的全部的职务，二级联动的查询的时候再显示新的--%>
+                    <c:forEach items="${sessionScope.editStaffPost}" var="post">
+                        <c:if test="${post.postID == sessionScope.editStaff.post.postID}">
+                            <option selected="selected">${post.postName}</option>
+                        </c:if>
+                        <c:if test="${post.postID != sessionScope.editStaff.post.postID}">
+                            <option>${post.postName}</option>
+                        </c:if>
+                    </c:forEach>
                 </select>
             </td>
         </tr>
         <tr>
             <td width="10%">入职时间：</td>
             <td width="20%">
-                <input type="text" name="onDutyDate" value="2012-02-12" readonly="readonly"
+                <input type="text" name="onDutyDate" value="${sessionScope.editStaff.onDutyDate}" readonly="readonly"
                        onfocus="c.showMoreDay=true; c.show(this);"/>
             </td>
             <td width="8%"></td>
@@ -83,6 +108,60 @@
         </tr>
     </table>
 </form>
+
+<script type="application/javascript">
+    function onChange(value) {
+        //输出value的值
+        console.log(value);
+        //根据value的值发送请求,获取二级列表的json数据
+        var data = new FormData();
+        data.append("post.department.depName", value);
+
+        var xhr = new XMLHttpRequest();
+        xhr.withCredentials = true;
+
+        xhr.addEventListener("readystatechange", function () {
+            if (this.readyState === 4) {
+                console.log(this.responseText);
+                //对请求回来的数据进行解析
+                json = eval('(' + this.responseText + ')');
+
+                //获取服务器的标签
+                serverSelect = document.getElementById("postSelectId");
+                //获取option标签
+                optionEle = serverSelect.getElementsByTagName("option");
+                //获取option的数量
+                length = optionEle.length;
+                //使用循环清空所有option标签
+                for (var i = 0; i < length - 1; i++) {
+                    serverSelect.removeChild(optionEle[1]);
+                }
+                if (json != null) {
+                    //将json数据插入到option中
+                    for (var i = 0; i < json.length; i++) {
+                        //创建一个option标签
+                        option = document.createElement("option");
+                        //设置value属性
+                        option.setAttribute("value", json[i].postID);
+                        //设置文本信息
+                        text = document.createTextNode(json[i].postName);
+                        //把文本信息添加到option标签中
+                        option.appendChild(text);
+                        //把option标签添加到servers标签中
+                        serverSelect.appendChild(option);
+                    }
+
+                }
+
+            }
+
+        });
+
+        xhr.open("POST", "staffAction_findPost.action");
+        xhr.send(data);
+    }
+
+</script>
 
 </body>
 </html>
