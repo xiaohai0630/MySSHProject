@@ -4,10 +4,11 @@ import com.lanou.base.BaseAction;
 import com.lanou.hr_dep.domain.Staff;
 import com.lanou.hr_dep.service.StaffService;
 import com.lanou.login.service.LoginService;
-import com.opensymphony.xwork2.ActionContext;
+import com.lanou.utils.MD5Utils;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import sun.security.provider.MD5;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -27,7 +28,7 @@ public class LoginAction extends BaseAction<Staff,StaffService> {
      * 错误返回ERROR，返回登录页面并提示错误
      */
     // 验证用
-    private Staff staff;
+    private Staff staff = new Staff();
 
     // 修改密码－－旧的用户名、新密码、确认密码
     private String oldPassword;
@@ -45,8 +46,15 @@ public class LoginAction extends BaseAction<Staff,StaffService> {
     public String login() {
 
         try {
-            // getModel()直接获取页面上的员工的信息
-            // 判断是否有这个员工，集合大于0，有这个用户
+            /**
+             * getModel()直接获取页面上的员工的信息
+             * 判断是否有这个员工，集合大于0，有这个用户
+             * MD5加密
+             */
+            String pwd = getModel().getLoginPwd();
+            String md5 = MD5Utils.md5(pwd);
+            getModel().setLoginPwd(md5);
+
             List<Staff> login = loginService.loginByStaff(getModel());
 
             if (login.size() > 0) {
@@ -77,26 +85,31 @@ public class LoginAction extends BaseAction<Staff,StaffService> {
         // 当前登录的员工
         Staff oldStaff = (Staff) session.getAttribute("staffMsg");
 
+        // 把原始密码、新密码、确认密码都加密
+        String oldPasswordMD5 = MD5Utils.md5(oldPassword);
+        String newPasswordMD5 = MD5Utils.md5(newPassword);
+        String reNewPasswordMD5 = MD5Utils.md5(reNewPassword);
+
         try {
             // 原始密码不一致
-            if (!oldStaff.getLoginPwd().equals(oldPassword)) {
+            if (!oldStaff.getLoginPwd().equals(oldPasswordMD5)) {
                 sessionPut("editPwdError", "原始密码不正确");
                 return "editPwdError";
             }
-            if (newPassword.equals("")){
+            if (newPasswordMD5.equals("")){
                 sessionPut("editPwdError","新密码为空");
                 return "editPwdError";
             }
-            if (reNewPassword.equals("")){
+            if (reNewPasswordMD5.equals("")){
                 sessionPut("editPwdError","确认密码为空");
                 return "editPwdError";
             }
 
             // 新密码和确认密码是否一致
-            if (newPassword.equals(reNewPassword) && reNewPassword.equals(newPassword)) {
+            if (newPasswordMD5.equals(reNewPasswordMD5) && reNewPasswordMD5.equals(newPasswordMD5)) {
                 // 新的员工信息
                 Staff changeStaff = oldStaff;
-                changeStaff.setLoginPwd(newPassword);
+                changeStaff.setLoginPwd(newPasswordMD5);
 
                 loginService.editPwd(changeStaff);
                 // 清除错误信息

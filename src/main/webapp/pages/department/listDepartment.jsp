@@ -39,7 +39,7 @@
     </tr>
 </table>
 
-<table width="100%" border="1">
+<table width="100%" border="1" id="tab">
 
     <tr class="henglan" style="font-weight:bold;">
         <td width="6%" align="center">部门名称</td>
@@ -80,7 +80,7 @@
         <td align="right">
             <span>第1/3页</span>
             <span>
-        	<a href="#">[首页]</a>&nbsp;&nbsp;
+        	<a href="#" onclick="firstPage()">[首页]</a>&nbsp;&nbsp;
             <a href="#">[上一页]</a>&nbsp;&nbsp;
             <a href="#">[下一页]</a>&nbsp;&nbsp;
             <a href="#">[尾页]</a>
@@ -88,6 +88,121 @@
         </td>
     </tr>
 </table>
+
+<%--分页--%>
+<script type="application/javascript">
+
+    // 首页
+    function firstPage() {
+
+        // 参数是1
+        var data = new FormData();
+        data.append("firstPage", 1);
+
+        var xhr = new XMLHttpRequest();
+        xhr.withCredentials = true;
+
+        xhr.addEventListener("readystatechange", function () {
+
+            if (this.readyState === 4) {
+                // 对请求回来的数据进行解析
+                json = eval('(' + this.responseText + ')');
+
+                console.log(json);
+
+                // 获取表格的标签
+                serverSelect = document.getElementById("tab");
+                // 获取tr标签
+                optionELe = serverSelect.getElementsByTagName("tr");
+                // 获取tr的数量
+                nums = optionELe.length;
+
+                // 删除第一行以外的tr标签
+                for (var i = nums - 1; i > 0; i--) {
+                    optionELe[i].remove();
+                }
+
+                if (json != null) {
+
+                    // 将json查询插入到option中
+                    for (var i = 0; i < json.length; i++) {
+
+                        // 创建tr标签
+                        trs = document.createElement("tr");
+                        // 部门名称
+                        tds1 = document.createElement("td");
+                        // 编辑
+                        tds2 = document.createElement("td");
+                        // 图片
+                        tdsPic = document.createElement("td");
+
+                        if (i % 2 == 0) {
+                            // tr
+                            trs.setAttribute("class", "tabtd1");
+                            // 给两个td添加属性
+                            tds1.setAttribute("align", "center");
+                            tds2.setAttribute("align", "center");
+                            tds2.setAttribute("width", "7%");
+                            // 部门名称
+                            text = document.createElement(json[i].depName);
+                            tds1.appendChild(text);
+
+                            // a标签
+                            tdsA = document.createElement("a");
+                            tdsA.setAttribute("href",
+                                    "depAction_addOrEditDepartment.action?addOrEditEep=");
+
+                            // 编辑的图标
+                            tdsPic.setAttribute("src",
+                                    "${pageContext.request.contextPath}/images/button/modify.gif");
+
+                            // 图片添加到a标签，添加到tr
+                            tdsA.appendChild(tdsPic);
+                            tds2.appendChild(tdsA);
+
+                            // 把td添加到tr中
+                            trs.appendChild(tds1);
+                            trs.appendChild(tds2)
+                        } else {
+                            // tr
+                            trs.setAttribute("class", "tabtd2");
+                            // 给两个td添加属性
+                            tds1.setAttribute("align", "center");
+                            tds2.setAttribute("align", "center");
+                            tds2.setAttribute("width", "7%");
+                            // 部门名称
+                            text = document.createElement(json[i].depName);
+                            tds1.appendChild(text);
+
+                            // a标签
+                            tdsA = document.createElement("a");
+                            tdsA.setAttribute("href",
+                                    "depAction_addOrEditDepartment.action?addOrEditEep=");
+
+                            // 编辑的图标
+                            tdsPic.setAttribute("src",
+                                    "${pageContext.request.contextPath}/images/button/modify.gif");
+
+                            // 图片添加到a标签，添加到tr
+                            tdsA.appendChild(tdsPic);
+                            tds2.appendChild(tdsA);
+
+                            // 把td添加到tr中
+                            trs.appendChild(tds1);
+                            trs.appendChild(tds2)
+                        }
+
+                    }
+
+                }
+
+            }
+
+        });
+        xhr.open("POST", "depAction_listDepartment.action");
+        xhr.send(data);
+    }
+</script>
 
 </body>
 

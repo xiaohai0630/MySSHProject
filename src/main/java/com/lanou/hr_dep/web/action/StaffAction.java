@@ -7,13 +7,13 @@ import com.lanou.hr_dep.domain.Staff;
 import com.lanou.hr_dep.service.DepartmentService;
 import com.lanou.hr_dep.service.PostService;
 import com.lanou.hr_dep.service.StaffService;
+import com.lanou.utils.MD5Utils;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -68,6 +68,11 @@ public class StaffAction extends BaseAction<Staff, StaffService> {
     public String addOrEditStaff() {
 
         System.out.println("页面获取： " + getModel());
+
+        // MD5加密
+        String pwd = getModel().getLoginPwd();
+        String md5 = MD5Utils.md5(pwd);
+        getModel().setLoginPwd(md5);
 
         staffService.addOrEditStaff(getModel());
         return "addOrEditStaff";

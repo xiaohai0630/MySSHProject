@@ -9,6 +9,7 @@
     <package name="dep" extends="struts-default">
 
         <action name="depAction_*" class="departmentAction" method="{1}">
+
             <result name="showAllDep">/pages/department/{1}.jsp</result>
 
             <!--如果是编辑，就跳转到添加和编辑页面，并显示当前的部门名称-->

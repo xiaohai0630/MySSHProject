@@ -2,7 +2,10 @@ package com.lanou.base.dao.impl;
 
 import com.lanou.base.dao.BaseDao;
 import org.hibernate.FlushMode;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
+import org.hibernate.Session;
+import org.springframework.orm.hibernate5.HibernateCallback;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 
 import java.io.Serializable;
@@ -78,26 +81,27 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements BaseDao<T> {
         return number.intValue();
     }
 
-//    public List findByPage(final String hql, final Object[] values, final int offset, final int pageSize) {
-//
-//        //通过一个HibernateCallback对象来执行查询
-//
-//        List list = getHibernateTemplate().execute(new HibernateCallback<List>() {
-//
-//            public List doInHibernate(Session session) throws HibernateException {
-//                Query query = session.createQuery(hql);//为hql语句传入参数
-//                for (int i = 0; i < values.length; i++) {
-//                    query.setParameter(i, values[i]);
-//                }
-//                List result = query.setFirstResult(offset).setMaxResults(pageSize).list();
-//                return result;
-//            }
-//            //实现HibernateCallback接口必须实现的方法
-//        });
-//
-//        return list;
-//
-//    }
+    public List findByPage(final String hql, final Object[] values,
+                           final int offset, final int pageSize) {
+
+        //通过一个HibernateCallback对象来执行查询
+
+        List list = getHibernateTemplate().execute(new HibernateCallback<List>() {
+
+            public List doInHibernate(Session session) throws HibernateException {
+                Query query = session.createQuery(hql);//为hql语句传入参数
+                for (int i = 0; i < values.length; i++) {
+                    query.setParameter(i, values[i]);
+                }
+                List result = query.setFirstResult(offset).setMaxResults(pageSize).list();
+                return result;
+            }
+            //实现HibernateCallback接口必须实现的方法
+        });
+
+        return list;
+
+    }
 
 
 

@@ -3,6 +3,7 @@ package com.lanou.hr_dep.web.action;
 import com.lanou.base.BaseAction;
 import com.lanou.hr_dep.domain.Department;
 import com.lanou.hr_dep.service.DepartmentService;
+import com.lanou.utils.PageBean;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -25,12 +26,18 @@ public class DepartmentAction extends BaseAction<Department, DepartmentService> 
 
     // 显示全部的部门信息
     public String listDepartment() {
-
         // 查询全部的部门信息放在session中
         List<Department> allDep = departmentService.findAllDep();
 
         // 存放全部的部门信息，用来在页面上显示
-        sessionPut("allDep",allDep);
+        sessionPut("allDep", allDep);
+
+        // 当前页
+        int page = 1;
+        // 分页－－参数：当前页、每一页显示的条数、总的条数
+        PageBean<Department> pageBean = new PageBean<Department>(page, 5, allDep.size());
+        System.out.println("分页信息：---" + pageBean);
+
 
         // 清除部门的相关错误信息
         sessionRemove("wrongDept");
@@ -47,15 +54,15 @@ public class DepartmentAction extends BaseAction<Department, DepartmentService> 
 
         if (depID == null) {
             // 部门名称为空或者重名都提示错误
-            if (getModel().getDepName().equals("")){
-                sessionPut("wrongDept","部门名称不能为空");
+            if (getModel().getDepName().equals("")) {
+                sessionPut("wrongDept", "部门名称不能为空");
                 return "wrongDept";
             }
             List<Department> allDep = departmentService.findAllDep();
             for (int i = 0; i < allDep.size(); i++) {
 
-                if (allDep.get(i).getDepName().equals(getModel().getDepName())){
-                    sessionPut("wrongDept","部门名称不能重复");
+                if (allDep.get(i).getDepName().equals(getModel().getDepName())) {
+                    sessionPut("wrongDept", "部门名称不能重复");
                     return "wrongDept";
                 }
 
@@ -83,7 +90,7 @@ public class DepartmentAction extends BaseAction<Department, DepartmentService> 
     }
 
     // 从添加部门页面返回
-    public String returnListDept(){
+    public String returnListDept() {
         // 清除错误信息和修改时候显示的当前部门信息
         sessionRemove("wrongDept");
         sessionRemove("addOrEditDep");

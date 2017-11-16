@@ -42,7 +42,7 @@
 
 </HEAD>
 
-<BODY leftMargin=0 topMargin=0 marginwidth="0" marginheight="0"
+<body leftMargin=0 topMargin=0 marginwidth="0" marginheight="0"
       background="${pageContext.request.contextPath}/images/rightbg.jpg">
 
 <%--BODY中的background属性：
@@ -85,6 +85,9 @@
 
     </table>
 
+    <%--验证器的验证--%>
+    <s:fielderror fieldName="staff.loginName"></s:fielderror><br/>
+
     <script type="text/javascript">
         /* s标签中直接编写JavaScript代码时，不支持el表达式，只能提供单独的函数
          function registerUrl(){
@@ -94,6 +97,6 @@
     </script>
 </div>
 
-</BODY>
+</body>
 
 </HTML>

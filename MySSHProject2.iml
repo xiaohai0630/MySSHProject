@@ -111,5 +111,9 @@
     <orderEntry type="library" name="Maven: org.aspectj:aspectjweaver:1.8.12" level="project" />
     <orderEntry type="library" name="Maven: javax.servlet:jstl:1.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.springframework:spring-test:4.3.12.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.struts.xwork:xwork-core:2.3.31" level="project" />
+    <orderEntry type="library" name="Maven: asm:asm:3.3" level="project" />
+    <orderEntry type="library" name="Maven: asm:asm-commons:3.3" level="project" />
+    <orderEntry type="library" name="Maven: asm:asm-tree:3.3" level="project" />
   </component>
 </module>
