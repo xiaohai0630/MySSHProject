@@ -24,8 +24,8 @@
         <td width="39%" align="left">[员工管理]</td>
 
         <td width="57%" align="right">
-            <%--高级查询 --%>
-            <a href="javascript:void(0)" onclick="document.forms[0].submit()"><img
+            <%--高级查询 document.forms[0].submit() --%>
+            <a href="javascript:void(0)" onclick="condition()"><img
                     src="${pageContext.request.contextPath}/images/button/gaojichaxun.gif"/></a>
             <%--员工注入 --%>
             <a href="/pages/staff/addStaff.jsp">
@@ -44,8 +44,8 @@
             <td width="80px">部门：</td>
             <td width="200px">
 
-                <select name="post.department.depID" onchange="onChange(this.value)">
-                    <option value="">--请选择部门--</option>
+                <select name="post.department.depID" onchange="onChange(this.value)" id="depSelectId">
+                    <option value="-1">--请选择部门--</option>
                     <c:forEach items="${sessionScope.allDep}" var="dep">
                         <option value="${dep.depID}">${dep.depName}</option>
                     </c:forEach>
@@ -56,12 +56,12 @@
             <td width="200px">
 
                 <select name="post.postID" id="postSelectId">
-                    <option value="">--请选择职务--</option>
+                    <option value="-1">--请选择职务--</option>
                 </select>
 
             </td>
             <td width="80px">姓名：</td>
-            <td width="200px"><input type="text" name="staffName" size="12"/></td>
+            <td width="200px"><input type="text" name="staffName" size="12" id="staffNameSelectId"/></td>
             <td></td>
         </tr>
     </table>
@@ -74,7 +74,7 @@
     </tr>
 </table>
 
-<table width="100%" border="1">
+<table width="100%" border="1" id="tab">
     <tr class="henglan" style="font-weight:bold;">
         <td width="10%" align="center">员工姓名</td>
         <td width="6%" align="center">性别</td>
@@ -173,44 +173,143 @@
         xhr.send(data);
     }
 
-    function condition(value) {
-
-        //输出value的值
-        console.log(value);
-        //根据value的值发送请求,获取二级列表的json数据
+    // 高级查询
+    function condition() {
+        // 获取查询条件
         var data = new FormData();
-        data.append("post.department.depName", value);
+        data.append("post.department.depID", document.getElementById("depSelectId").value);
+        data.append("post.postID", document.getElementById("postSelectId").value);
+        data.append("staffName", document.getElementById("staffNameSelectId").value);
 
         var xhr = new XMLHttpRequest();
         xhr.withCredentials = true;
 
         xhr.addEventListener("readystatechange", function () {
             if (this.readyState === 4) {
-                console.log(this.responseText);
                 //对请求回来的数据进行解析
                 json = eval('(' + this.responseText + ')');
 
-                //获取服务器的标签
-                serverSelect = document.getElementById("postSelectId");
-                //获取option标签
-                optionEle = serverSelect.getElementsByTagName("option");
-                //获取option的数量
+                // 返回值
+                console.log(json);
+
+                // 获取表格的标签
+                serverSelect = document.getElementById("tab");
+                // 获取tr标签
+                optionEle = serverSelect.getElementsByTagName("tr");
+                // 获取tr的数量
                 length = optionEle.length;
-                //使用循环清空所有option标签
-                for (var i = 0; i < length - 1; i++) {
-                    serverSelect.removeChild(optionEle[1]);
+                // 删除第一行以外的tr标签
+                for (var i = length - 1; i > 0; i--) {
+                    optionEle[i].remove();
                 }
+
                 if (json != null) {
-                    //将json数据插入到option中
+                    // 将json数据插入到tr中
                     for (var i = 0; i < json.length; i++) {
-                        //创建一个option标签
-                        option = document.createElement("option");
-                        //设置value属性
-                        option.setAttribute("value", json[i].postID);
-                        //设置文本信息
-                        text = document.createTextNode(json[i].postName);
-                        //把文本信息添加到option标签中
-                        option.appendChild(text);
+                        // 创建一个tr标签
+                        option = document.createElement("tr");
+                        optionChild1 = document.createElement("td");
+                        optionChild2 = document.createElement("td");
+                        optionChild3 = document.createElement("td");
+                        optionChild4 = document.createElement("td");
+                        optionChild5 = document.createElement("td");
+
+                        // 编辑
+                        optionChild6 = document.createElement("td");
+
+                        if (i % 2 == 0) {
+                            // 设置属性
+                            option.setAttribute("class", "tabtd1");
+                            optionChild1.setAttribute("align","center");
+                            optionChild2.setAttribute("align","center");
+                            optionChild3.setAttribute("align","center");
+                            optionChild4.setAttribute("align","center");
+                            optionChild5.setAttribute("align","center");
+
+                            text = document.createTextNode(json[i].staffName);
+                            optionChild1.appendChild(text);
+                            option.appendChild(optionChild1);
+
+                            text = document.createTextNode(json[i].gender);
+                            optionChild2.appendChild(text);
+                            option.appendChild(optionChild2);
+
+                            text = document.createTextNode(json[i].onDutyDate);
+                            optionChild3.appendChild(text);
+                            option.appendChild(optionChild3);
+
+                            text = document.createTextNode(json[i].post.department.depName);
+                            optionChild4.appendChild(text);
+                            option.appendChild(optionChild4);
+
+                            text = document.createTextNode(json[i].post.postName);
+                            optionChild5.appendChild(text);
+                            option.appendChild(optionChild5);
+
+                            // 编辑
+                            optionChild6.setAttribute("width","7%");
+                            optionChild6.setAttribute("align","center");
+
+                            // 创建一个a标签
+                            optionChild6A = document.createElement("a");
+                            optionChild6A.setAttribute("href",
+                                    "staffAction_editStaff.action?editStaff=${sessionScope.returnStaffs[1].staffID}");
+                            optionChild6.appendChild(optionChild6A);
+
+                            // 添加图片
+                            optionChild6AImg = document.createElement("img");
+                            optionChild6AImg.setAttribute("src","/images/button/modify.gif");
+                            optionChild6AImg.setAttribute("class","img");
+                            optionChild6A.appendChild(optionChild6AImg);
+
+                            option.appendChild(optionChild6)
+                        } else {
+                            // 设置属性
+                            option.setAttribute("class", "tabtd2");
+                            optionChild1.setAttribute("align","center");
+                            optionChild2.setAttribute("align","center");
+                            optionChild3.setAttribute("align","center");
+                            optionChild4.setAttribute("align","center");
+                            optionChild5.setAttribute("align","center");
+
+                            text = document.createTextNode(json[i].staffName);
+                            optionChild1.appendChild(text);
+                            option.appendChild(optionChild1);
+
+                            text = document.createTextNode(json[i].gender);
+                            optionChild2.appendChild(text);
+                            option.appendChild(optionChild2);
+
+                            text = document.createTextNode(json[i].onDutyDate);
+                            optionChild3.appendChild(text);
+                            option.appendChild(optionChild3);
+
+                            text = document.createTextNode(json[i].post.department.depName);
+                            optionChild4.appendChild(text);
+                            option.appendChild(optionChild4);
+
+                            text = document.createTextNode(json[i].post.postName);
+                            optionChild5.appendChild(text);
+                            option.appendChild(optionChild5);
+
+                            // 编辑
+                            optionChild6.setAttribute("width","7%");
+                            optionChild6.setAttribute("align","center");
+
+                            // 创建一个a标签
+                            optionChild6A = document.createElement("a");
+                            optionChild6A.setAttribute("href",
+                                    "staffAction_editStaff.action?editStaff=${sessionScope.returnStaffs[1].staffID}");
+                            optionChild6.appendChild(optionChild6A);
+
+                            // 添加图片
+                            optionChild6AImg = document.createElement("img");
+                            optionChild6AImg.setAttribute("src","/images/button/modify.gif");
+                            optionChild6AImg.setAttribute("class","img");
+                            optionChild6A.appendChild(optionChild6AImg);
+
+                            option.appendChild(optionChild6)
+                        }
                         //把option标签添加到servers标签中
                         serverSelect.appendChild(option);
                     }
@@ -225,7 +324,7 @@
         xhr.send(data);
 
     }
-    
+
 </script>
 
 </body>

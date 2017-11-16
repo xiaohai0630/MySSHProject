@@ -25,7 +25,16 @@
             </result>
 
             <!--高级查询-->
-            <result name="findStaffWithMsg">/pages/staff/listStaff.jsp</result>
+            <result name="findStaffWithMsg" type="json">
+                <param name="root">returnStaffs</param>
+                <param name="includeProperties">
+                    \[\d\]\.staffName,
+                    \[\d\]\.gender,
+                    \[\d\]\.onDutyDate,
+                    \[\d\]\.post\.department\.depName,
+                    \[\d\]\.post\.postName
+                </param>
+            </result>
 
             <!--部门和职务的二级联动-->
             <result name="success" type="json">

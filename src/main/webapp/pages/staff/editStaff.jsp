@@ -65,15 +65,15 @@
         <tr>
             <td width="10%">所属部门：</td>
             <td width="20%">
-                <select name="post.department.depName" onchange="onChange(this.value)">
+                <select name="post.department.depID" onchange="onChange(this.value)">
                     <option value="-1">----请--选--择----</option>
                     <c:forEach items="${sessionScope.allDep}" var="dep">
 
                         <c:if test="${dep.depName == sessionScope.editStaff.post.department.depName}">
-                            <option selected="selected">${dep.depName}</option>
+                            <option selected="selected" value="${dep.depID}">${dep.depName}</option>
                         </c:if>
                         <c:if test="${dep.depName != sessionScope.editStaff.post.department.depName}">
-                            <option>${dep.depName}</option>
+                            <option value="${dep.depID}">${dep.depName}</option>
                         </c:if>
 
                     </c:forEach>
@@ -115,7 +115,7 @@
         console.log(value);
         //根据value的值发送请求,获取二级列表的json数据
         var data = new FormData();
-        data.append("post.department.depName", value);
+        data.append("post.department.depID", value);
 
         var xhr = new XMLHttpRequest();
         xhr.withCredentials = true;

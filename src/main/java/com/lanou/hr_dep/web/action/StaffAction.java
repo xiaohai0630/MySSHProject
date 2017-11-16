@@ -28,6 +28,9 @@ public class StaffAction extends BaseAction<Staff, StaffService> {
     // 全局变量
     private List<Post> postList;
 
+    // 用来存放高级查询的结果
+    private List<Staff> returnStaffs;
+
     @Resource
     private StaffService staffService;
 
@@ -104,11 +107,6 @@ public class StaffAction extends BaseAction<Staff, StaffService> {
         // 根据不同情况调用不同的方法
         Staff staffMsg = getModel();
 
-        // 用来返回的职员
-        List<Staff> returnStaffs = new ArrayList<Staff>();
-
-        System.out.println("staffMsg：---" + staffMsg);
-
         // 判断不同的情况
         if (staffMsg.getPost().getDepartment().getDepID() != 0) {
 
@@ -119,23 +117,24 @@ public class StaffAction extends BaseAction<Staff, StaffService> {
                 if (staffMsg.getStaffName() != null && !staffMsg.getStaffName().equals("")) {
                     // 三个条件全都有
                     returnStaffs = staffService.findStaffWithMsgAll(getModel());
+                    sessionPut("returnStaffs",returnStaffs);
+                    return "findStaffWithMsg";
                 }
 
                 // 只有部门和职务
                 returnStaffs = staffService.findStaffWithMsgPostID(getModel());
-                System.out.println("只用职务查询：---" + returnStaffs);
+                sessionPut("returnStaffs",returnStaffs);
+                return "findStaffWithMsg";
             }
 
             // 只用部门查询－－需要先查询职务的id（用部门的id查询下属的职务）
             List<Post> postWithDep = postService.findPostWithDep(getModel().getPost());
 
-            System.out.println("部门对应的职务： " + postWithDep);
-
             // 根据部门查询职员
             returnStaffs = staffService.findStaffWithMsgDep(postWithDep);
+            sessionPut("returnStaffs",returnStaffs);
 
-            System.out.println("只用部门查询" +returnStaffs);
-
+            return "findStaffWithMsg";
         }
 
         return "findStaffWithMsg";
@@ -167,6 +166,15 @@ public class StaffAction extends BaseAction<Staff, StaffService> {
 
     public void setPostList(List<Post> postList) {
         this.postList = postList;
+    }
+
+    // 高级查询
+    public List<Staff> getReturnStaffs() {
+        return returnStaffs;
+    }
+
+    public void setReturnStaffs(List<Staff> returnStaffs) {
+        this.returnStaffs = returnStaffs;
     }
 
     public Staff getStaff() {
