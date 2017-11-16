@@ -37,6 +37,23 @@ public class StaffServiceImpl implements StaffService {
                 staff.getStaffName(), staff.getPost().getPostID());
     }
 
+    // 根据部门名称和姓名查询
+    public List<Staff> findStaffWithMsgDepAndName(List<Post> posts, String name) {
+
+        // 用来返回的职员的集合
+        List<Staff> returnStaff = new ArrayList<Staff>();
+
+        for (int i = 0; i < posts.size(); i++) {
+
+            List<Staff> all = staffDao.findAll("and PostID=? and staffName=?", posts.get(i).getPostID(), name);
+            for (int j = 0; j < all.size(); j++) {
+                returnStaff.add(j, all.get(j));
+            }
+
+        }
+        return returnStaff;
+    }
+
     // 根据职务查询（需要选择部门，但是查询条件中不需要部门的信息）
     public List<Staff> findStaffWithMsgPostID(Staff staff) {
         return staffDao.findAll("and PostID=?", staff.getPost().getPostID());
@@ -57,6 +74,11 @@ public class StaffServiceImpl implements StaffService {
 
         }
         return returnStaff;
+    }
+
+    // 根据员工姓名查询
+    public List<Staff> findStaffWithMsgName(String staffName) {
+        return staffDao.findAll("and staffName=?", staffName);
     }
 
     // 编辑或添加职员

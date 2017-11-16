@@ -108,36 +108,52 @@ public class StaffAction extends BaseAction<Staff, StaffService> {
         Staff staffMsg = getModel();
 
         // 判断不同的情况
-        if (staffMsg.getPost().getDepartment().getDepID() != 0) {
+        if (staffMsg.getPost().getDepartment().getDepID() != -1) {
 
             // 如果选择查询条件中有部门
-            if (staffMsg.getPost().getPostID() != 0) {
+            if (staffMsg.getPost().getPostID() != -1) {
 
                 // 既有部门又有职务
                 if (staffMsg.getStaffName() != null && !staffMsg.getStaffName().equals("")) {
                     // 三个条件全都有
                     returnStaffs = staffService.findStaffWithMsgAll(getModel());
-                    sessionPut("returnStaffs",returnStaffs);
+                    sessionPut("returnStaffs", returnStaffs);
                     return "findStaffWithMsg";
                 }
 
                 // 只有部门和职务
                 returnStaffs = staffService.findStaffWithMsgPostID(getModel());
-                sessionPut("returnStaffs",returnStaffs);
+                sessionPut("returnStaffs", returnStaffs);
                 return "findStaffWithMsg";
+            } else {
+                // 选择了部门，但是没有选择职务
+                if (staffMsg.getStaffName() != null && !staffMsg.getStaffName().equals("")) {
+                    // 根据部门和名字查询
+                    List<Post> postWithDep = postService.findPostWithDep(getModel().getPost());
+                    returnStaffs = staffService.findStaffWithMsgDepAndName(postWithDep, getModel().getStaffName());
+                    sessionPut("returnStaffs", returnStaffs);
+                    return "findStaffWithMsg";
+
+                } else {
+                    // 只用部门查询－－需要先查询职务的id（用部门的id查询下属的职务）
+                    List<Post> postWithDep = postService.findPostWithDep(getModel().getPost());
+
+                    // 根据部门查询职员
+                    returnStaffs = staffService.findStaffWithMsgDep(postWithDep);
+                    sessionPut("returnStaffs", returnStaffs);
+
+                    return "findStaffWithMsg";
+                }
+
             }
 
-            // 只用部门查询－－需要先查询职务的id（用部门的id查询下属的职务）
-            List<Post> postWithDep = postService.findPostWithDep(getModel().getPost());
+        } else {
 
-            // 根据部门查询职员
-            returnStaffs = staffService.findStaffWithMsgDep(postWithDep);
-            sessionPut("returnStaffs",returnStaffs);
-
+            // 只用姓名查询
+            returnStaffs = staffService.findStaffWithMsgName(getModel().getStaffName());
             return "findStaffWithMsg";
         }
 
-        return "findStaffWithMsg";
     }
 
     // 二级联动的添加职员（查询职务）

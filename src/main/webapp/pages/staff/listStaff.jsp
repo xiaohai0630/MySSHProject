@@ -175,7 +175,7 @@
 
     // 高级查询
     function condition() {
-        // 获取查询条件
+        // 获取查询条件－－部门id，职务id，员工姓名
         var data = new FormData();
         data.append("post.department.depID", document.getElementById("depSelectId").value);
         data.append("post.postID", document.getElementById("postSelectId").value);
@@ -253,7 +253,7 @@
                             // 创建一个a标签
                             optionChild6A = document.createElement("a");
                             optionChild6A.setAttribute("href",
-                                    "staffAction_editStaff.action?editStaff=${sessionScope.returnStaffs[1].staffID}");
+                                    "staffAction_editStaff.action?editStaff=${sessionScope.returnStaffs.staffID}");
                             optionChild6.appendChild(optionChild6A);
 
                             // 添加图片
@@ -299,7 +299,7 @@
                             // 创建一个a标签
                             optionChild6A = document.createElement("a");
                             optionChild6A.setAttribute("href",
-                                    "staffAction_editStaff.action?editStaff=${sessionScope.returnStaffs[1].staffID}");
+                                    "staffAction_editStaff.action?editStaff=${sessionScope.returnStaffs.staffID}");
                             optionChild6.appendChild(optionChild6A);
 
                             // 添加图片

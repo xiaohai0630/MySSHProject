@@ -2,6 +2,7 @@ package com.lanou.hr_dep.service;
 
 import com.lanou.hr_dep.domain.Post;
 import com.lanou.hr_dep.domain.Staff;
+
 import java.util.List;
 
 /**
@@ -19,11 +20,17 @@ public interface StaffService {
     // 三个条件都有
     List<Staff> findStaffWithMsgAll(Staff staff);
 
+    // 根据部门和姓名查询
+    List<Staff> findStaffWithMsgDepAndName(List<Post> posts, String name);
+
     // 根据职务查询
     List<Staff> findStaffWithMsgPostID(Staff staff);
 
     // 只是根据部门查询
     List<Staff> findStaffWithMsgDep(List<Post> posts);
+
+    // 只根据名字查询
+    List<Staff> findStaffWithMsgName(String staffName);
 
     // 编辑或添加职员
     void addOrEditStaff(Staff staff);
