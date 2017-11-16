@@ -20,7 +20,7 @@ import java.util.List;
  */
 @Controller("loginAction")
 @Scope("prototype")
-public class LoginAction extends BaseAction<Staff,StaffService> {
+public class LoginAction extends BaseAction<Staff, StaffService> {
     /**
      * 员工登录：
      * 接收页面传递的参数Staff，和数据库中存的信息进行比较
@@ -51,9 +51,12 @@ public class LoginAction extends BaseAction<Staff,StaffService> {
              * 判断是否有这个员工，集合大于0，有这个用户
              * MD5加密
              */
-            String pwd = getModel().getLoginPwd();
-            String md5 = MD5Utils.md5(pwd);
-            getModel().setLoginPwd(md5);
+            if (getModel().getLoginPwd() != null && !getModel().getLoginPwd().equals("")) {
+
+                String pwd = getModel().getLoginPwd();
+                String md5 = MD5Utils.md5(pwd);
+                getModel().setLoginPwd(md5);
+            }
 
             List<Staff> login = loginService.loginByStaff(getModel());
 
@@ -85,23 +88,22 @@ public class LoginAction extends BaseAction<Staff,StaffService> {
         // 当前登录的员工
         Staff oldStaff = (Staff) session.getAttribute("staffMsg");
 
-        // 把原始密码、新密码、确认密码都加密
-        String oldPasswordMD5 = MD5Utils.md5(oldPassword);
-        String newPasswordMD5 = MD5Utils.md5(newPassword);
-        String reNewPasswordMD5 = MD5Utils.md5(reNewPassword);
-
         try {
+            String oldPasswordMD5 = MD5Utils.md5(oldPassword);
+            String newPasswordMD5 = MD5Utils.md5(newPassword);
+            String reNewPasswordMD5 = MD5Utils.md5(reNewPassword);
+
             // 原始密码不一致
             if (!oldStaff.getLoginPwd().equals(oldPasswordMD5)) {
                 sessionPut("editPwdError", "原始密码不正确");
                 return "editPwdError";
             }
-            if (newPasswordMD5.equals("")){
-                sessionPut("editPwdError","新密码为空");
+            if (newPasswordMD5.equals("")) {
+                sessionPut("editPwdError", "新密码为空");
                 return "editPwdError";
             }
-            if (reNewPasswordMD5.equals("")){
-                sessionPut("editPwdError","确认密码为空");
+            if (reNewPasswordMD5.equals("")) {
+                sessionPut("editPwdError", "确认密码为空");
                 return "editPwdError";
             }
 
@@ -121,8 +123,8 @@ public class LoginAction extends BaseAction<Staff,StaffService> {
             return "editPwdError";
 
         } catch (Exception e) {
-            // 新密码或者确认密码是空就报错
-            sessionPut("editPwdError", "新密码为空");
+            // 有没写的密码
+            sessionPut("editPwdError", "密码为空");
             return "editPwdError";
         }
 

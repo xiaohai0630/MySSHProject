@@ -45,7 +45,7 @@
             <td>登录名：</td>
             <td><input type="text" name="loginName" value="${sessionScope.editStaff.loginName}"/></td>
             <td>密码：</td>
-            <td><input type="password" name="loginPwd" value="${sessionScope.editStaff.loginPwd}"/></td>
+            <td><input type="password" readonly="readonly" name="loginPwd" value="${sessionScope.editStaff.loginPwd}"/></td>
         </tr>
         <tr>
             <td>姓名：</td>
