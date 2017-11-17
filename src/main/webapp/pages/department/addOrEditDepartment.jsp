@@ -41,14 +41,15 @@
         <tr>
             <td>部门名称：</td>
             <td>
-                <input type="text" name="depName" value="${sessionScope.addOrEditDep.depName}"/>
-                <input type="hidden" name="depID" value="${sessionScope.addOrEditDep.depID}"/>
+                <input type="text" name="depName" value="${sessionScope.departmentMsg.depName}"/>
+                <input type="hidden" name="depID" value="${sessionScope.departmentMsg.depID}"/>
             </td>
         </tr>
     </table>
 </form>
 
-<h2>${sessionScope.wrongDept}</h2>
+<%--错误信息--%>
+<h2>${sessionScope.departmentAddOrEditError}</h2>
 
 </body>
 </html>

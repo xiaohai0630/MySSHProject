@@ -12,6 +12,10 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+import static com.lanou.utils.MyConstant.DEPARTMENTADDOREDITERROR;
+import static com.lanou.utils.MyConstant.DEPARTMENTMSG;
+import static com.lanou.utils.MyConstant.STAFFCHANGELOGINPWDERROR;
+
 /**
  * Created by dllo on 17/11/10.
  */
@@ -20,6 +24,9 @@ import java.util.List;
 public class DepartmentAction extends BaseAction<Department, DepartmentService> {
     @Resource
     private DepartmentService departmentService;
+
+    // 验证
+    private String depName;
 
     // 获取session
     HttpServletRequest request = ServletActionContext.getRequest();
@@ -36,12 +43,11 @@ public class DepartmentAction extends BaseAction<Department, DepartmentService> 
         int page = 1;
         // 分页－－参数：当前页、每一页显示的条数、总的条数
         PageBean<Department> pageBean = new PageBean<Department>(page, 5, allDep.size());
-        System.out.println("分页信息：---" + pageBean);
-
 
         // 清除部门的相关错误信息
-        sessionRemove("wrongDept");
-        sessionRemove("addOrEditDep");
+        sessionRemove(STAFFCHANGELOGINPWDERROR);
+        sessionRemove(DEPARTMENTADDOREDITERROR);
+        sessionRemove(DEPARTMENTMSG);
 
         return "showAllDep";
     }
@@ -55,20 +61,20 @@ public class DepartmentAction extends BaseAction<Department, DepartmentService> 
         if (depID == null) {
             // 部门名称为空或者重名都提示错误
             if (getModel().getDepName().equals("")) {
-                sessionPut("wrongDept", "部门名称不能为空");
+                sessionPut(DEPARTMENTADDOREDITERROR, "部门名称不能为空");
                 return "wrongDept";
             }
             List<Department> allDep = departmentService.findAllDep();
             for (int i = 0; i < allDep.size(); i++) {
 
                 if (allDep.get(i).getDepName().equals(getModel().getDepName())) {
-                    sessionPut("wrongDept", "部门名称不能重复");
+                    sessionPut(DEPARTMENTADDOREDITERROR, "部门名称不能重复");
                     return "wrongDept";
                 }
 
             }
             // 清除session中的部门信息
-            sessionRemove("addOrEditDep");
+            sessionRemove(DEPARTMENTMSG);
             // 保存或更新
             departmentService.saveOrUpdate(getModel());
         } else {
@@ -83,18 +89,27 @@ public class DepartmentAction extends BaseAction<Department, DepartmentService> 
             Department depByID = departmentService.findDepByID(dep);
 
             // 把这个部门存在session中，用来在页面上显示部门名称
-            sessionPut("addOrEditDep", depByID);
+            sessionPut(DEPARTMENTMSG, depByID);
             return "edit";
         }
         return "addOrEdit";
     }
 
-    // 从添加部门页面返回
+    // 从添加或修改部门页面返回部门列表
     public String returnListDept() {
         // 清除错误信息和修改时候显示的当前部门信息
-        sessionRemove("wrongDept");
-        sessionRemove("addOrEditDep");
+        sessionRemove(STAFFCHANGELOGINPWDERROR);
+        sessionRemove(DEPARTMENTADDOREDITERROR);
+        sessionRemove(DEPARTMENTMSG);
         return "returnListDept";
+    }
+
+    public String getDepName() {
+        return depName;
+    }
+
+    public void setDepName(String depName) {
+        this.depName = depName;
     }
 
 }

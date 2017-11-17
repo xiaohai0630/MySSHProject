@@ -6,55 +6,33 @@
 
 <struts>
 
-    <!--登录成功跳转主页面，登录失败留在登录页面并显示错误信息
-        退出登录清空session并返回登录页面（error）-->
-    <package name="login" extends="struts-default">
-
-
-        <!--声明自定义拦截器-->
-        <interceptors>
-            <interceptor name="loginCheck" class="com.lanou.login.web.interceptor.Interceptor">
-
-                <!--不验证登录-->
-                <param name="excludeMethods">login</param>
-
-            </interceptor>
-
-            <!--声明一个自定义拦截器栈，存放多个拦截器，name属性是给集合取的名字-->
-            <interceptor-stack name="myInterceptor">
-                <!--自定义的拦截器-->
-                <interceptor-ref name="loginCheck"></interceptor-ref>
-                <!--struts框架默认的拦截器栈-->
-                <interceptor-ref name="defaultStack"></interceptor-ref>
-            </interceptor-stack>
-
-        </interceptors>
-
-        <!--默认拦截器-->
-        <default-interceptor-ref name="myInterceptor"></default-interceptor-ref>
-
-        <global-results>
-            <result name="interceptors">/pages/login.jsp</result>
-        </global-results>
+    <!--登录成功跳转主页面，并将职员信息查询出来存在session中；
+        登录失败返回登录页面并显示错误信息；
+        退出登录清空session并返回登录页面-->
+    <package name="login" extends="basePackage">
 
         <action name="loginAction_*" class="loginAction" method="{1}">
-
+            <!--登录成功-->
             <result name="success">/pages/frame.jsp</result>
+
             <!--登录失败-->
-            <result name="error">/pages/login.jsp</result>
+            <result name="wrong">/pages/login.jsp</result>
+
+            <!--登录验证出错的返回-->
             <result name="input">/pages/login.jsp</result>
 
-            <!--修改密码之后重新登录-->
+
+            <!--修改密码成功之后，重定向到登录-->
             <result name="reLogin" type="redirectAction">
                 <param name="actionName">loginAction_logout</param>
             </result>
 
-            <!--返回主页面（修改密码时）-->
+            <!--从修改密码页面返回-->
             <result name="returnFrame">/pages/frame/right.jsp</result>
             <!--修改密码出错-->
             <result name="editPwdError">/pages/staff/updPwd.jsp</result>
 
-            <!--struts2.5版本以后：需要规定可以跳转的方法？-->
+            <!--struts2.5版本以后：需要规定可以跳转的方法-->
             <allowed-methods>login,logout,returnFrame,editPassword</allowed-methods>
         </action>
 

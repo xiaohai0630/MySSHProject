@@ -14,6 +14,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+import static com.lanou.utils.MyConstant.POSTADDOREDITERROR;
+import static com.lanou.utils.MyConstant.POSTMSG;
+import static com.lanou.utils.MyConstant.STAFFCHANGELOGINPWDERROR;
+
 /**
  * Created by dllo on 17/11/11.
  */
@@ -42,8 +46,9 @@ public class PostAction extends BaseAction<Post, PostService> {
         sessionPut("allPost", allPost);
 
         // 清除添加职务页面的错误信息
-        sessionRemove("wrongChoose");
-        sessionRemove("addOrEditPost");
+        sessionRemove(STAFFCHANGELOGINPWDERROR);
+        sessionRemove(POSTADDOREDITERROR);
+        sessionRemove(POSTMSG);
 
         return "showAllPost";
     }
@@ -58,23 +63,23 @@ public class PostAction extends BaseAction<Post, PostService> {
         if (postID == null) {
             // 如果选中的是请选择，提示重新选择
             if (getModel().getDepartment().getDepID() == -1) {
-                sessionPut("wrongChoose", "部门名称不能为请选择！");
+                sessionPut(POSTADDOREDITERROR, "部门名称不能为请选择！");
                 return "wrongChoose";
             }
 
             // 如果职务名称为空或重名，都需要提示错误
             if (getModel().getPostName().equals("")) {
-                sessionPut("wrongChoose", "职务名称不能为空");
+                sessionPut(POSTADDOREDITERROR, "职务名称不能为空");
                 return "wrongChoose";
             }
 
             // 不是修改的时候需要判断部门名称是否重复
-            if (session.getAttribute("addOrEditPost") == null) {
+            if (session.getAttribute(POSTMSG) == null) {
 
                 List<Post> allPost = postService.findAllPost();
                 for (int i = 0; i < allPost.size(); i++) {
                     if (allPost.get(i).getPostName().equals(getModel().getPostName())) {
-                        sessionPut("wrongChoose", "职务名称不能相同");
+                        sessionPut(POSTADDOREDITERROR, "职务名称不能相同");
                         return "wrongChoose";
                     }
 
@@ -82,10 +87,9 @@ public class PostAction extends BaseAction<Post, PostService> {
 
             }
             // 清除session中职务信息和选择错误信息
-            sessionRemove("addOrEditPost");
-            sessionRemove("wrongChoose");
+            sessionRemove(POSTMSG);
+            sessionRemove(POSTADDOREDITERROR);
 
-            System.out.println(getModel());
             // 添加或修改
             postService.addOrEditPost(getModel());
 
@@ -101,18 +105,19 @@ public class PostAction extends BaseAction<Post, PostService> {
             Post postByID = postService.findPostByID(post);
 
             // 把这个职务存在session中，用来在页面显示
-            sessionPut("addOrEditPost", postByID);
+            sessionPut(POSTMSG, postByID);
             return "edit";
         }
         return "addOrEdit";
     }
 
-    // 从添加或编辑页面返回，需要清除session中的信息，下次再进入的时候不会显示默认信息
+    // 从添加或编辑页面返回职务列表
     public String returnListPost() {
         // 编辑时候的职务的信息
-        sessionRemove("addOrEditPost");
+        sessionRemove(POSTMSG);
         // 请选择
-        sessionRemove("wrongChoose");
+        sessionRemove(POSTADDOREDITERROR);
+        sessionRemove(STAFFCHANGELOGINPWDERROR);
         return "returnListPost";
     }
 

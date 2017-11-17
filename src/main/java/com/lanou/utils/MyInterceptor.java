@@ -1,4 +1,4 @@
-package com.lanou.login.web.interceptor;
+package com.lanou.utils;
 
 import com.lanou.hr_dep.domain.Staff;
 import com.opensymphony.xwork2.ActionInvocation;
@@ -10,11 +10,11 @@ import javax.servlet.http.HttpSession;
 /**
  * Created by dllo on 17/11/10.
  */
-public class Interceptor extends MethodFilterInterceptor {
-    // 拦截器？
+public class MyInterceptor extends MethodFilterInterceptor {
+    // 拦截器
     protected String doIntercept(ActionInvocation actionInvocation) throws Exception {
         HttpSession session = ServletActionContext.getRequest().getSession();
-        Staff staff = (Staff) session.getAttribute("staffMsg");
+        Staff staff = (Staff) session.getAttribute("nowStaff");
 
         System.out.println(staff);
 

@@ -12,7 +12,6 @@ public class MD5Utils {
     /**
      * 使用md5的算法进行加密
      */
-
     public static String md5(String plainText) {
         byte[] secretBytes = null;
         try {

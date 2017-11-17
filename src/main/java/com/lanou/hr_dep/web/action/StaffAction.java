@@ -16,6 +16,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+import static com.lanou.utils.MyConstant.*;
+
 /**
  * Created by dllo on 17/11/11.
  */
@@ -58,16 +60,15 @@ public class StaffAction extends BaseAction<Staff, StaffService> {
         sessionPut("allStaff", allStaff);
 
         // 清除session中的信息
-        sessionRemove("editStaffPost");
-        sessionRemove("editStaff");
+        sessionRemove(STAFFCHANGELOGINPWDERROR);
+        sessionRemove(POSTMSG);
+        sessionRemove(STAFFMSG);
 
         return "showAllStaff";
     }
 
     // 添加或编辑职员
     public String addOrEditStaff() {
-
-        System.out.println("页面获取： " + getModel());
 
         // MD5加密
         String pwd = getModel().getLoginPwd();
@@ -91,17 +92,18 @@ public class StaffAction extends BaseAction<Staff, StaffService> {
 
         // 存职务和职员信息
         sessionPut("editStaffPost", postWithDep);
-        sessionPut("editStaff", staffByID.get(0));
+        sessionPut(STAFFMSG, staffByID.get(0));
 
         return "editStaff";
     }
 
-    // 返回职员列表
+    // 从添加或修改职员页面返回职员列表
     public String returnListStaff() {
 
         // 清除session中的信息
-        sessionRemove("editStaffPost");
-        sessionRemove("editStaff");
+        sessionRemove(STAFFCHANGELOGINPWDERROR);
+        sessionRemove(POSTMSG);
+        sessionRemove(STAFFMSG);
 
         return "returnListStaff";
     }
@@ -122,13 +124,13 @@ public class StaffAction extends BaseAction<Staff, StaffService> {
                 if (staffMsg.getStaffName() != null && !staffMsg.getStaffName().equals("")) {
                     // 三个条件全都有
                     returnStaffs = staffService.findStaffWithMsgAll(getModel());
-                    sessionPut("returnStaffs", returnStaffs);
+                    sessionPut(FINDSTAFFWITHMSG, returnStaffs);
                     return "findStaffWithMsg";
                 }
 
                 // 只有部门和职务
                 returnStaffs = staffService.findStaffWithMsgPostID(getModel());
-                sessionPut("returnStaffs", returnStaffs);
+                sessionPut(FINDSTAFFWITHMSG, returnStaffs);
                 return "findStaffWithMsg";
             } else {
                 // 选择了部门，但是没有选择职务
@@ -136,7 +138,7 @@ public class StaffAction extends BaseAction<Staff, StaffService> {
                     // 根据部门和名字查询
                     List<Post> postWithDep = postService.findPostWithDep(getModel().getPost());
                     returnStaffs = staffService.findStaffWithMsgDepAndName(postWithDep, getModel().getStaffName());
-                    sessionPut("returnStaffs", returnStaffs);
+                    sessionPut(FINDSTAFFWITHMSG, returnStaffs);
                     return "findStaffWithMsg";
 
                 } else {
@@ -145,7 +147,7 @@ public class StaffAction extends BaseAction<Staff, StaffService> {
 
                     // 根据部门查询职员
                     returnStaffs = staffService.findStaffWithMsgDep(postWithDep);
-                    sessionPut("returnStaffs", returnStaffs);
+                    sessionPut(FINDSTAFFWITHMSG, returnStaffs);
 
                     return "findStaffWithMsg";
                 }

@@ -74,9 +74,8 @@
     </table>
 </form>
 
-<h2>
-    ${sessionScope.editPwdError}
-</h2>
+<%--错误信息--%>
+<h2>${sessionScope.staffChangeLoginPwdError}</h2>
 
 </body>
 </html>

@@ -45,10 +45,6 @@
 <body leftMargin=0 topMargin=0 marginwidth="0" marginheight="0"
       background="${pageContext.request.contextPath}/images/rightbg.jpg">
 
-<%--BODY中的background属性：
-    background="${pageContext.request.contextPath}/images/rightbg.jpg"
-    去掉中间的EL表达式，这样就可以显示页面的样式了--%>
-
 <div ALIGN="center">
     <table border="0" width="1140px" cellspacing="0" cellpadding="0" id="table1">
         <tr>
@@ -66,9 +62,9 @@
 
                     <br/>
                     <br/>
-
+                    <%--用户名和密码不匹配的错误提示--%>
                     <font color="#ff0000">
-                        ${sessionScope.loginError}
+                        ${sessionScope.staffLoginError}
                     </font>
 
                     <br/>
@@ -86,7 +82,8 @@
     </table>
 
     <%--验证器的验证--%>
-    <s:fielderror fieldName="staff.loginName"></s:fielderror><br/>
+    <s:fielderror fieldName="loginName"></s:fielderror><br/>
+    <s:fielderror fieldName="loginPwd"></s:fielderror><br/>
 
     <script type="text/javascript">
         /* s标签中直接编写JavaScript代码时，不支持el表达式，只能提供单独的函数
@@ -98,5 +95,4 @@
 </div>
 
 </body>
-
 </HTML>

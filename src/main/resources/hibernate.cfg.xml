@@ -17,9 +17,9 @@
         <!--引入其他配置-->
         <mapping resource="com/lanou/ask/StuAsk.hbm.xml"/>
         <mapping resource="com/lanou/ask/StuFollow.hbm.xml"/>
-        <mapping resource="com/lanou/hr/Department.hbm.xml"/>
-        <mapping resource="com/lanou/hr/Post.hbm.xml"/>
-        <mapping resource="com/lanou/hr/Staff.hbm.xml"/>
+        <mapping resource="com/lanou/hr_dep/Department.hbm.xml"/>
+        <mapping resource="com/lanou/hr_dep/Post.hbm.xml"/>
+        <mapping resource="com/lanou/hr_dep/Staff.hbm.xml"/>
         <mapping resource="com/lanou/job/StuJob.hbm.xml"/>
         <mapping resource="com/lanou/plan/StuChange.hbm.xml"/>
         <mapping resource="com/lanou/plan/Student.hbm.xml"/>

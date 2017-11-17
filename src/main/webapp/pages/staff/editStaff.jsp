@@ -28,7 +28,8 @@
                 <img src="${pageContext.request.contextPath}/images/button/save.gif"/>
             </a>
             <!-- 执行js，进行返回 -->
-            <a href="javascript:void(0)" onclick="document.location='${pageContext.request.contextPath}/staffAction_returnListStaff'"><img
+            <a href="javascript:void(0)"
+               onclick="document.location='${pageContext.request.contextPath}/staffAction_returnListStaff'"><img
                     src="${pageContext.request.contextPath}/images/button/tuihui.gif"/></a>
 
         </td>
@@ -43,20 +44,21 @@
     <table width="88%" border="0" class="emp_table" style="width:80%;">
         <tr>
             <td>登录名：</td>
-            <td><input type="text" name="loginName" value="${sessionScope.editStaff.loginName}"/></td>
+            <td><input type="text" name="loginName" value="${sessionScope.staffMsg.loginName}"/></td>
             <td>密码：</td>
-            <td><input type="password" readonly="readonly" name="loginPwd" value="${sessionScope.editStaff.loginPwd}"/></td>
+            <td><input type="password" readonly="readonly" name="loginPwd" value="${sessionScope.staffMsg.loginPwd}"/>
+            </td>
         </tr>
         <tr>
             <td>姓名：</td>
-            <td><input type="text" name="staffName" value="${sessionScope.editStaff.staffName}"/></td>
+            <td><input type="text" name="staffName" value="${sessionScope.staffMsg.staffName}"/></td>
             <td>性别：</td>
             <td>
-                <c:if test="${sessionScope.editStaff.gender == '男'}">
+                <c:if test="${sessionScope.staffMsg.gender == '男'}">
                     <input type="radio" name="gender" checked="checked" value="男"/>男
                     <input type="radio" name="gender" value="女"/>女
                 </c:if>
-                <c:if test="${sessionScope.editStaff.gender == '女'}">
+                <c:if test="${sessionScope.staffMsg.gender == '女'}">
                     <input type="radio" name="gender" value="男"/>男
                     <input type="radio" name="gender" checked="checked" value="女"/>女
                 </c:if>
@@ -69,10 +71,10 @@
                     <option value="-1">----请--选--择----</option>
                     <c:forEach items="${sessionScope.allDep}" var="dep">
 
-                        <c:if test="${dep.depName == sessionScope.editStaff.post.department.depName}">
+                        <c:if test="${dep.depName == sessionScope.staffMsg.post.department.depName}">
                             <option selected="selected" value="${dep.depID}">${dep.depName}</option>
                         </c:if>
-                        <c:if test="${dep.depName != sessionScope.editStaff.post.department.depName}">
+                        <c:if test="${dep.depName != sessionScope.staffMsg.post.department.depName}">
                             <option value="${dep.depID}">${dep.depName}</option>
                         </c:if>
 
@@ -87,10 +89,10 @@
 
                     <%--先显示这个职员所在的部门的全部的职务，二级联动的查询的时候再显示新的--%>
                     <c:forEach items="${sessionScope.editStaffPost}" var="post">
-                        <c:if test="${post.postID == sessionScope.editStaff.post.postID}">
+                        <c:if test="${post.postID == sessionScope.staffMsg.post.postID}">
                             <option selected="selected">${post.postName}</option>
                         </c:if>
-                        <c:if test="${post.postID != sessionScope.editStaff.post.postID}">
+                        <c:if test="${post.postID != sessionScope.staffMsg.post.postID}">
                             <option>${post.postName}</option>
                         </c:if>
                     </c:forEach>
@@ -100,7 +102,7 @@
         <tr>
             <td width="10%">入职时间：</td>
             <td width="20%">
-                <input type="text" name="onDutyDate" value="${sessionScope.editStaff.onDutyDate}" readonly="readonly"
+                <input type="text" name="onDutyDate" value="${sessionScope.staffMsg.onDutyDate}" readonly="readonly"
                        onfocus="c.showMoreDay=true; c.show(this);"/>
             </td>
             <td width="8%"></td>

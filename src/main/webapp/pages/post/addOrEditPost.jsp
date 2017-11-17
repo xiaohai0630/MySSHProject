@@ -47,10 +47,10 @@
                 <select name="department.depID">
                     <option value="-1">----请--选--择----</option>
                     <c:forEach items="${sessionScope.allDep}" var="dep">
-                        <c:if test="${sessionScope.addOrEditPost.department.depName == dep.depName}">
+                        <c:if test="${sessionScope.postMsg.department.depName == dep.depName}">
                             <option selected="selected" value="${dep.depID}">${dep.depName}</option>
                         </c:if>
-                        <c:if test="${sessionScope.addOrEditPost.department.depName != dep.depName}">
+                        <c:if test="${sessionScope.postMsg.department.depName != dep.depName}">
                             <option value="${dep.depID}">${dep.depName}</option>
                         </c:if>
                     </c:forEach>
@@ -59,8 +59,8 @@
             <td>职务：</td>
             <td>
                 <%--显示职务的名称，隐藏的属性是职务的id--%>
-                <input type="text" name="postName" value="${sessionScope.addOrEditPost.postName}"/>
-                <input type="hidden" name="postID" value="${sessionScope.addOrEditPost.postID}"/>
+                <input type="text" name="postName" value="${sessionScope.postMsg.postName}"/>
+                <input type="hidden" name="postID" value="${sessionScope.postMsg.postID}"/>
 
             </td>
         </tr>
@@ -69,7 +69,8 @@
 
 </form>
 
-<h2>${sessionScope.wrongChoose}</h2>
+<%--错误信息--%>
+<h2>${sessionScope.postAddOrEditError}</h2>
 
 </body>
 </html>
