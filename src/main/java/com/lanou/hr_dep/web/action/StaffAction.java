@@ -153,10 +153,19 @@ public class StaffAction extends BaseAction<Staff, StaffService> {
             }
 
         } else {
+            // 部门为空
 
-            // 只用姓名查询
-            returnStaffs = staffService.findStaffWithMsgName(getModel().getStaffName());
-            return "findStaffWithMsg";
+            if (staffMsg.getStaffName() != null && !staffMsg.getStaffName().equals("")){
+                // 只用姓名查询
+                returnStaffs = staffService.findStaffWithMsgName(getModel().getStaffName());
+                return "findStaffWithMsg";
+            }else {
+                // 三个条件都没有，相当于查询全部
+                returnStaffs = staffService.findAllStaff();
+                return "findStaffWithMsg";
+
+            }
+
         }
 
     }

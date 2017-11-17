@@ -1,10 +1,13 @@
 package com.lanou.hr_dep.service.impl;
 
+import com.lanou.hr_dep.domain.Staff;
 import com.lanou.hr_dep.service.StaffService;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -29,6 +32,13 @@ public class StaffServiceImplTest {
     public void testService(){
 
         System.out.println(staffService.findAllStaff());
+    }
+
+    // 模糊查询
+    @Test
+    public void testSql(){
+        List<Staff> a = staffService.findStaffWithMsgName("a");
+        System.out.println(a);
     }
 
 }

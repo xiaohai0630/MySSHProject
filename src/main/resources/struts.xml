@@ -14,31 +14,6 @@
     <!--让spring管理action对象的创建-->
     <constant name="struts.objectFactory" value="spring"/>
 
-    <!--声明自定义拦截器：只放行登录-->
-    <package name="interceptor" extends="struts-default">
-        <!--声明自定义拦截器-->
-        <interceptors>
-            <interceptor name="interceptor"
-                         class="com.lanou.login.web.interceptor.Interceptor">
-            </interceptor>
-
-            <!--声明一个自定义拦截器栈，存放多个拦截器，name属性是给集合取的名字-->
-            <interceptor-stack name="myInterceptor">
-                <!--自定义的拦截器-->
-                <interceptor-ref name="interceptor"/>
-                <!--struts框架默认的拦截器栈-->
-                <interceptor-ref name="defaultStack"/>
-            </interceptor-stack>
-
-        </interceptors>
-
-        <!--<action name="myInterceptor" class="">-->
-            <!--<interceptor-ref name="myInterceptor"/>-->
-            <!--<result name="error">/pages/login.jsp</result>-->
-        <!--</action>-->
-
-    </package>
-
     <!--引入其他的struts-->
     <include file="struts/login-struts.xml"/>
     <include file="struts/dep-struts.xml"/>

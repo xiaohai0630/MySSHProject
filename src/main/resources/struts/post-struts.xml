@@ -8,6 +8,32 @@
 
     <package name="post" extends="struts-default">
 
+        <!--声明自定义拦截器-->
+        <interceptors>
+            <interceptor name="loginCheck" class="com.lanou.login.web.interceptor.Interceptor">
+
+                <!--不验证登录-->
+                <param name="excludeMethods">login</param>
+
+            </interceptor>
+
+            <!--声明一个自定义拦截器栈，存放多个拦截器，name属性是给集合取的名字-->
+            <interceptor-stack name="myInterceptor">
+                <!--自定义的拦截器-->
+                <interceptor-ref name="loginCheck"></interceptor-ref>
+                <!--struts框架默认的拦截器栈-->
+                <interceptor-ref name="defaultStack"></interceptor-ref>
+            </interceptor-stack>
+
+        </interceptors>
+
+        <!--默认拦截器-->
+        <default-interceptor-ref name="myInterceptor"></default-interceptor-ref>
+
+        <global-results>
+            <result name="interceptors">/pages/login.jsp</result>
+        </global-results>
+
         <action name="postAction_*" class="postAction" method="{1}">
             <result name="showAllPost">/pages/post/{1}.jsp</result>
             <result name="edit">/pages/post/{1}.jsp</result>
