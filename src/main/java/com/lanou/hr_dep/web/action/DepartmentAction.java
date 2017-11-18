@@ -25,11 +25,14 @@ public class DepartmentAction extends BaseAction<Department, DepartmentService> 
     @Resource
     private DepartmentService departmentService;
 
-    // 验证
-    private String depName;
+    // 分页－－第一页
+    private String changePage;
 
     // 获取session
     HttpServletRequest request = ServletActionContext.getRequest();
+
+    // 分页？
+    private List<Department> depBeanList;
 
     // 显示全部的部门信息
     public String listDepartment() {
@@ -39,17 +42,37 @@ public class DepartmentAction extends BaseAction<Department, DepartmentService> 
         // 存放全部的部门信息，用来在页面上显示
         sessionPut("allDep", allDep);
 
-        // 当前页
-        int page = 1;
-        // 分页－－参数：当前页、每一页显示的条数、总的条数
-        PageBean<Department> pageBean = new PageBean<Department>(page, 5, allDep.size());
-
         // 清除部门的相关错误信息
         sessionRemove(STAFFCHANGELOGINPWDERROR);
         sessionRemove(DEPARTMENTADDOREDITERROR);
         sessionRemove(DEPARTMENTMSG);
 
         return "showAllDep";
+    }
+
+    // 分页显示
+    public String depListPageBean() {
+
+        List<Department> allDep = departmentService.findAllDep();
+
+        PageBean<Department> pageBean = null;
+
+        if (changePage.equals("firstPage")) {
+            // 分页－－参数：当前页、每一页显示的条数、总的条数
+            pageBean = new PageBean<Department>(1, 5, allDep.size());
+
+            pageBean.setBeanList(allDep);
+            depBeanList = pageBean.getBeanList();
+
+
+            System.out.println("集合： " + depBeanList);
+            System.out.println("pageBean信息2： " + pageBean);
+
+        }
+
+
+
+        return "depListPageBean";
     }
 
     // 判断是添加还是修改，需要跳转不同的页面
@@ -104,12 +127,20 @@ public class DepartmentAction extends BaseAction<Department, DepartmentService> 
         return "returnListDept";
     }
 
-    public String getDepName() {
-        return depName;
+    public String getChangePage() {
+        return changePage;
     }
 
-    public void setDepName(String depName) {
-        this.depName = depName;
+    public void setChangePage(String changePage) {
+        this.changePage = changePage;
+    }
+
+    public List<Department> getDepBeanList() {
+        return depBeanList;
+    }
+
+    public void setDepBeanList(List<Department> depBeanList) {
+        this.depBeanList = depBeanList;
     }
 
 }

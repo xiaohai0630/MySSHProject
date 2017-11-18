@@ -12,11 +12,17 @@
 
             <result name="showAllDep">/pages/department/{1}.jsp</result>
 
+            <!--分页显示-->
+            <result name="depListPageBean" type="json">
+                <param name="root">depBeanList</param>
+                <param name="includeProperties">.
+                    \[\d\]\.depName,
+                    \[\d\]\.depID
+                </param>
+            </result>
+
             <!--如果是编辑，就跳转到添加和编辑页面，并显示当前的部门名称-->
             <result name="edit">/pages/department/{1}.jsp</result>
-
-            <!--验证-->
-            <!--<result name="input">/pages/department/addOrEditDepartment.jsp</result>-->
 
             <!--添加和修改返回的时候都要重定向到查询全部-->
             <result name="addOrEdit" type="redirectAction">
@@ -30,7 +36,7 @@
 
             <result name="wrongDept">/pages/department/addOrEditDepartment.jsp</result>
 
-            <allowed-methods>listDepartment,addOrEditDepartment,returnListDept</allowed-methods>
+            <allowed-methods>listDepartment,addOrEditDepartment,returnListDept,depListPageBean</allowed-methods>
         </action>
 
     </package>

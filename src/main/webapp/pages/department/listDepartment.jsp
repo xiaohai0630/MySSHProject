@@ -78,12 +78,12 @@
 <table border="0" cellspacing="0" cellpadding="0" align="center">
     <tr>
         <td align="right">
-            <span>第1/3页</span>
+            <span id="page">第1/3页</span>
             <span>
-        	<a href="#" onclick="firstPage()">[首页]</a>&nbsp;&nbsp;
-            <a href="#">[上一页]</a>&nbsp;&nbsp;
-            <a href="#">[下一页]</a>&nbsp;&nbsp;
-            <a href="#">[尾页]</a>
+        	<a href="#" onclick="firstPage(this.id)" id="firstPage">[首页]</a>&nbsp;&nbsp;
+            <a href="#" onclick="firstPage(this.id)" id="upPage">[上一页]</a>&nbsp;&nbsp;
+            <a href="#" onclick="firstPage(this.id)" id="downPage">[下一页]</a>&nbsp;&nbsp;
+            <a href="#" onclick="firstPage(this.id)" id="lastPage">[尾页]</a>
         </span>
         </td>
     </tr>
@@ -93,11 +93,11 @@
 <script type="application/javascript">
 
     // 首页
-    function firstPage() {
+    function firstPage(value) {
 
         // 参数是1
         var data = new FormData();
-        data.append("firstPage", 1);
+        data.append("changePage", value);
 
         var xhr = new XMLHttpRequest();
         xhr.withCredentials = true;
@@ -134,23 +134,26 @@
                         // 编辑
                         tds2 = document.createElement("td");
                         // 图片
-                        tdsPic = document.createElement("td");
+                        tdsPic = document.createElement("img");
 
                         if (i % 2 == 0) {
                             // tr
                             trs.setAttribute("class", "tabtd1");
                             // 给两个td添加属性
                             tds1.setAttribute("align", "center");
+
                             tds2.setAttribute("align", "center");
                             tds2.setAttribute("width", "7%");
+
                             // 部门名称
-                            text = document.createElement(json[i].depName);
+                            text = document.createTextNode(json[i].depName);
                             tds1.appendChild(text);
+                            trs.appendChild(tds1);
 
                             // a标签
                             tdsA = document.createElement("a");
                             tdsA.setAttribute("href",
-                                    "depAction_addOrEditDepartment.action?addOrEditEep=");
+                                    "depAction_addOrEditDepartment.action?addOrEditEep=" + json[i].depID);
 
                             // 编辑的图标
                             tdsPic.setAttribute("src",
@@ -161,8 +164,12 @@
                             tds2.appendChild(tdsA);
 
                             // 把td添加到tr中
-                            trs.appendChild(tds1);
-                            trs.appendChild(tds2)
+                            trs.appendChild(tds2);
+
+                            serverSelect.appendChild(trs);
+                            // 页码
+                            document.getElementById("pageID");
+
                         } else {
                             // tr
                             trs.setAttribute("class", "tabtd2");
@@ -171,13 +178,14 @@
                             tds2.setAttribute("align", "center");
                             tds2.setAttribute("width", "7%");
                             // 部门名称
-                            text = document.createElement(json[i].depName);
+                            text = document.createTextNode(json[i].depName);
                             tds1.appendChild(text);
 
                             // a标签
                             tdsA = document.createElement("a");
                             tdsA.setAttribute("href",
-                                    "depAction_addOrEditDepartment.action?addOrEditEep=");
+                                    "depAction_addOrEditDepartment.action?addOrEditEep=" + json[i].depID);
+                            trs.appendChild(tds1);
 
                             // 编辑的图标
                             tdsPic.setAttribute("src",
@@ -188,8 +196,12 @@
                             tds2.appendChild(tdsA);
 
                             // 把td添加到tr中
-                            trs.appendChild(tds1);
-                            trs.appendChild(tds2)
+                            trs.appendChild(tds2);
+
+                            serverSelect.appendChild(trs);
+
+                            // 页码
+                            document.getElementById("pageID");
                         }
 
                     }
@@ -199,11 +211,11 @@
             }
 
         });
-        xhr.open("POST", "depAction_listDepartment.action");
+        xhr.open("POST", "depAction_depListPageBean.action");
         xhr.send(data);
     }
+
 </script>
 
 </body>
-
 </html>

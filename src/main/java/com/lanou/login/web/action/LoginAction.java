@@ -88,7 +88,7 @@ public class LoginAction extends BaseAction<Staff, StaffService> {
     // 修改密码
     public String staffEditPwd() {
         // 当前登录的员工
-        Staff oldStaff = (Staff) session.getAttribute(NOWSTAFF);
+        Staff oldStaff = (Staff) sessionGet(NOWSTAFF);
 
         try {
             // MD5
