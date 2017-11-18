@@ -33,8 +33,8 @@ public class StaffServiceImpl implements StaffService {
     // 三个条件都有（部门相当于没有）
     public List<Staff> findStaffWithMsgAll(Staff staff) {
 
-        return staffDao.findAll("and staffName=? and postID=?",
-                staff.getStaffName(), staff.getPost().getPostID());
+        return staffDao.findAll("and staffName like ? and postID=?",
+                "%" + staff.getStaffName() + "%", staff.getPost().getPostID());
     }
 
     // 根据部门名称和姓名查询
@@ -45,7 +45,9 @@ public class StaffServiceImpl implements StaffService {
 
         for (int i = 0; i < posts.size(); i++) {
 
-            List<Staff> all = staffDao.findAll("and PostID=? and staffName=?", posts.get(i).getPostID(), name);
+            List<Staff> all = staffDao.findAll("and PostID=? and staffName like ?",
+                    posts.get(i).getPostID(), "%" + name + "%");
+
             for (int j = 0; j < all.size(); j++) {
                 returnStaff.add(j, all.get(j));
             }
@@ -76,9 +78,9 @@ public class StaffServiceImpl implements StaffService {
         return returnStaff;
     }
 
-    // 根据员工姓名查询
+    // 只根据员工姓名查询
     public List<Staff> findStaffWithMsgName(String staffName) {
-        return staffDao.findAll("and staffName=?", staffName);
+        return staffDao.findAll("and staffName like ?", "%" + staffName + "%");
     }
 
     // 编辑或添加职员

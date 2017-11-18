@@ -39,7 +39,7 @@
 
 <form action="staffAction_addOrEditStaff.action" method="post">
 
-    <input type="hidden" name="staffID" value="${sessionScope.editStaff.staffID}"/>
+    <input type="hidden" name="staffID" value="${sessionScope.staffMsg.staffID}"/>
 
     <table width="88%" border="0" class="emp_table" style="width:80%;">
         <tr>
@@ -90,10 +90,10 @@
                     <%--先显示这个职员所在的部门的全部的职务，二级联动的查询的时候再显示新的--%>
                     <c:forEach items="${sessionScope.editStaffPost}" var="post">
                         <c:if test="${post.postID == sessionScope.staffMsg.post.postID}">
-                            <option selected="selected">${post.postName}</option>
+                            <option selected="selected" value="${post.postID}">${post.postName}</option>
                         </c:if>
                         <c:if test="${post.postID != sessionScope.staffMsg.post.postID}">
-                            <option>${post.postName}</option>
+                            <option value="${post.postID}">${post.postName}</option>
                         </c:if>
                     </c:forEach>
                 </select>

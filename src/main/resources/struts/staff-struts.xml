@@ -35,7 +35,8 @@
                     \[\d\]\.gender,
                     \[\d\]\.onDutyDate,
                     \[\d\]\.post\.department\.depName,
-                    \[\d\]\.post\.postName
+                    \[\d\]\.post\.postName,
+                    \[\d\]\.staffID
                 </param>
             </result>
 
