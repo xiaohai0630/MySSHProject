@@ -25,7 +25,7 @@ import static com.lanou.utils.MyConstant.*;
 @Scope("prototype")
 public class StaffAction extends BaseAction<Staff, StaffService> {
     // 验证用
-    private Staff staff;
+    private String loginName, loginPwd, staffName, gender;
 
     // 全局变量
     private List<Post> postList;
@@ -157,11 +157,11 @@ public class StaffAction extends BaseAction<Staff, StaffService> {
         } else {
             // 部门为空
 
-            if (staffMsg.getStaffName() != null && !staffMsg.getStaffName().equals("")){
+            if (staffMsg.getStaffName() != null && !staffMsg.getStaffName().equals("")) {
                 // 只用姓名查询
                 returnStaffs = staffService.findStaffWithMsgName(getModel().getStaffName());
                 return "findStaffWithMsg";
-            }else {
+            } else {
                 // 三个条件都没有，相当于查询全部
                 returnStaffs = staffService.findAllStaff();
                 return "findStaffWithMsg";
@@ -209,12 +209,37 @@ public class StaffAction extends BaseAction<Staff, StaffService> {
         this.returnStaffs = returnStaffs;
     }
 
-    public Staff getStaff() {
-        return staff;
+    // 验证
+    public String getLoginName() {
+        return loginName;
     }
 
-    public void setStaff(Staff staff) {
-        this.staff = staff;
+    public void setLoginName(String loginName) {
+        this.loginName = loginName;
+    }
+
+    public String getLoginPwd() {
+        return loginPwd;
+    }
+
+    public void setLoginPwd(String loginPwd) {
+        this.loginPwd = loginPwd;
+    }
+
+    public String getStaffName() {
+        return staffName;
+    }
+
+    public void setStaffName(String staffName) {
+        this.staffName = staffName;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
 }

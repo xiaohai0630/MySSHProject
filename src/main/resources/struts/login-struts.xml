@@ -11,6 +11,7 @@
         退出登录清空session并返回登录页面-->
     <package name="login" extends="basePackage">
 
+        <!--职员登录、跳转页面-->
         <action name="loginAction_*" class="loginAction" method="{1}">
             <!--登录成功-->
             <result name="success">/pages/frame.jsp</result>
@@ -21,19 +22,28 @@
             <!--登录验证出错的返回-->
             <result name="input">/pages/login.jsp</result>
 
+            <!--从修改密码页面返回-->
+            <result name="returnFrame">/pages/frame/right.jsp</result>
 
+            <!--struts2.5版本以后：需要规定可以跳转的方法-->
+            <allowed-methods>login,logout,returnFrame</allowed-methods>
+        </action>
+
+        <!--职员修改密码-->
+        <action name="staffEditPwdAction" class="loginAction" method="staffEditPwd">
             <!--修改密码成功之后，重定向到登录-->
             <result name="reLogin" type="redirectAction">
                 <param name="actionName">loginAction_logout</param>
             </result>
 
-            <!--从修改密码页面返回-->
-            <result name="returnFrame">/pages/frame/right.jsp</result>
             <!--修改密码出错-->
             <result name="editPwdError">/pages/staff/updPwd.jsp</result>
 
-            <!--struts2.5版本以后：需要规定可以跳转的方法-->
-            <allowed-methods>login,logout,returnFrame,editPassword</allowed-methods>
+            <!--验证不通过返回当前页面-->
+            <result name="input">/pages/staff/updPwd.jsp</result>
+
+            <allowed-methods>staffEditPwd</allowed-methods>
+
         </action>
 
     </package>

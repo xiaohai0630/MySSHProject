@@ -16,6 +16,9 @@
                 <param name="actionName">staffAction_listStaff</param>
             </result>
 
+            <!--验证不通过-->
+            <result name="input">/pages/staff/addStaff.jsp</result>
+
             <!--编辑职员跳转页面-->
             <result name="editStaff">/pages/staff/{1}.jsp</result>
 

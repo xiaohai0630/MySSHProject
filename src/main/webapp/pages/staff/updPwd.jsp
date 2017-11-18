@@ -1,3 +1,4 @@
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" isELIgnored="false" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -40,7 +41,7 @@
 </head>
 
 <body class="updpwd">
-<form action="loginAction_editPassword.action" method="post">
+<form action="staffEditPwdAction.action" method="post">
     <table style="width: 200px">
         <tr>
             <td colspan="2">
@@ -76,6 +77,11 @@
 
 <%--错误信息--%>
 <h2>${sessionScope.staffChangeLoginPwdError}</h2>
+
+<%--验证错误信息--%>
+<s:fielderror fieldName="oldPassword"></s:fielderror>
+<s:fielderror fieldName="newPassword"></s:fielderror>
+<s:fielderror fieldName="reNewPassword"></s:fielderror>
 
 </body>
 </html>

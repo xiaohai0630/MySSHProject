@@ -4,11 +4,7 @@ import com.lanou.base.BaseAction;
 import com.lanou.hr_dep.domain.Staff;
 import com.lanou.hr_dep.service.StaffService;
 import com.lanou.login.service.LoginService;
-import com.lanou.login.service.impl.LoginServiceImpl;
 import com.lanou.utils.MD5Utils;
-import com.opensymphony.xwork2.ActionInvocation;
-import com.opensymphony.xwork2.Result;
-import com.opensymphony.xwork2.interceptor.ValidationWorkflowAware;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -33,10 +29,8 @@ public class LoginAction extends BaseAction<Staff, StaffService> {
      * 错误返回wrong，返回登录页面并提示错误
      * 出现异常的时候返回ERROR，跳转错误页面
      */
-    // 验证
-    private String loginName, loginPwd;
 
-    // 修改密码－－旧的用户名、新密码、确认密码
+    // 修改密码，验证－－旧的用户名、新密码、确认密码
     private String oldPassword;
     private String newPassword;
     private String reNewPassword;
@@ -89,7 +83,7 @@ public class LoginAction extends BaseAction<Staff, StaffService> {
     }
 
     // 修改密码
-    public String editPassword() {
+    public String staffEditPwd() {
         // 当前登录的员工
         Staff oldStaff = (Staff) session.getAttribute(NOWSTAFF);
 
@@ -104,14 +98,6 @@ public class LoginAction extends BaseAction<Staff, StaffService> {
                 sessionPut(STAFFCHANGELOGINPWDERROR, "原始密码不正确");
                 return "editPwdError";
             }
-            if (newPasswordMD5.equals("")) {
-                sessionPut(STAFFCHANGELOGINPWDERROR, "新密码为空");
-                return "editPwdError";
-            }
-            if (reNewPasswordMD5.equals("")) {
-                sessionPut(STAFFCHANGELOGINPWDERROR, "确认密码为空");
-                return "editPwdError";
-            }
 
             // 新密码和确认密码是否一致
             if (newPasswordMD5.equals(reNewPasswordMD5) && reNewPasswordMD5.equals(newPasswordMD5)) {
@@ -120,7 +106,7 @@ public class LoginAction extends BaseAction<Staff, StaffService> {
                 changeStaff.setLoginPwd(newPasswordMD5);
 
                 loginService.editPwd(changeStaff);
-                // 清除session的信息，跳转登录页面
+                // 清空session的信息，跳转登录页面
                 session.invalidate();
                 return "reLogin";
             }
@@ -141,15 +127,6 @@ public class LoginAction extends BaseAction<Staff, StaffService> {
         return "returnFrame";
     }
 
-    // 验证
-    public void setLoginName(String loginName) {
-        this.loginName = loginName;
-    }
-
-    public void setLoginPwd(String loginPwd) {
-        this.loginPwd = loginPwd;
-    }
-
     // 修改密码
     public String getOldPassword() {
         return oldPassword;
@@ -165,6 +142,10 @@ public class LoginAction extends BaseAction<Staff, StaffService> {
 
     public void setNewPassword(String newPassword) {
         this.newPassword = newPassword;
+    }
+
+    public String getReNewPassword() {
+        return reNewPassword;
     }
 
     public void setReNewPassword(String reNewPassword) {

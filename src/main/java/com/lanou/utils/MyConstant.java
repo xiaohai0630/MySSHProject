@@ -26,9 +26,6 @@ public class MyConstant {
     // 职务的信息
     public static final String POSTMSG = "postMsg";
 
-    // 添加或编辑职员的错误信息
-    public static final String STAFFADDOREDITERROR = "staffAddOrEditError";
-
     // 职员的信息
     public static final String STAFFMSG = "staffMsg";
 

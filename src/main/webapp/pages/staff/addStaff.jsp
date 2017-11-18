@@ -87,7 +87,11 @@
 </form>
 
 <%--验证的错误信息--%>
-<s:fielderror fieldName="staff.loginName"></s:fielderror>
+<s:fielderror fieldName="loginName"></s:fielderror>
+<s:fielderror fieldName="loginPwd"></s:fielderror>
+<s:fielderror fieldName="staffName"></s:fielderror>
+<s:fielderror fieldName="gender"></s:fielderror>
+<s:fielderror fieldName="onDutyDate"></s:fielderror>
 
 <%--二级联动--%>
 <script type="application/javascript">

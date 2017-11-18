@@ -16,8 +16,6 @@ public class MyInterceptor extends MethodFilterInterceptor {
         HttpSession session = ServletActionContext.getRequest().getSession();
         Staff staff = (Staff) session.getAttribute("nowStaff");
 
-        System.out.println(staff);
-
         // 如果没有登录，跳转到登录界面
         if (staff == null){
             return "interceptors";
