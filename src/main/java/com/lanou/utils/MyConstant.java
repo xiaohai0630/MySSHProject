@@ -29,6 +29,9 @@ public class MyConstant {
     // 职员的信息
     public static final String STAFFMSG = "staffMsg";
 
+    // 添加或编辑职员的错误信息
+    public static final String STAFFADDOREDITERROR = "staffAddOrEditError";
+
     // 高级查询的返回值
     public static final String FINDSTAFFWITHMSG = "findStaffWithMsg";
 }

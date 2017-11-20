@@ -25,7 +25,7 @@ import static com.lanou.utils.MyConstant.*;
 @Scope("prototype")
 public class StaffAction extends BaseAction<Staff, StaffService> {
     // 验证用
-    private String loginName, loginPwd, staffName, gender;
+    private String loginName, loginPwd, staffName, gender, onDutyDate;
 
     // 全局变量
     private List<Post> postList;
@@ -67,14 +67,54 @@ public class StaffAction extends BaseAction<Staff, StaffService> {
         return "showAllStaff";
     }
 
-    // 添加或编辑职员
-    public String addOrEditStaff() {
+    // 添加职员
+    public String addStaff() {
 
         // MD5加密
         String pwd = getModel().getLoginPwd();
         String md5 = MD5Utils.md5(pwd);
         getModel().setLoginPwd(md5);
 
+        if (getModel().getPost().getDepartment().getDepID() == -1) {
+            sessionPut(STAFFADDOREDITERROR, "部门名称不能为请选择");
+            return "addStaffError";
+        }
+        if (getModel().getPost().getPostID() == -1) {
+            sessionPut(STAFFADDOREDITERROR, "职务名称不能为请选择");
+            return "addStaffError";
+        }
+
+        sessionRemove(STAFFADDOREDITERROR);
+        staffService.addOrEditStaff(getModel());
+        return "addOrEditStaff";
+    }
+
+    // 编辑职员
+    public String addOrEditStaff() {
+        // 判断是否为空
+        if (getModel().getLoginName() == null || getModel().getLoginName().equals("")) {
+            sessionPut(STAFFADDOREDITERROR, "登录名不能为空");
+            return "editStaffError";
+        }
+        if (getModel().getStaffName() == null || getModel().getStaffName().equals("")) {
+            sessionPut(STAFFADDOREDITERROR, "姓名不能为空");
+            return "editStaffError";
+        }
+        if (getModel().getPost().getDepartment().getDepID() == -1) {
+            sessionPut(STAFFADDOREDITERROR, "部门名称不能为请选择");
+            return "editStaffError";
+        }
+        if (getModel().getPost().getPostID() == -1) {
+            sessionPut(STAFFADDOREDITERROR, "职务名称不能为请选择");
+            return "editStaffError";
+        }
+        // MD5加密
+        String pwd = getModel().getLoginPwd();
+        String md5 = MD5Utils.md5(pwd);
+        getModel().setLoginPwd(md5);
+
+        // 错误信息
+        sessionRemove(STAFFADDOREDITERROR);
         staffService.addOrEditStaff(getModel());
         return "addOrEditStaff";
     }
@@ -101,6 +141,7 @@ public class StaffAction extends BaseAction<Staff, StaffService> {
     public String returnListStaff() {
 
         // 清除session中的信息
+        sessionRemove(STAFFADDOREDITERROR);
         sessionRemove(STAFFCHANGELOGINPWDERROR);
         sessionRemove(POSTMSG);
         sessionRemove(STAFFMSG);
@@ -240,6 +281,14 @@ public class StaffAction extends BaseAction<Staff, StaffService> {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public String getOnDutyDate() {
+        return onDutyDate;
+    }
+
+    public void setOnDutyDate(String onDutyDate) {
+        this.onDutyDate = onDutyDate;
     }
 
 }

@@ -111,6 +111,8 @@
     </table>
 </form>
 
+<h2>${sessionScope.staffAddOrEditError}</h2>
+
 <script type="application/javascript">
     function onChange(value) {
         //输出value的值

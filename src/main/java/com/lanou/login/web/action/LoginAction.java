@@ -104,6 +104,13 @@ public class LoginAction extends BaseAction<Staff, StaffService> {
 
             // 新密码和确认密码是否一致
             if (newPasswordMD5.equals(reNewPasswordMD5) && reNewPasswordMD5.equals(newPasswordMD5)) {
+
+                // 新密码和原始密码相同
+                if (oldPasswordMD5.equals(newPasswordMD5)) {
+                    sessionPut(STAFFCHANGELOGINPWDERROR, "新密码和原密码相同");
+                    return "editPwdError";
+                }
+
                 // 新的员工信息
                 Staff changeStaff = oldStaff;
                 changeStaff.setLoginPwd(newPasswordMD5);

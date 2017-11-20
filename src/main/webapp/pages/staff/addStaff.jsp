@@ -38,7 +38,7 @@
     </tr>
 </table>
 
-<form action="staffAction_addOrEditStaff.action" method="post">
+<form action="staffAction_addStaff.action" method="post">
     <table width="88%" border="0" class="emp_table" style="width:80%;">
         <tr>
             <td>登录名：</td>
@@ -86,7 +86,10 @@
 
 </form>
 
-<%--验证的错误信息--%>
+<%--后台验证的错误信息--%>
+<h2>${sessionScope.staffAddOrEditError}</h2>
+
+<%--验证器的错误信息--%>
 <s:fielderror fieldName="loginName"></s:fielderror>
 <s:fielderror fieldName="loginPwd"></s:fielderror>
 <s:fielderror fieldName="staffName"></s:fielderror>

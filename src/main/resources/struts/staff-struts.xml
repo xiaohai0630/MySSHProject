@@ -22,6 +22,12 @@
             <!--编辑职员跳转页面-->
             <result name="editStaff">/pages/staff/{1}.jsp</result>
 
+            <!--编辑职员报错-->
+            <result name="editStaffError">/pages/staff/editStaff.jsp</result>
+
+            <!--添加职员报错-->
+            <result name="addStaffError">/pages/staff/addStaff.jsp</result>
+
             <!--返回职员列表-->
             <result name="returnListStaff" type="redirectAction">
                 <param name="actionName">staffAction_listStaff</param>
@@ -52,7 +58,7 @@
             </result>
 
             <allowed-methods>
-                listStaff,findPost,addOrEditStaff,editStaff,returnListStaff,findStaffWithMsg
+                listStaff,findPost,addOrEditStaff,editStaff,returnListStaff,findStaffWithMsg,addStaff
             </allowed-methods>
         </action>
 

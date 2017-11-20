@@ -69,9 +69,6 @@ public class DepartmentAction extends BaseAction<Department, DepartmentService> 
             System.out.println("pageBean信息2： " + pageBean);
 
         }
-
-
-
         return "depListPageBean";
     }
 
