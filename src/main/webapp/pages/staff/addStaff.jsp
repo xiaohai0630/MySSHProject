@@ -90,11 +90,10 @@
 <h2>${sessionScope.staffAddOrEditError}</h2>
 
 <%--验证器的错误信息--%>
-<s:fielderror fieldName="loginName"></s:fielderror>
-<s:fielderror fieldName="loginPwd"></s:fielderror>
-<s:fielderror fieldName="staffName"></s:fielderror>
-<s:fielderror fieldName="gender"></s:fielderror>
-<s:fielderror fieldName="onDutyDate"></s:fielderror>
+<s:fielderror fieldName="model.loginName"></s:fielderror>
+<s:fielderror fieldName="model.loginPwd"></s:fielderror>
+<s:fielderror fieldName="model.staffName"></s:fielderror>
+<s:fielderror fieldName="model.gender"></s:fielderror>
 
 <%--二级联动--%>
 <script type="application/javascript">

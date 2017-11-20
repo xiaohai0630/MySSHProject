@@ -11,7 +11,7 @@
     系统繁忙，请稍后重试
 </font>
 
-<%--出错返回上一个页面？--%>
+<%--出错返回上一个页面--%>
 <a href="javascript:void(0)" onclick="window.history.go(-1)">
     <img src="${pageContext.request.contextPath}/images/button/tuihui.gif" />
 </a>

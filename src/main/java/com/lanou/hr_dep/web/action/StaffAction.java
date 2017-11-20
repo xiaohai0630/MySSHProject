@@ -14,6 +14,9 @@ import org.springframework.stereotype.Controller;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import static com.lanou.utils.MyConstant.*;
@@ -24,9 +27,6 @@ import static com.lanou.utils.MyConstant.*;
 @Controller("staffAction")
 @Scope("prototype")
 public class StaffAction extends BaseAction<Staff, StaffService> {
-    // 验证用
-    private String loginName, loginPwd, staffName, gender, onDutyDate;
-
     // 全局变量
     private List<Post> postList;
 
@@ -155,7 +155,7 @@ public class StaffAction extends BaseAction<Staff, StaffService> {
         // 根据不同情况调用不同的方法
         Staff staffMsg = getModel();
 
-        // 判断不同的情况
+        // 选择了某个部门
         if (staffMsg.getPost().getDepartment().getDepID() != -1) {
 
             // 如果选择查询条件中有部门
@@ -196,8 +196,7 @@ public class StaffAction extends BaseAction<Staff, StaffService> {
             }
 
         } else {
-            // 部门为空
-
+            // 没选择部门
             if (staffMsg.getStaffName() != null && !staffMsg.getStaffName().equals("")) {
                 // 只用姓名查询
                 returnStaffs = staffService.findStaffWithMsgName(getModel().getStaffName());
@@ -206,7 +205,6 @@ public class StaffAction extends BaseAction<Staff, StaffService> {
                 // 三个条件都没有，相当于查询全部
                 returnStaffs = staffService.findAllStaff();
                 return "findStaffWithMsg";
-
             }
 
         }
@@ -248,47 +246,6 @@ public class StaffAction extends BaseAction<Staff, StaffService> {
 
     public void setReturnStaffs(List<Staff> returnStaffs) {
         this.returnStaffs = returnStaffs;
-    }
-
-    // 验证
-    public String getLoginName() {
-        return loginName;
-    }
-
-    public void setLoginName(String loginName) {
-        this.loginName = loginName;
-    }
-
-    public String getLoginPwd() {
-        return loginPwd;
-    }
-
-    public void setLoginPwd(String loginPwd) {
-        this.loginPwd = loginPwd;
-    }
-
-    public String getStaffName() {
-        return staffName;
-    }
-
-    public void setStaffName(String staffName) {
-        this.staffName = staffName;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public String getOnDutyDate() {
-        return onDutyDate;
-    }
-
-    public void setOnDutyDate(String onDutyDate) {
-        this.onDutyDate = onDutyDate;
     }
 
 }

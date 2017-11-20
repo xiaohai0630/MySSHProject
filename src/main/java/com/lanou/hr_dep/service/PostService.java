@@ -16,6 +16,9 @@ public interface PostService {
     // 查询对应部门的职务
     List<Post> findPostWithDep(Post post);
 
+    // 根据部门id和职务名称查询
+    List<Post> findPostWithDepIDAndPostName(Post post);
+
     // 添加或编辑
     void addOrEditPost(Post post);
 

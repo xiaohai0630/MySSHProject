@@ -3,7 +3,6 @@ package com.lanou.hr_dep.web.action;
 import com.lanou.base.BaseAction;
 import com.lanou.hr_dep.domain.Department;
 import com.lanou.hr_dep.service.DepartmentService;
-import com.lanou.utils.PageBean;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -25,14 +24,8 @@ public class DepartmentAction extends BaseAction<Department, DepartmentService> 
     @Resource
     private DepartmentService departmentService;
 
-    // 分页－－第一页
-    private String changePage;
-
-    // 获取session
+    // 从部门列表到编辑部门页面传递的参数在request域中（a标签）
     HttpServletRequest request = ServletActionContext.getRequest();
-
-    // 分页？
-    private List<Department> depBeanList;
 
     // 显示全部的部门信息
     public String listDepartment() {
@@ -48,28 +41,6 @@ public class DepartmentAction extends BaseAction<Department, DepartmentService> 
         sessionRemove(DEPARTMENTMSG);
 
         return "showAllDep";
-    }
-
-    // 分页显示
-    public String depListPageBean() {
-
-        List<Department> allDep = departmentService.findAllDep();
-
-        PageBean<Department> pageBean = null;
-
-        if (changePage.equals("firstPage")) {
-            // 分页－－参数：当前页、每一页显示的条数、总的条数
-            pageBean = new PageBean<Department>(1, 5, allDep.size());
-
-            pageBean.setBeanList(allDep);
-            depBeanList = pageBean.getBeanList();
-
-
-            System.out.println("集合： " + depBeanList);
-            System.out.println("pageBean信息2： " + pageBean);
-
-        }
-        return "depListPageBean";
     }
 
     // 判断是添加还是修改，需要跳转不同的页面
@@ -122,22 +93,6 @@ public class DepartmentAction extends BaseAction<Department, DepartmentService> 
         sessionRemove(DEPARTMENTADDOREDITERROR);
         sessionRemove(DEPARTMENTMSG);
         return "returnListDept";
-    }
-
-    public String getChangePage() {
-        return changePage;
-    }
-
-    public void setChangePage(String changePage) {
-        this.changePage = changePage;
-    }
-
-    public List<Department> getDepBeanList() {
-        return depBeanList;
-    }
-
-    public void setDepBeanList(List<Department> depBeanList) {
-        this.depBeanList = depBeanList;
     }
 
 }

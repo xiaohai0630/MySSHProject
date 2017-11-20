@@ -29,10 +29,6 @@ public class LoginAction extends BaseAction<Staff, StaffService> {
      * 错误返回wrong，返回登录页面并提示错误
      * 出现异常的时候返回ERROR，跳转错误页面
      */
-    // 验证－－用户名、密码
-    private String loginName;
-    private String loginPwd;
-
     // 修改密码，验证－－旧的用户名、新密码、确认密码
     private String oldPassword;
     private String newPassword;
@@ -160,22 +156,6 @@ public class LoginAction extends BaseAction<Staff, StaffService> {
 
     public void setReNewPassword(String reNewPassword) {
         this.reNewPassword = reNewPassword;
-    }
-
-    public String getLoginName() {
-        return loginName;
-    }
-
-    public void setLoginName(String loginName) {
-        this.loginName = loginName;
-    }
-
-    public String getLoginPwd() {
-        return loginPwd;
-    }
-
-    public void setLoginPwd(String loginPwd) {
-        this.loginPwd = loginPwd;
     }
 
 }

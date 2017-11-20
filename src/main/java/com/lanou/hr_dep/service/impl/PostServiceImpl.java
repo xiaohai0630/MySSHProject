@@ -24,7 +24,12 @@ public class PostServiceImpl implements PostService {
 
     // 根据部门查询职务
     public List<Post> findPostWithDep(Post post) {
-        return postDao.findAll("and depID=?",post.getDepartment().getDepID());
+        return postDao.findAll("and depID=?", post.getDepartment().getDepID());
+    }
+
+    // 通过部门id和职务名称查询
+    public List<Post> findPostWithDepIDAndPostName(Post post) {
+        return postDao.findAll("and depID=? and postName=?", post.getDepartment().getDepID(), post.getPostName());
     }
 
     // 添加或编辑

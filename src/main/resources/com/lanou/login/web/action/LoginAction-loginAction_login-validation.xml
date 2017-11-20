@@ -4,8 +4,10 @@
         "http://struts.apache.org/dtds/xwork-validator-1.0.3.dtd">
 
 <validators>
+    <!--报错，但是可以用！-->
+
     <!--验证登录名（职员的登录名）-->
-    <field name="loginName">
+    <field name="model.loginName">
         <!--验证失败的时候终止验证-->
         <field-validator type="requiredstring" short-circuit="true">
             <message>请输入用户名</message>
@@ -20,7 +22,7 @@
     </field>
 
     <!--验证登录密码（职员的登录密码）-->
-    <field name="loginPwd">
+    <field name="model.loginPwd">
         <field-validator type="requiredstring" short-circuit="true">
             <message>请输入密码</message>
         </field-validator>

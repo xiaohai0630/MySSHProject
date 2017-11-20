@@ -5,7 +5,7 @@
 
 <validators>
 
-    <field name="loginName">
+    <field name="model.loginName">
         <field-validator type="requiredstring">
             <message>请输入登录名</message>
         </field-validator>
@@ -18,7 +18,7 @@
         </field-validator>
     </field>
 
-    <field name="loginPwd">
+    <field name="model.loginPwd">
         <field-validator type="requiredstring">
             <message>请输入密码</message>
         </field-validator>
@@ -31,21 +31,15 @@
         </field-validator>
     </field>
 
-    <field name="staffName">
+    <field name="model.staffName">
         <field-validator type="requiredstring">
             <message>请输入姓名</message>
         </field-validator>
     </field>
 
-    <field name="gender">
+    <field name="model.gender">
         <field-validator type="requiredstring">
             <message>请选择性别</message>
-        </field-validator>
-    </field>
-
-    <field name="onDutyDate">
-        <field-validator type="requiredstring">
-            <message>请选择入职日期</message>
         </field-validator>
     </field>
 

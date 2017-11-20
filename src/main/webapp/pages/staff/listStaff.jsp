@@ -138,6 +138,8 @@
                 //对请求回来的数据进行解析
                 json = eval('(' + this.responseText + ')');
 
+                console.log(json);
+
                 //获取服务器的标签
                 serverSelect = document.getElementById("postSelectId");
                 //获取option标签

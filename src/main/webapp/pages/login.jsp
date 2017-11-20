@@ -82,8 +82,8 @@
     </table>
 
     <%--验证器的验证--%>
-    <s:fielderror fieldName="loginName"></s:fielderror><br/>
-    <s:fielderror fieldName="loginPwd"></s:fielderror><br/>
+    <s:fielderror fieldName="model.loginName"></s:fielderror><br/>
+    <s:fielderror fieldName="model.loginPwd"></s:fielderror><br/>
 
     <script type="text/javascript">
         /* s标签中直接编写JavaScript代码时，不支持el表达式，只能提供单独的函数
