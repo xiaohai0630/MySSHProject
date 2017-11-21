@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" isELIgnored="false" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -90,12 +91,12 @@
             <tr class="tabtd1">
                 <td align="center">${staff.staffName}</td>
                 <td align="center">${staff.gender}</td>
-                <td align="center">${staff.onDutyDate}</td>
+                <td align="center"><fmt:formatDate value="${staff.onDutyDate}" pattern="yyyy-MM-dd"/></td>
                 <td align="center">${staff.post.department.depName}</td>
                 <td align="center">${staff.post.postName}</td>
                 <td width="7%" align="center">
 
-                    <a href="staffAction_editStaff.action?editStaff=${staff.staffID}">
+                    <a href="staffAction_editStaffList.action?editStaff=${staff.staffID}">
                         <img src="/images/button/modify.gif" class="img"/>
                     </a>
                 </td>
@@ -105,12 +106,12 @@
             <tr class="tabtd2">
                 <td align="center">${staff.staffName}</td>
                 <td align="center">${staff.gender}</td>
-                <td align="center">${staff.onDutyDate}</td>
+                <td align="center"><fmt:formatDate value="${staff.onDutyDate}" pattern="yyyy-MM-dd"/></td>
                 <td align="center">${staff.post.department.depName}</td>
                 <td align="center">${staff.post.postName}</td>
                 <td width="7%" align="center">
 
-                    <a href="staffAction_editStaff.action?editStaff=${staff.staffID}">
+                    <a href="staffAction_editStaffList.action?editStaff=${staff.staffID}">
                         <img src="/images/button/modify.gif" class="img"/>
                     </a>
                 </td>
@@ -216,102 +217,61 @@
                         optionChild4 = document.createElement("td");
                         optionChild5 = document.createElement("td");
 
-                        // 编辑
+                        // 编辑（图标和链接）
                         optionChild6 = document.createElement("td");
 
+                        // 白蓝相间的效果
                         if (i % 2 == 0) {
-                            // 设置属性
                             option.setAttribute("class", "tabtd1");
-                            optionChild1.setAttribute("align","center");
-                            optionChild2.setAttribute("align","center");
-                            optionChild3.setAttribute("align","center");
-                            optionChild4.setAttribute("align","center");
-                            optionChild5.setAttribute("align","center");
-
-                            text = document.createTextNode(json[i].staffName);
-                            optionChild1.appendChild(text);
-                            option.appendChild(optionChild1);
-
-                            text = document.createTextNode(json[i].gender);
-                            optionChild2.appendChild(text);
-                            option.appendChild(optionChild2);
-
-                            text = document.createTextNode(json[i].onDutyDate);
-                            optionChild3.appendChild(text);
-                            option.appendChild(optionChild3);
-
-                            text = document.createTextNode(json[i].post.department.depName);
-                            optionChild4.appendChild(text);
-                            option.appendChild(optionChild4);
-
-                            text = document.createTextNode(json[i].post.postName);
-                            optionChild5.appendChild(text);
-                            option.appendChild(optionChild5);
-
-                            // 编辑
-                            optionChild6.setAttribute("width","7%");
-                            optionChild6.setAttribute("align","center");
-
-                            // 创建一个a标签
-                            optionChild6A = document.createElement("a");
-                            optionChild6A.setAttribute("href",
-                                    "staffAction_editStaff.action?editStaff=" + json[i].staffID);
-                            optionChild6.appendChild(optionChild6A);
-
-                            // 添加图片
-                            optionChild6AImg = document.createElement("img");
-                            optionChild6AImg.setAttribute("src","/images/button/modify.gif");
-                            optionChild6AImg.setAttribute("class","img");
-                            optionChild6A.appendChild(optionChild6AImg);
-
-                            option.appendChild(optionChild6)
                         } else {
-                            // 设置属性
                             option.setAttribute("class", "tabtd2");
-                            optionChild1.setAttribute("align","center");
-                            optionChild2.setAttribute("align","center");
-                            optionChild3.setAttribute("align","center");
-                            optionChild4.setAttribute("align","center");
-                            optionChild5.setAttribute("align","center");
-
-                            text = document.createTextNode(json[i].staffName);
-                            optionChild1.appendChild(text);
-                            option.appendChild(optionChild1);
-
-                            text = document.createTextNode(json[i].gender);
-                            optionChild2.appendChild(text);
-                            option.appendChild(optionChild2);
-
-                            text = document.createTextNode(json[i].onDutyDate);
-                            optionChild3.appendChild(text);
-                            option.appendChild(optionChild3);
-
-                            text = document.createTextNode(json[i].post.department.depName);
-                            optionChild4.appendChild(text);
-                            option.appendChild(optionChild4);
-
-                            text = document.createTextNode(json[i].post.postName);
-                            optionChild5.appendChild(text);
-                            option.appendChild(optionChild5);
-
-                            // 编辑
-                            optionChild6.setAttribute("width","7%");
-                            optionChild6.setAttribute("align","center");
-
-                            // 创建一个a标签
-                            optionChild6A = document.createElement("a");
-                            optionChild6A.setAttribute("href",
-                                    "staffAction_editStaff.action?editStaff=" + json[i].staffID);
-                            optionChild6.appendChild(optionChild6A);
-
-                            // 添加图片
-                            optionChild6AImg = document.createElement("img");
-                            optionChild6AImg.setAttribute("src","/images/button/modify.gif");
-                            optionChild6AImg.setAttribute("class","img");
-                            optionChild6A.appendChild(optionChild6AImg);
-
-                            option.appendChild(optionChild6)
                         }
+
+                        // 为每一列添加内容
+                        optionChild1.setAttribute("align", "center");
+                        optionChild2.setAttribute("align", "center");
+                        optionChild3.setAttribute("align", "center");
+                        optionChild4.setAttribute("align", "center");
+                        optionChild5.setAttribute("align", "center");
+
+                        text = document.createTextNode(json[i].staffName);
+                        optionChild1.appendChild(text);
+                        option.appendChild(optionChild1);
+
+                        text = document.createTextNode(json[i].gender);
+                        optionChild2.appendChild(text);
+                        option.appendChild(optionChild2);
+
+                        text = document.createTextNode(json[i].onDutyDate);
+                        optionChild3.appendChild(text);
+                        option.appendChild(optionChild3);
+
+                        text = document.createTextNode(json[i].post.department.depName);
+                        optionChild4.appendChild(text);
+                        option.appendChild(optionChild4);
+
+                        text = document.createTextNode(json[i].post.postName);
+                        optionChild5.appendChild(text);
+                        option.appendChild(optionChild5);
+
+                        // 编辑
+                        optionChild6.setAttribute("width", "7%");
+                        optionChild6.setAttribute("align", "center");
+
+                        // 创建一个a标签
+                        optionChild6A = document.createElement("a");
+                        optionChild6A.setAttribute("href",
+                                "staffAction_editStaffList.action?editStaff=" + json[i].staffID);
+                        optionChild6.appendChild(optionChild6A);
+
+                        // 添加图片（编辑的图标）
+                        optionChild6AImg = document.createElement("img");
+                        optionChild6AImg.setAttribute("src", "/images/button/modify.gif");
+                        optionChild6AImg.setAttribute("class", "img");
+                        optionChild6A.appendChild(optionChild6AImg);
+
+                        option.appendChild(optionChild6);
+
                         //把option标签添加到servers标签中
                         serverSelect.appendChild(option);
                     }
@@ -324,7 +284,6 @@
 
         xhr.open("POST", "staffAction_findStaffWithMsg.action");
         xhr.send(data);
-
     }
 
 </script>

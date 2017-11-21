@@ -15,7 +15,7 @@
         <property name="loginPwd" type="java.lang.String"></property>
         <property name="staffName" type="java.lang.String"></property>
         <property name="gender" type="java.lang.String"></property>
-        <property name="onDutyDate" type="java.util.Date"></property>
+        <property name="onDutyDate" type="java.sql.Date"></property>
 
         <!--和职务表之间的关系-->
         <many-to-one name="post" column="postID"

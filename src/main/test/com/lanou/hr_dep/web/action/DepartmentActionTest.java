@@ -42,12 +42,4 @@ public class DepartmentActionTest {
         departmentService.saveOrUpdate(department);
     }
 
-    // 分页
-    @Test
-    public void testPageBean(){
-
-        departmentService.findAllDep();
-
-    }
-
 }

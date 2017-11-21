@@ -8,17 +8,11 @@ import com.lanou.hr_dep.service.DepartmentService;
 import com.lanou.hr_dep.service.PostService;
 import com.lanou.hr_dep.service.StaffService;
 import com.lanou.utils.MD5Utils;
-import org.apache.struts2.ServletActionContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-
 import static com.lanou.utils.MyConstant.*;
 
 /**
@@ -27,7 +21,7 @@ import static com.lanou.utils.MyConstant.*;
 @Controller("staffAction")
 @Scope("prototype")
 public class StaffAction extends BaseAction<Staff, StaffService> {
-    // 全局变量
+    // 二级联动时查询职务集合
     private List<Post> postList;
 
     // 用来存放高级查询的结果
@@ -42,9 +36,6 @@ public class StaffAction extends BaseAction<Staff, StaffService> {
     @Resource
     private DepartmentService departmentService;
 
-    // request
-    HttpServletRequest request = ServletActionContext.getRequest();
-
     // 显示全部的职员
     public String listStaff() {
 
@@ -56,13 +47,15 @@ public class StaffAction extends BaseAction<Staff, StaffService> {
         // 所有职员
         List<Staff> allStaff = staffService.findAllStaff();
 
+        System.out.println("StaffAction入职日期： " + allStaff.get(0));
         // 将所有职员存进session
         sessionPut("allStaff", allStaff);
 
-        // 清除session中的信息
-        sessionRemove(STAFFCHANGELOGINPWDERROR);
-        sessionRemove(POSTMSG);
-        sessionRemove(STAFFMSG);
+        // 清除session中的错误信息提示
+        sessionRemove(STAFF_CHANGE_LOGIN_PWD_ERROR);
+        sessionRemove(STAFF_ADD_OR_EDIT_ERROR);
+        sessionRemove(POST_MSG);
+        sessionRemove(STAFF_MSG);
 
         return "showAllStaff";
     }
@@ -74,38 +67,30 @@ public class StaffAction extends BaseAction<Staff, StaffService> {
         String pwd = getModel().getLoginPwd();
         String md5 = MD5Utils.md5(pwd);
         getModel().setLoginPwd(md5);
-
+        // 判断部门名称和职务名称
         if (getModel().getPost().getDepartment().getDepID() == -1) {
-            sessionPut(STAFFADDOREDITERROR, "部门名称不能为请选择");
+            sessionPut(STAFF_ADD_OR_EDIT_ERROR, "部门名称不能为请选择");
             return "addStaffError";
         }
         if (getModel().getPost().getPostID() == -1) {
-            sessionPut(STAFFADDOREDITERROR, "职务名称不能为请选择");
+            sessionPut(STAFF_ADD_OR_EDIT_ERROR, "职务名称不能为请选择");
             return "addStaffError";
         }
-
-        sessionRemove(STAFFADDOREDITERROR);
+        // 符合条件就可以添加，添加之前清除错误信息
+        sessionRemove(STAFF_ADD_OR_EDIT_ERROR);
         staffService.addOrEditStaff(getModel());
         return "addOrEditStaff";
     }
 
     // 编辑职员
-    public String addOrEditStaff() {
-        // 判断是否为空
-        if (getModel().getLoginName() == null || getModel().getLoginName().equals("")) {
-            sessionPut(STAFFADDOREDITERROR, "登录名不能为空");
-            return "editStaffError";
-        }
-        if (getModel().getStaffName() == null || getModel().getStaffName().equals("")) {
-            sessionPut(STAFFADDOREDITERROR, "姓名不能为空");
-            return "editStaffError";
-        }
+    public String editStaff() {
+        // 判断部门名称和职务名称
         if (getModel().getPost().getDepartment().getDepID() == -1) {
-            sessionPut(STAFFADDOREDITERROR, "部门名称不能为请选择");
+            sessionPut(STAFF_ADD_OR_EDIT_ERROR, "部门名称不能为请选择");
             return "editStaffError";
         }
         if (getModel().getPost().getPostID() == -1) {
-            sessionPut(STAFFADDOREDITERROR, "职务名称不能为请选择");
+            sessionPut(STAFF_ADD_OR_EDIT_ERROR, "职务名称不能为请选择");
             return "editStaffError";
         }
         // MD5加密
@@ -114,16 +99,16 @@ public class StaffAction extends BaseAction<Staff, StaffService> {
         getModel().setLoginPwd(md5);
 
         // 错误信息
-        sessionRemove(STAFFADDOREDITERROR);
+        sessionRemove(STAFF_ADD_OR_EDIT_ERROR);
         staffService.addOrEditStaff(getModel());
         return "addOrEditStaff";
     }
 
     // 编辑员工－－显示员工信息
-    public String editStaff() {
+    public String editStaffList() {
 
         // request中的staff
-        String editStaff = request.getParameter("editStaff");
+        String editStaff = requestGet("editStaff");
         // 职员（一个职员）
         List<Staff> staffByID = staffService.findStaffByID(Integer.valueOf(editStaff));
 
@@ -132,19 +117,17 @@ public class StaffAction extends BaseAction<Staff, StaffService> {
 
         // 存职务和职员信息
         sessionPut("editStaffPost", postWithDep);
-        sessionPut(STAFFMSG, staffByID.get(0));
+        sessionPut(STAFF_MSG, staffByID.get(0));
 
-        return "editStaff";
+        return "editStaffList";
     }
 
-    // 从添加或修改职员页面返回职员列表
+    // 点击左侧的列表：从添加或修改职员页面返回职员列表
     public String returnListStaff() {
 
         // 清除session中的信息
-        sessionRemove(STAFFADDOREDITERROR);
-        sessionRemove(STAFFCHANGELOGINPWDERROR);
-        sessionRemove(POSTMSG);
-        sessionRemove(STAFFMSG);
+        sessionRemove(STAFF_ADD_OR_EDIT_ERROR);
+        sessionRemove(STAFF_MSG);
 
         return "returnListStaff";
     }
@@ -165,13 +148,11 @@ public class StaffAction extends BaseAction<Staff, StaffService> {
                 if (staffMsg.getStaffName() != null && !staffMsg.getStaffName().equals("")) {
                     // 三个条件全都有
                     returnStaffs = staffService.findStaffWithMsgAll(getModel());
-                    sessionPut(FINDSTAFFWITHMSG, returnStaffs);
+//                    sessionPut(FIND_STAFF_WITH_MSG, returnStaffs);
                     return "findStaffWithMsg";
                 }
-
                 // 只有部门和职务
                 returnStaffs = staffService.findStaffWithMsgPostID(getModel());
-                sessionPut(FINDSTAFFWITHMSG, returnStaffs);
                 return "findStaffWithMsg";
             } else {
                 // 选择了部门，但是没有选择职务
@@ -179,16 +160,13 @@ public class StaffAction extends BaseAction<Staff, StaffService> {
                     // 根据部门和名字查询
                     List<Post> postWithDep = postService.findPostWithDep(getModel().getPost());
                     returnStaffs = staffService.findStaffWithMsgDepAndName(postWithDep, getModel().getStaffName());
-                    sessionPut(FINDSTAFFWITHMSG, returnStaffs);
                     return "findStaffWithMsg";
-
                 } else {
                     // 只用部门查询－－需要先查询职务的id（用部门的id查询下属的职务）
                     List<Post> postWithDep = postService.findPostWithDep(getModel().getPost());
 
                     // 根据部门查询职员
                     returnStaffs = staffService.findStaffWithMsgDep(postWithDep);
-                    sessionPut(FINDSTAFFWITHMSG, returnStaffs);
 
                     return "findStaffWithMsg";
                 }

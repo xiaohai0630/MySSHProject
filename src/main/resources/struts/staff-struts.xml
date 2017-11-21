@@ -16,11 +16,11 @@
                 <param name="actionName">staffAction_listStaff</param>
             </result>
 
-            <!--验证不通过-->
-            <result name="input">/pages/staff/addStaff.jsp</result>
+            <!--编辑和添加职员验证不通过-->
+            <result name="input">/pages/staff/{1}.jsp</result>
 
             <!--编辑职员跳转页面-->
-            <result name="editStaff">/pages/staff/{1}.jsp</result>
+            <result name="editStaffList">/pages/staff/editStaff.jsp</result>
 
             <!--编辑职员报错-->
             <result name="editStaffError">/pages/staff/editStaff.jsp</result>
@@ -58,7 +58,7 @@
             </result>
 
             <allowed-methods>
-                listStaff,findPost,addOrEditStaff,editStaff,returnListStaff,findStaffWithMsg,addStaff
+                listStaff,findPost,editStaff,returnListStaff,findStaffWithMsg,addStaff,editStaffList
             </allowed-methods>
         </action>
 

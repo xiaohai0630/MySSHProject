@@ -37,7 +37,7 @@
     </tr>
 </table>
 
-<form action="staffAction_addOrEditStaff.action" method="post">
+<form action="staffAction_editStaff.action" method="post">
 
     <input type="hidden" name="staffID" value="${sessionScope.staffMsg.staffID}"/>
 
@@ -112,6 +112,11 @@
 </form>
 
 <h2>${sessionScope.staffAddOrEditError}</h2>
+
+<%--验证器的错误信息--%>
+<s:fielderror fieldName="model.loginName"></s:fielderror>
+<s:fielderror fieldName="model.staffName"></s:fielderror>
+<s:fielderror fieldName="model.gender"></s:fielderror>
 
 <script type="application/javascript">
     function onChange(value) {

@@ -30,7 +30,8 @@
                 <img src="/images/button/save.gif"/>
             </a>
             <!-- 执行js，进行返回 -->
-            <a href="javascript:void(0)" onclick="window.history.go(-1)"><img
+            <a href="javascript:void(0)"
+               onclick="window.location='${pageContext.request.contextPath}/staffAction_returnListStaff'"><img
                     src="${pageContext.request.contextPath}/images/button/tuihui.gif"/></a>
 
         </td>

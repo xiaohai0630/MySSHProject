@@ -1,6 +1,7 @@
 package com.lanou.hr_dep.domain;
 
-import java.util.Date;
+
+import java.sql.Date;
 
 /**
  * Created by dllo on 17/9/21.

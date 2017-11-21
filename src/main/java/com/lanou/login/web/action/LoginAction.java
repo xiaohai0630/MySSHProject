@@ -5,13 +5,10 @@ import com.lanou.hr_dep.domain.Staff;
 import com.lanou.hr_dep.service.StaffService;
 import com.lanou.login.service.LoginService;
 import com.lanou.utils.MD5Utils;
-import org.apache.struts2.ServletActionContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 import static com.lanou.utils.MyConstant.*;
@@ -33,10 +30,6 @@ public class LoginAction extends BaseAction<Staff, StaffService> {
     private String oldPassword;
     private String newPassword;
     private String reNewPassword;
-
-    // 退出登录的时候，需要清空session
-    HttpServletRequest request = ServletActionContext.getRequest();
-    HttpSession session = request.getSession();
 
     @Resource
     private LoginService loginService;
@@ -60,12 +53,12 @@ public class LoginAction extends BaseAction<Staff, StaffService> {
 
             if (login.size() > 0) {
                 // 将数据库中查询到的员工信息存在session中，并且跳转主页面
-                sessionPut(NOWSTAFF, login.get(0));
+                sessionPut(NOW_STAFF, login.get(0));
                 // 清除错误信息
-                sessionRemove(STAFFLOGINERROR);
+                sessionRemove(STAFF_LOGIN_ERROR);
                 return SUCCESS;
             }
-            sessionPut(STAFFLOGINERROR, "用户名或密码不正确");
+            sessionPut(STAFF_LOGIN_ERROR, "用户名或密码不正确");
             return "wrong";
         } catch (Exception e) {
             // 出现异常的时候到error界面
@@ -77,14 +70,14 @@ public class LoginAction extends BaseAction<Staff, StaffService> {
     // 退出登录
     public String logout() {
         // 清空session
-        session.invalidate();
+        sessionInvalidate();
         return "wrong";
     }
 
     // 修改密码
     public String staffEditPwd() {
         // 当前登录的员工
-        Staff oldStaff = (Staff) sessionGet(NOWSTAFF);
+        Staff oldStaff = (Staff) sessionGet(NOW_STAFF);
 
         try {
             // MD5
@@ -94,7 +87,7 @@ public class LoginAction extends BaseAction<Staff, StaffService> {
 
             // 原始密码不一致
             if (!oldStaff.getLoginPwd().equals(oldPasswordMD5)) {
-                sessionPut(STAFFCHANGELOGINPWDERROR, "原始密码不正确");
+                sessionPut(STAFF_CHANGE_LOGIN_PWD_ERROR, "原始密码不正确");
                 return "editPwdError";
             }
 
@@ -103,7 +96,7 @@ public class LoginAction extends BaseAction<Staff, StaffService> {
 
                 // 新密码和原始密码相同
                 if (oldPasswordMD5.equals(newPasswordMD5)) {
-                    sessionPut(STAFFCHANGELOGINPWDERROR, "新密码和原密码相同");
+                    sessionPut(STAFF_CHANGE_LOGIN_PWD_ERROR, "新密码和原密码相同");
                     return "editPwdError";
                 }
 
@@ -113,10 +106,10 @@ public class LoginAction extends BaseAction<Staff, StaffService> {
 
                 loginService.editPwd(changeStaff);
                 // 清空session的信息，跳转登录页面
-                session.invalidate();
+                sessionInvalidate();
                 return "reLogin";
             }
-            sessionPut(STAFFCHANGELOGINPWDERROR, "两次密码不一致");
+            sessionPut(STAFF_CHANGE_LOGIN_PWD_ERROR, "两次密码不一致");
             return "editPwdError";
 
         } catch (Exception e) {
@@ -129,7 +122,7 @@ public class LoginAction extends BaseAction<Staff, StaffService> {
     // 从修改密码页面返回主页面
     public String returnFrame() {
         // 清除错误信息
-        sessionRemove(STAFFCHANGELOGINPWDERROR);
+        sessionRemove(STAFF_CHANGE_LOGIN_PWD_ERROR);
         return "returnFrame";
     }
 

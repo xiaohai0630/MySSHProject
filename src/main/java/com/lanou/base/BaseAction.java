@@ -4,9 +4,11 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 import org.apache.struts2.ServletActionContext;
+import org.springframework.http.server.ServerHttpRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
@@ -45,6 +47,26 @@ public class BaseAction<T, S> extends ActionSupport implements ModelDriven<T> {
 
     public T getModel() {
         return model;
+    }
+
+    // 从request中取值
+    public String requestGet(String key){
+        HttpServletRequest request = ServletActionContext.getRequest();
+        String parameter = request.getParameter(key);
+        return parameter;
+    }
+
+    // 删除request中的值
+    public void requestRemove(String key){
+        HttpServletRequest request = ServletActionContext.getRequest();
+        request.removeAttribute(key);
+    }
+
+    // 清空session
+    public void sessionInvalidate(){
+        HttpServletRequest request = ServletActionContext.getRequest();
+        HttpSession session = request.getSession();
+        session.invalidate();
     }
 
     //向Session中存放数据
