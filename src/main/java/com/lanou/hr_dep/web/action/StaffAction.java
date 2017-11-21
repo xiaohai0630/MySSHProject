@@ -47,7 +47,6 @@ public class StaffAction extends BaseAction<Staff, StaffService> {
         // 所有职员
         List<Staff> allStaff = staffService.findAllStaff();
 
-        System.out.println("StaffAction入职日期： " + allStaff.get(0));
         // 将所有职员存进session
         sessionPut("allStaff", allStaff);
 

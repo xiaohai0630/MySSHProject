@@ -87,36 +87,26 @@
 
     <c:forEach items="${sessionScope.allStaff}" var="staff" varStatus="vs">
 
+        <%--白蓝相间的效果，vs：相当于下标--%>
         <c:if test="${vs.index%2==0}">
             <tr class="tabtd1">
-                <td align="center">${staff.staffName}</td>
-                <td align="center">${staff.gender}</td>
-                <td align="center"><fmt:formatDate value="${staff.onDutyDate}" pattern="yyyy-MM-dd"/></td>
-                <td align="center">${staff.post.department.depName}</td>
-                <td align="center">${staff.post.postName}</td>
-                <td width="7%" align="center">
-
-                    <a href="staffAction_editStaffList.action?editStaff=${staff.staffID}">
-                        <img src="/images/button/modify.gif" class="img"/>
-                    </a>
-                </td>
-            </tr>
         </c:if>
         <c:if test="${vs.index%2!=0}">
             <tr class="tabtd2">
-                <td align="center">${staff.staffName}</td>
-                <td align="center">${staff.gender}</td>
-                <td align="center"><fmt:formatDate value="${staff.onDutyDate}" pattern="yyyy-MM-dd"/></td>
-                <td align="center">${staff.post.department.depName}</td>
-                <td align="center">${staff.post.postName}</td>
-                <td width="7%" align="center">
-
-                    <a href="staffAction_editStaffList.action?editStaff=${staff.staffID}">
-                        <img src="/images/button/modify.gif" class="img"/>
-                    </a>
-                </td>
-            </tr>
         </c:if>
+
+        <td align="center">${staff.staffName}</td>
+        <td align="center">${staff.gender}</td>
+        <td align="center"><fmt:formatDate value="${staff.onDutyDate}" pattern="yyyy-MM-dd"/></td>
+        <td align="center">${staff.post.department.depName}</td>
+        <td align="center">${staff.post.postName}</td>
+        <td width="7%" align="center">
+
+            <a href="staffAction_editStaffList.action?editStaff=${staff.staffID}">
+                <img src="/images/button/modify.gif" class="img"/>
+            </a>
+        </td>
+        </tr>
 
     </c:forEach>
 
@@ -242,7 +232,11 @@
                         optionChild2.appendChild(text);
                         option.appendChild(optionChild2);
 
-                        text = document.createTextNode(json[i].onDutyDate);
+                        // 截取第0位到第10位
+                        var onDutyDate = json[i].onDutyDate;
+                        var duty = onDutyDate.substring(0, 10);
+
+                        text = document.createTextNode(duty);
                         optionChild3.appendChild(text);
                         option.appendChild(optionChild3);
 

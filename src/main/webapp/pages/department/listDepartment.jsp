@@ -52,23 +52,17 @@
         <%--保持两种颜色交替--%>
         <c:if test="${vs.index%2==0}">
             <tr class="tabtd1">
-                <td align="center">${dep.depName}</td>
-                <td width="7%" align="center">
-                    <a href="depAction_addOrEditDepartment.action?addOrEditDep=${dep.depID}"><img
-                            src="${pageContext.request.contextPath}/images/button/modify.gif" class="img"/></a>
-                </td>
-            </tr>
         </c:if>
-
         <c:if test="${vs.index%2!=0}">
             <tr class="tabtd2">
-                <td align="center">${dep.depName}</td>
-                <td width="7%" align="center">
-                    <a href="depAction_addOrEditDepartment.action?addOrEditDep=${dep.depID}"><img
-                            src="${pageContext.request.contextPath}/images/button/modify.gif" class="img"/></a>
-                </td>
-            </tr>
         </c:if>
+
+        <td align="center">${dep.depName}</td>
+        <td width="7%" align="center">
+            <a href="depAction_addOrEditDepartment.action?addOrEditDep=${dep.depID}"><img
+                    src="${pageContext.request.contextPath}/images/button/modify.gif" class="img"/></a>
+        </td>
+        </tr>
 
     </c:forEach>
 

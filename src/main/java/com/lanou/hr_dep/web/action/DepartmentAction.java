@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 
 import javax.annotation.Resource;
 import java.util.List;
+
 import static com.lanou.utils.MyConstant.DEPARTMENT_ADD_OR_EDIT_ERROR;
 import static com.lanou.utils.MyConstant.DEPARTMENT_MSG;
 import static com.lanou.utils.MyConstant.STAFF_CHANGE_LOGIN_PWD_ERROR;

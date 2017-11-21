@@ -52,25 +52,19 @@
 
         <c:if test="${vs.index%2==0}">
             <tr class="tabtd1">
-                <td align="center">${post.department.depName}</td>
-                <td align="center">${post.postName}</td>
-                <td width="7%" align="center">
-                    <a href="postAction_addOrEditPost.action?addOrEditPost=${post.postID}"><img
-                            src="${pageContext.request.contextPath}/images/button/modify.gif" class="img"/></a>
-                </td>
-            </tr>
         </c:if>
-
         <c:if test="${vs.index%2!=0}">
             <tr class="tabtd2">
-                <td align="center">${post.department.depName}</td>
-                <td align="center">${post.postName}</td>
-                <td width="7%" align="center">
-                    <a href="postAction_addOrEditPost.action?addOrEditPost=${post.postID}"><img
-                            src="${pageContext.request.contextPath}/images/button/modify.gif" class="img"/></a>
-                </td>
-            </tr>
         </c:if>
+
+        <td align="center">${post.department.depName}</td>
+        <td align="center">${post.postName}</td>
+        <td width="7%" align="center">
+            <a href="postAction_addOrEditPost.action?addOrEditPost=${post.postID}"><img
+                    src="${pageContext.request.contextPath}/images/button/modify.gif" class="img"/></a>
+        </td>
+        </tr>
+
     </c:forEach>
 
 </table>
