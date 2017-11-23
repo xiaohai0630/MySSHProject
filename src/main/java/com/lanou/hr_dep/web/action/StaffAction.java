@@ -147,7 +147,6 @@ public class StaffAction extends BaseAction<Staff, StaffService> {
                 if (staffMsg.getStaffName() != null && !staffMsg.getStaffName().equals("")) {
                     // 三个条件全都有
                     returnStaffs = staffService.findStaffWithMsgAll(getModel());
-//                    sessionPut(FIND_STAFF_WITH_MSG, returnStaffs);
                     return "findStaffWithMsg";
                 }
                 // 只有部门和职务
@@ -157,8 +156,10 @@ public class StaffAction extends BaseAction<Staff, StaffService> {
                 // 选择了部门，但是没有选择职务
                 if (staffMsg.getStaffName() != null && !staffMsg.getStaffName().equals("")) {
                     // 根据部门和名字查询
-                    List<Post> postWithDep = postService.findPostWithDep(getModel().getPost());
-                    returnStaffs = staffService.findStaffWithMsgDepAndName(postWithDep, getModel().getStaffName());
+                    returnStaffs =
+                            staffService.findStaffWithMsgDepAndName(
+                                    getModel().getPost().getDepartment().getDepID(), getModel().getStaffName());
+
                     return "findStaffWithMsg";
                 } else {
                     // 只用部门查询－－需要先查询职务的id（用部门的id查询下属的职务）

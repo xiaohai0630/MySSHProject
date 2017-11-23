@@ -41,4 +41,10 @@ public class StaffServiceImplTest {
         System.out.println(a);
     }
 
+    @Test
+    public void testIn(){
+        List<Staff> staffList = staffService.findStaffWithMsgDepAndName(1, "a");
+        System.out.println(staffList);
+    }
+
 }

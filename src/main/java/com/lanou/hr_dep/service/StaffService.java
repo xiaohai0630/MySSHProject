@@ -21,7 +21,7 @@ public interface StaffService {
     List<Staff> findStaffWithMsgAll(Staff staff);
 
     // 根据部门和姓名查询
-    List<Staff> findStaffWithMsgDepAndName(List<Post> posts, String name);
+    List<Staff> findStaffWithMsgDepAndName(int depID, String name);
 
     // 根据职务查询
     List<Staff> findStaffWithMsgPostID(Staff staff);

@@ -18,7 +18,7 @@ public class StaffDaoImplTest {
     private StaffDao staffDao;
 
     @Before
-    public void getDao(){
+    public void getDao() {
         beanFactory = new ClassPathXmlApplicationContext("/spring/staffContext.xml",
                 "/spring/applicationContext.xml");
 
@@ -27,8 +27,13 @@ public class StaffDaoImplTest {
 
     // 查询全部的职员
     @Test
-    public void testDao(){
+    public void testDao() {
         System.out.println(staffDao.findAll());
     }
 
+    // 查询某个部门下的职员
+    @Test
+    public void testDep() {
+        System.out.println(staffDao.findAll("and postID in (select postID from Post where depID = ?)", 1));
+    }
 }

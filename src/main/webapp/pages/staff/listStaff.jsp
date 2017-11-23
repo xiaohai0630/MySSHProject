@@ -112,6 +112,7 @@
 
 </table>
 
+<%--二级联动和高级查询--%>
 <script type="application/javascript">
     function onChange(value) {
         //输出value的值

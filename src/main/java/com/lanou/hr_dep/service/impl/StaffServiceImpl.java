@@ -38,22 +38,13 @@ public class StaffServiceImpl implements StaffService {
     }
 
     // 根据部门名称和姓名查询
-    public List<Staff> findStaffWithMsgDepAndName(List<Post> posts, String name) {
+    public List<Staff> findStaffWithMsgDepAndName(int depID, String name) {
 
-        // 用来返回的职员的集合
-        List<Staff> returnStaff = new ArrayList<Staff>();
+        List<Staff> staffList =
+                staffDao.findAll("and staffName like ? and postID in (select postID from Post where depID = ?)"
+                        , "%" + name + "%", depID);
 
-        for (int i = 0; i < posts.size(); i++) {
-
-            List<Staff> all = staffDao.findAll("and PostID=? and staffName like ?",
-                    posts.get(i).getPostID(), "%" + name + "%");
-
-            for (int j = 0; j < all.size(); j++) {
-                returnStaff.add(j, all.get(j));
-            }
-
-        }
-        return returnStaff;
+        return staffList;
     }
 
     // 根据职务查询（需要选择部门，但是查询条件中不需要部门的信息）
